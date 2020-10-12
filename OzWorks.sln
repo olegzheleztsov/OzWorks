@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz.API", "Oz.API\Oz.API.csproj", "{D7590355-F117-4A9A-AFDE-584DA27963ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz.Algorithms", "Oz.Algorithms\Oz.Algorithms.csproj", "{5DCCFE4F-90C7-4420-8B31-849E4895B3A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz.Algorithms.Tests", "Oz.Algorithms.Tests\Oz.Algorithms.Tests.csproj", "{CF2FDF60-CEE9-4428-9CA2-6347505218E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7590355-F117-4A9A-AFDE-584DA27963ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7590355-F117-4A9A-AFDE-584DA27963ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7590355-F117-4A9A-AFDE-584DA27963ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7590355-F117-4A9A-AFDE-584DA27963ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DCCFE4F-90C7-4420-8B31-849E4895B3A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DCCFE4F-90C7-4420-8B31-849E4895B3A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DCCFE4F-90C7-4420-8B31-849E4895B3A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DCCFE4F-90C7-4420-8B31-849E4895B3A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF2FDF60-CEE9-4428-9CA2-6347505218E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF2FDF60-CEE9-4428-9CA2-6347505218E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF2FDF60-CEE9-4428-9CA2-6347505218E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF2FDF60-CEE9-4428-9CA2-6347505218E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
