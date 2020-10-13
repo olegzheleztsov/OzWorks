@@ -1,4 +1,6 @@
-﻿namespace Oz.Algorithms.Numerics
+﻿using System;
+
+namespace Oz.Algorithms.Numerics
 {
     public class GcdFinder
     {
@@ -7,6 +9,16 @@
 
         public GcdFinder(int firstNumber, int secondNumber)
         {
+            if (firstNumber <= 0)
+            {
+                throw  new ArgumentException(nameof(firstNumber));
+            }
+
+            if (secondNumber <= 0)
+            {
+                throw new ArgumentException(nameof(secondNumber));
+            }
+            
             _firstNumber = firstNumber;
             _secondNumber = secondNumber;
         }
