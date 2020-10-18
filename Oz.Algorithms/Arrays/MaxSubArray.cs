@@ -2,7 +2,7 @@
 
 namespace Oz.Algorithms.Arrays
 {
-    public class MaxSubArray
+    public class MaxSubArray : IMaxSubArray
     {
         private readonly int[] _array;
 
@@ -45,6 +45,10 @@ namespace Oz.Algorithms.Arrays
 
         public (int leftIndex, int rightIndex, int sum) FindMaximumSubArray(int lowIndex, int highIndex)
         {
+            if (highIndex < lowIndex)
+            {
+                throw new ArgumentException($"{nameof(highIndex)} < {nameof(lowIndex)}: {highIndex} < {lowIndex}");
+            }
             if (lowIndex == highIndex)
             {
                 return (lowIndex, highIndex, _array[lowIndex]);
