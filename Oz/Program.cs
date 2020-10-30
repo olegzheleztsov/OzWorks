@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Oz.Algorithms.Arrays;
+using Oz.Algorithms.Matrices;
 using Oz.Algorithms.Search;
 using Oz.Algorithms.Sort;
 
@@ -8,9 +10,37 @@ namespace Oz
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            MaxSubArrayTest();
+            var commandExecutor = new CommandExecutor();
+            while (true)
+            {
+                Console.Write("> :");
+                var commandString = Console.ReadLine();
+                var commandArgs =
+                    commandString.Split(new[] {' ', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+                if (await commandExecutor.RunAsync(commandArgs).ConfigureAwait(false))
+                {
+                    break;
+                }
+            }
+        }
+
+
+        private static void MatrixMultiplication()
+        {
+            var m1 = new FloatMatrix(4, 4, new float[] {1, 2, 3, 4, -8, 3, -2, 1, 5, 5, -6, 3, 6, 5, 2, 1});
+            var m2 = new FloatMatrix(4, 4, new float[] {2, 1, 1, 2, 4, -3, -2, -1, 2, -1, 5, 5, 1, 1, 1, 1});
+            var classicResult = m1.Multiply(m2);
+            Console.WriteLine("Classic =>");
+            Console.WriteLine(classicResult);
+            var recursiveResult = m1.Multiply(m2);
+            Console.WriteLine("recursive =>");
+            Console.WriteLine(recursiveResult);
+
+            var fastResult = m1.FastMultiply(m2);
+            Console.WriteLine("fast =>");
+            Console.WriteLine(fastResult);
         }
 
         private static void MaxSubArrayTest()
@@ -33,7 +63,7 @@ namespace Oz
             var bruteForcedMaxSubArray = new BruteForcedMaxSubArray(arr);
             var bruteForcedResult = bruteForcedMaxSubArray.Value;
             Console.WriteLine(JsonConvert.SerializeObject(bruteForcedResult));
-            
+
             var linearMaxSubArray = new LinearMaxSubArray(arr);
             var linearResult = linearMaxSubArray.Value;
             Console.WriteLine(JsonConvert.SerializeObject(linearResult));
