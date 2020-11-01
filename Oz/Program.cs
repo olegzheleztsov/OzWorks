@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Oz.Algorithms;
 using Oz.Algorithms.Arrays;
 using Oz.Algorithms.Matrices;
+using Oz.Algorithms.Numerics;
 using Oz.Algorithms.Search;
 using Oz.Algorithms.Sort;
+using static System.Console;
+using static Newtonsoft.Json.JsonConvert;
 
 namespace Oz
 {
@@ -12,35 +16,64 @@ namespace Oz
     {
         private static async Task Main(string[] args)
         {
-            var commandExecutor = new CommandExecutor();
-            while (true)
+            RandomSampleCase();
+        }
+
+        private static void RandomSampleCase()
+        {
+            for (int i = 0; i < 20; i++)
             {
-                Console.Write("> :");
-                var commandString = Console.ReadLine();
-                var commandArgs =
-                    commandString.Split(new[] {' ', '\t'}, StringSplitOptions.RemoveEmptyEntries);
-                if (await commandExecutor.RunAsync(commandArgs).ConfigureAwait(false))
-                {
-                    break;
-                }
+                var randomSample = new RandomSample(5, 10);
+                WriteLine(SerializeObject(randomSample.Sample));
             }
         }
 
+        private static void RandomizedInterviewCase()
+        {
+            for (var i = 0; i < 20; i++)
+            {
+                var candidates = Enumerable.Range(1, 10).ToArray();
+                var interview = new RandomizedInterview<int>(candidates, c => c);
+                var (bestCandidate, bestIndex, hireCount) = interview.BestCandidate;
+                WriteLine(
+                    $"Best candidate: {bestCandidate}, best index: {bestIndex}, hire count: {hireCount}, analytical hire count: {Math.Log2(candidates.Length)}");
+            }
+        }
+
+        private static void ShuffleInPlaceCase()
+        {
+            for (var i = 0; i < 20; i++)
+            {
+                var array = Enumerable.Range(1, 10).ToArray();
+                array.ShuffleInPlace();
+                WriteLine(SerializeObject(array));
+            }
+        }
+
+        private static void InterviewTest()
+        {
+            var arr = Enumerable.Range(0, 1000).ToArray();
+            var interview = new Interview<int>(new ShuffledArray<int>(arr, new DefaultRandomSource()),
+                candidate => candidate);
+            var (candidate, index, hiredCount) = interview.BestCandidate;
+            WriteLine(
+                $"Candidate: {candidate}, index: {index}, hiredCount: {hiredCount}, log2(10000): {Math.Log2(arr.Length)}");
+        }
 
         private static void MatrixMultiplication()
         {
             var m1 = new FloatMatrix(4, 4, new float[] {1, 2, 3, 4, -8, 3, -2, 1, 5, 5, -6, 3, 6, 5, 2, 1});
             var m2 = new FloatMatrix(4, 4, new float[] {2, 1, 1, 2, 4, -3, -2, -1, 2, -1, 5, 5, 1, 1, 1, 1});
             var classicResult = m1.Multiply(m2);
-            Console.WriteLine("Classic =>");
-            Console.WriteLine(classicResult);
+            WriteLine("Classic =>");
+            WriteLine(classicResult);
             var recursiveResult = m1.Multiply(m2);
-            Console.WriteLine("recursive =>");
-            Console.WriteLine(recursiveResult);
+            WriteLine("recursive =>");
+            WriteLine(recursiveResult);
 
             var fastResult = m1.FastMultiply(m2);
-            Console.WriteLine("fast =>");
-            Console.WriteLine(fastResult);
+            WriteLine("fast =>");
+            WriteLine(fastResult);
         }
 
         private static void MaxSubArrayTest()
@@ -51,22 +84,22 @@ namespace Oz
             };
             var maxSubArray = new MaxSubArray(arr);
             var result = maxSubArray.Value;
-            Console.WriteLine(JsonConvert.SerializeObject(result));
+            WriteLine(SerializeObject(result));
 
             int[] arr2 =
             {
                 -13, -3, -25, -20, -3, -16, -23, -18, -20, -7, -12, -5, -22, -15, -4, -7
             };
             var maxSubArray2 = new MaxSubArray(arr2);
-            Console.WriteLine(JsonConvert.SerializeObject(maxSubArray2.Value));
+            WriteLine(SerializeObject(maxSubArray2.Value));
 
             var bruteForcedMaxSubArray = new BruteForcedMaxSubArray(arr);
             var bruteForcedResult = bruteForcedMaxSubArray.Value;
-            Console.WriteLine(JsonConvert.SerializeObject(bruteForcedResult));
+            WriteLine(SerializeObject(bruteForcedResult));
 
             var linearMaxSubArray = new LinearMaxSubArray(arr);
             var linearResult = linearMaxSubArray.Value;
-            Console.WriteLine(JsonConvert.SerializeObject(linearResult));
+            WriteLine(SerializeObject(linearResult));
         }
 
         private static void TestIntSorting()
@@ -75,28 +108,28 @@ namespace Oz
             {
                 5, 2, 4, 6, 2, 1, 3
             };
-            Console.WriteLine("Before:");
-            Console.WriteLine(JsonConvert.SerializeObject(array));
+            WriteLine("Before:");
+            WriteLine(SerializeObject(array));
             var sorter = new IntInsertionSorter();
             sorter.Sort(array);
-            Console.WriteLine("After ascending:");
-            Console.WriteLine(JsonConvert.SerializeObject(array));
+            WriteLine("After ascending:");
+            WriteLine(SerializeObject(array));
             sorter.Sort(array, SortDirection.Descending);
 
             sorter.Sort(array, SortDirection.Descending);
-            Console.WriteLine("After descending:");
-            Console.WriteLine(JsonConvert.SerializeObject(array));
+            WriteLine("After descending:");
+            WriteLine(SerializeObject(array));
 
             int[] arr2 =
             {
                 1
             };
             sorter.Sort(arr2);
-            Console.WriteLine("After element array:");
-            Console.WriteLine(JsonConvert.SerializeObject(arr2));
+            WriteLine("After element array:");
+            WriteLine(SerializeObject(arr2));
 
             var index3 = new IntLinearSearcher().FindIndex(array, 3);
-            Console.WriteLine(index3);
+            WriteLine(index3);
 
             array = new[]
             {
@@ -104,12 +137,12 @@ namespace Oz
             };
             var selectionSorter = new SelectionSorter<int>();
             selectionSorter.Sort(array, element => element);
-            Console.WriteLine("After selection ascending:");
-            Console.WriteLine(JsonConvert.SerializeObject(array));
+            WriteLine("After selection ascending:");
+            WriteLine(SerializeObject(array));
 
             selectionSorter.Sort(array, element => element, SortDirection.Descending);
-            Console.WriteLine("After selection descending:");
-            Console.WriteLine(JsonConvert.SerializeObject(array));
+            WriteLine("After selection descending:");
+            WriteLine(SerializeObject(array));
 
             array = new[]
             {
@@ -117,16 +150,16 @@ namespace Oz
             };
             var mergeSorter = new MergeSorter<int>();
             mergeSorter.Sort(array, element => element);
-            Console.WriteLine("After merge sorting descendant:");
-            Console.WriteLine(JsonConvert.SerializeObject(array));
+            WriteLine("After merge sorting descendant:");
+            WriteLine(SerializeObject(array));
 
             array = new[]
             {
                 5, 2, 4, 6, 2, 1, 3
             };
             mergeSorter.Sort(array, element => element, SortDirection.Descending);
-            Console.WriteLine("After merge sorting descendant:");
-            Console.WriteLine(JsonConvert.SerializeObject(array));
+            WriteLine("After merge sorting descendant:");
+            WriteLine(SerializeObject(array));
         }
     }
 }
