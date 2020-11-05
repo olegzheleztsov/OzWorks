@@ -16,7 +16,14 @@ namespace Oz
     {
         private static async Task Main(string[] args)
         {
-            RandomSampleCase();
+            ProbabilisticCounterTest();
+        }
+
+        private static void ProbabilisticCounterTest()
+        {
+            var counter = new ProbabilisticCounter(10, i => 100 * i);
+            var list = counter.Select(val => val).Take(1000).ToList();
+            WriteLine(SerializeObject(list));
         }
 
         private static void RandomSampleCase()

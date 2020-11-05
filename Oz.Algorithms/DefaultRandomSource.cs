@@ -27,5 +27,7 @@ namespace Oz.Algorithms
             var instance = GetRandomInstance();
             return instance.Next(minValue, maxValue);
         }
+
+        public double RandomDouble => GetRandomInstance().NextDouble();
     }
 }
