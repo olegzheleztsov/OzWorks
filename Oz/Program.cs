@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Oz.Algorithms;
 using Oz.Algorithms.Arrays;
+using Oz.Algorithms.DataStructures;
 using Oz.Algorithms.Matrices;
 using Oz.Algorithms.Numerics;
 using Oz.Algorithms.Search;
@@ -16,7 +18,30 @@ namespace Oz
     {
         private static async Task Main(string[] args)
         {
-            ProbabilisticCounterTest();
+            var priorityQueueCase = new PriorityQueueCase();
+            priorityQueueCase.Run();
+        }
+
+        private static void TestHeapSorter()
+        {
+            var arrayToSort = (int[])new ShuffledArray<int>(Enumerable.Range(1, 1000).ToArray());
+            WriteLine(JsonConvert.SerializeObject(arrayToSort));
+            
+            var heapSort = new HeapSorter<int>();
+            heapSort.Sort(arrayToSort, k => k, StandardComparision);
+            WriteLine("Sorted:");
+            WriteLine(JsonConvert.SerializeObject(arrayToSort));
+        }
+
+        private static void MaxHeapifyDebug()
+        {
+            int[] data = {16, 10, 14, 7, 8, 3, 9, 4, 2, 1};
+            Console.WriteLine($"Source: {JsonConvert.SerializeObject(data)}");
+            var shuffledData = new ShuffledArray<int>(data);
+            data = shuffledData;
+            Console.WriteLine($"Randomized: {JsonConvert.SerializeObject(data)}");
+            var heap = Heap<int>.MaxHeap(data, key => key, StandardComparision);
+            Console.WriteLine($"Heapified: {JsonConvert.SerializeObject(heap.ToArray())}");
         }
 
         private static void ProbabilisticCounterTest()
@@ -109,6 +134,9 @@ namespace Oz
             WriteLine(SerializeObject(linearResult));
         }
 
+        private static readonly Comparison<int> StandardComparision = (a, b) => a.CompareTo(b);
+        private static readonly Comparison<int> InvertedComparision = (a, b) => b.CompareTo(a); 
+
         private static void TestIntSorting()
         {
             int[] array =
@@ -121,9 +149,9 @@ namespace Oz
             sorter.Sort(array);
             WriteLine("After ascending:");
             WriteLine(SerializeObject(array));
-            sorter.Sort(array, SortDirection.Descending);
+            sorter.Sort(array, val => val, StandardComparision);
 
-            sorter.Sort(array, SortDirection.Descending);
+            sorter.Sort(array, val => val, InvertedComparision);
             WriteLine("After descending:");
             WriteLine(SerializeObject(array));
 
@@ -143,11 +171,11 @@ namespace Oz
                 5, 2, 4, 6, 2, 1, 3
             };
             var selectionSorter = new SelectionSorter<int>();
-            selectionSorter.Sort(array, element => element);
+            selectionSorter.Sort(array, element => element, StandardComparision);
             WriteLine("After selection ascending:");
             WriteLine(SerializeObject(array));
 
-            selectionSorter.Sort(array, element => element, SortDirection.Descending);
+            selectionSorter.Sort(array, element => element, InvertedComparision);
             WriteLine("After selection descending:");
             WriteLine(SerializeObject(array));
 
@@ -156,15 +184,15 @@ namespace Oz
                 5, 2, 4, 6, 2, 1, 3
             };
             var mergeSorter = new MergeSorter<int>();
-            mergeSorter.Sort(array, element => element);
-            WriteLine("After merge sorting descendant:");
+            mergeSorter.Sort(array, element => element, StandardComparision);
+            WriteLine("After merge sorting ascendent:");
             WriteLine(SerializeObject(array));
 
             array = new[]
             {
                 5, 2, 4, 6, 2, 1, 3
             };
-            mergeSorter.Sort(array, element => element, SortDirection.Descending);
+            mergeSorter.Sort(array, element => element, InvertedComparision);
             WriteLine("After merge sorting descendant:");
             WriteLine(SerializeObject(array));
         }

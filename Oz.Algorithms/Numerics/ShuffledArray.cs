@@ -35,7 +35,7 @@ namespace Oz.Algorithms.Numerics
                 var array = _sourceArray.Zip(_priorityArray, (val, priority) => new KeyValuePair<T, int>(val, priority))
                     .ToArray();
                 var sorter = new MergeSorter<KeyValuePair<T, int>>();
-                sorter.Sort(array, kvp => kvp.Value);
+                sorter.Sort(array, kvp => kvp.Value, (a, b) => a.CompareTo(b));
                 return array.Select(kvp => kvp.Key).ToArray();
             }
         }

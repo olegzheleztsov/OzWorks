@@ -4,26 +4,26 @@ namespace Oz.Algorithms.Sort
 {
     public class MergeSorter<T> : ISorter<T>
     {
-        public void Sort(T[] array, Func<T, int> keySelector, SortDirection direction = SortDirection.Ascending)
+        public void Sort(T[] array, Func<T, int> keySelector, Comparison<int> comparison)
         {
             if (array.Length < 2)
             {
                 return;
             }
-            
-            MergeSort(array, 0, array.Length - 1, keySelector, direction);
+
+            MergeSort(array, 0, array.Length - 1, keySelector, comparison);
         }
 
-        private void MergeSort(T[] array, int p, int r, Func<T, int> keySelector, SortDirection direction)
+        private void MergeSort(T[] array, int p, int r, Func<T, int> keySelector, Comparison<int> comparison)
         {
             if (p >= r) return;
-            var q = (int)Math.Floor((double)(p + r) / 2);
-            MergeSort(array, p, q, keySelector, direction);
-            MergeSort(array, q + 1, r, keySelector, direction);
-            Merge(array, p, q, r, keySelector, direction);
+            var q = (int) Math.Floor((double) (p + r) / 2);
+            MergeSort(array, p, q, keySelector, comparison);
+            MergeSort(array, q + 1, r, keySelector, comparison);
+            Merge(array, p, q, r, keySelector, comparison);
         }
 
-        private void Merge(T[] array, int p, int q, int r, Func<T, int> keySelector, SortDirection direction)
+        private void Merge(T[] array, int p, int q, int r, Func<T, int> keySelector, Comparison<int> comparison)
         {
             var nLeft = q - p + 1;
             var nRight = r - q;
@@ -48,8 +48,8 @@ namespace Oz.Algorithms.Sort
                     break;
                 }
 
-                if (IsLessOrEqual(keySelector(leftSubArray[mergeIndexLeft]),
-                    keySelector(rightSubArray[mergeIndexRight]), direction))
+                if (comparison(keySelector(leftSubArray[mergeIndexLeft]),
+                    keySelector(rightSubArray[mergeIndexRight])) <= 0)
                 {
                     array[k] = leftSubArray[mergeIndexLeft++];
                 }
@@ -74,21 +74,6 @@ namespace Oz.Algorithms.Sort
                 }
             }
         }
-
-        private bool IsLessOrEqual(int first, int second, SortDirection direction)
-        {
-            var result = first.CompareTo(second);
-            return IsLess(first, second, direction) || result == 0;
-        }
-
-        private bool IsLess(int first, int second, SortDirection direction)
-        {
-            return first.CompareTo(second) == ComparisionSign(direction);
-        }
-
-        private int ComparisionSign(SortDirection direction)
-        {
-            return direction == SortDirection.Ascending ? -1 : 1;
-        }
+        
     }
 }

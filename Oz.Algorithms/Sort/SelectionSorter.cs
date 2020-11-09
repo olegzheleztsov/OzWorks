@@ -4,7 +4,7 @@ namespace Oz.Algorithms.Sort
 {
     public class SelectionSorter<T> : ISorter<T>
     {
-        public void Sort(T[] array, Func<T, int> keySelector, SortDirection direction = SortDirection.Ascending)
+        public void Sort(T[] array, Func<T, int> keySelector, Comparison<int> comparison)
         {
             if (array.Length == 0)
             {
@@ -16,7 +16,7 @@ namespace Oz.Algorithms.Sort
                 var minIndex = i;
                 for (var j = i + 1; j < array.Length; j++)
                 {
-                    if (keySelector(array[j]).CompareTo(keySelector(array[minIndex])) == ComparisionSign(direction))
+                    if (comparison(keySelector(array[j]), keySelector(array[minIndex])) < 0)
                     {
                         minIndex = j;
                     }
@@ -27,10 +27,6 @@ namespace Oz.Algorithms.Sort
                 array[i] = temp;
             }
         }
-
-        private int ComparisionSign(SortDirection direction)
-        {
-            return direction == SortDirection.Ascending ? -1 : 1;
-        }
+        
     }
 }

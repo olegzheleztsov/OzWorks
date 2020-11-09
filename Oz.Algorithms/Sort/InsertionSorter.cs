@@ -4,7 +4,7 @@ namespace Oz.Algorithms.Sort
 {
     public class InsertionSorter<T> : ISorter<T>
     {
-        public void Sort(T[] array, Func<T, int> keySelector, SortDirection direction = SortDirection.Ascending)
+        public void Sort(T[] array, Func<T, int> keySelector, Comparison<int> comparison)
         {
             if (array.Length == 0)
             {
@@ -15,7 +15,7 @@ namespace Oz.Algorithms.Sort
             {
                 var keyElement = array[j];
                 var i = j - 1;
-                while (i >= 0 && keySelector(keyElement).CompareTo(keySelector(array[i])) == ComparisionSign(direction))
+                while (i >= 0 && comparison(keySelector(keyElement), keySelector(array[i])) < 0)
                 {
                     array[i + 1] = array[i];
                     i--;
@@ -24,8 +24,5 @@ namespace Oz.Algorithms.Sort
                 array[i + 1] = keyElement;
             }
         }
-
-        private int ComparisionSign(SortDirection direction)
-            => direction == SortDirection.Ascending ? -1 : 1;
     }
 }

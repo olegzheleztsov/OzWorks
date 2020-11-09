@@ -1,10 +1,19 @@
-﻿namespace Oz.Algorithms.Sort
+﻿using System;
+
+namespace Oz.Algorithms.Sort
 {
     public class IntInsertionSorter : InsertionSorter<int>
     {
-        public void Sort(int[] elements, SortDirection direction = SortDirection.Ascending)
+
+        private readonly Comparison<int> _comparison;
+
+        public IntInsertionSorter(Comparison<int> comparison = null)
         {
-            base.Sort(elements, element => element, direction);
+            _comparison = comparison ?? ((a, b) => a.CompareTo(b));
+        }
+        public void Sort(int[] elements)
+        {
+            base.Sort(elements, element => element, _comparison);
         }
     }
 }
