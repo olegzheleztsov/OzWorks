@@ -1,14 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz.API", "Oz.API\Oz.API.csproj", "{D7590355-F117-4A9A-AFDE-584DA27963ED}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oz.API", "Oz.API\Oz.API.csproj", "{D7590355-F117-4A9A-AFDE-584DA27963ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz.Algorithms", "Oz.Algorithms\Oz.Algorithms.csproj", "{5DCCFE4F-90C7-4420-8B31-849E4895B3A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oz.Algorithms", "Oz.Algorithms\Oz.Algorithms.csproj", "{5DCCFE4F-90C7-4420-8B31-849E4895B3A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz.Algorithms.Tests", "Oz.Algorithms.Tests\Oz.Algorithms.Tests.csproj", "{7ADD672A-B9C4-46D0-8ACD-E955B14FC78A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oz.Algorithms.Tests", "Oz.Algorithms.Tests\Oz.Algorithms.Tests.csproj", "{7ADD672A-B9C4-46D0-8ACD-E955B14FC78A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz.API.Tests", "Oz.API.Tests\Oz.API.Tests.csproj", "{B52BBE3C-3A48-4513-811F-61E50C7A3B7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oz.API.Tests", "Oz.API.Tests\Oz.API.Tests.csproj", "{B52BBE3C-3A48-4513-811F-61E50C7A3B7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz", "Oz\Oz.csproj", "{4F6E8928-C467-439E-8870-F89BD9BDBC97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oz", "Oz\Oz.csproj", "{4F6E8928-C467-439E-8870-F89BD9BDBC97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinksShare", "LinksShare\LinksShare.csproj", "{E71C0651-9230-41C6-BE99-CD857920DD22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +41,15 @@ Global
 		{4F6E8928-C467-439E-8870-F89BD9BDBC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F6E8928-C467-439E-8870-F89BD9BDBC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F6E8928-C467-439E-8870-F89BD9BDBC97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E71C0651-9230-41C6-BE99-CD857920DD22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E71C0651-9230-41C6-BE99-CD857920DD22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E71C0651-9230-41C6-BE99-CD857920DD22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E71C0651-9230-41C6-BE99-CD857920DD22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E1098D0-A438-4027-A6C9-28A062520A75}
 	EndGlobalSection
 EndGlobal
