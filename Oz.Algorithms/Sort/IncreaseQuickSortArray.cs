@@ -32,9 +32,9 @@ namespace Oz.Algorithms.Sort
             }
         }
         
-        public static T[] operator T[](IncreaseQuickSortArray<T> source)
+        public static implicit operator T[](IncreaseQuickSortArray<T> source)
         {
-            return
+            return source.Value;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Oz.Algorithms.Numerics
 
         private void FillPriorities()
         {
-            var n3 = _priorityArray.Length * _priorityArray.Length * _priorityArray.Length;
+            var n3 = _priorityArray.Length; //* _priorityArray.Length * _priorityArray.Length;
             for (var i = 0; i < _priorityArray.Length; i++)
             {
                 _priorityArray[i] = _randomSource.RandomValue(0, n3);
