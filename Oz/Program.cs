@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Running;
 using Newtonsoft.Json;
 using Oz.Algorithms;
 using Oz.Algorithms.Arrays;
@@ -16,10 +18,9 @@ namespace Oz
 {
     internal class Program
     {
-        private static async Task Main(string[] args)
+        private static void Main(string[] args)
         {
-            var priorityQueueCase = new PriorityQueueCase();
-            priorityQueueCase.Run();
+            var summary = BenchmarkRunner.Run<QuickVsInsertBenchmark>(DefaultConfig.Instance.WithOptions(ConfigOptions.DisableOptimizationsValidator));
         }
 
         private static void TestHeapSorter()
