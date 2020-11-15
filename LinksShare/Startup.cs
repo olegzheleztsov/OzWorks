@@ -1,5 +1,8 @@
+using AutoMapper;
 using LinksShare.Models;
 using LinksShare.Services;
+using LinksShare.Services.Interfaces;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -31,10 +34,15 @@ namespace LinksShare
             services.AddSingleton<IBookstoreDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<BookstoreDatabaseSettings>>().Value);
 
+            services.Configure<LinksDatabaseSettings>(Configuration.GetSection(nameof(LinksDatabaseSettings)));
+            services.AddSingleton<ILinksDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<LinksDatabaseSettings>>().Value);
+
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));
 
             services.AddSingleton<BookService>();
+            services.AddScoped<ILinkService, LinkService>();
 
             services.AddControllersWithViews(options =>
             {
@@ -45,10 +53,15 @@ namespace LinksShare
             }).AddNewtonsoftJson(options => options.UseMemberCasing());
 
             services.AddRazorPages().AddMicrosoftIdentityUI();
+            services.AddAutoMapper(typeof(Startup).Assembly);
+            //services.Configure<AntiforgeryOptions>(options =>
+            //{
+            //    options.HeaderName = "X-XSRF-TOKEN";
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiforgery)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +78,16 @@ namespace LinksShare
 
             app.UseRouting();
 
+            //app.Use(async (context, next) =>
+            //{
+            //    if (!context.Request.Path.StartsWithSegments("/api"))
+            //    {
+            //        context.Response.Cookies.Append("XSRF-TOKEN",
+            //            antiforgery.GetAndStoreTokens(context).RequestToken,
+            //            new Microsoft.AspNetCore.Http.CookieOptions { HttpOnly = false });
+            //    }
+            //});
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -72,7 +95,7 @@ namespace LinksShare
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Links}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

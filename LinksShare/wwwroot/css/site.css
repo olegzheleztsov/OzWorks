@@ -69,3 +69,57 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.link-item {
+    margin: 3px;
+    padding: 3px;
+    font-family: 'JetBrains Mono'
+    /*border-bottom: 1px solid black;*/
+}
+
+.links-header {
+    margin-left: 16px;
+    font-family: 'JetBrains Mono';
+    font-size: 2em;
+}
+
+.header {
+    min-height: 16px;
+}
+
+.horizontal-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.right-item {
+    justify-self: flex-end;
+    margin-left: auto;
+}
+
+.icon-button {
+    width: 24pt;
+    height: 24pt;
+    margin: 8px;
+}
+
+.img-icon {
+    width: 100%;
+}
+
+.vertical-container-space-around {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    justify-content:space-around;
+}
