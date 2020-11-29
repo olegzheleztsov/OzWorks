@@ -47,22 +47,8 @@ namespace Oz.Algorithms.Sort
             }
         }
 
-        private static int PartitionDefault(T[] array, Func<T, int> keySelector, Comparison<int> comparison, int p, int r)
-        {
-            var pivot = keySelector(array[r]);
-            var i = p - 1;
-            for (var j = p; j < r; j++)
-            {
-                if (comparison(keySelector(array[j]), pivot) <= 0)
-                {
-                    i++;
-                    Util.Exchange(ref array[i], ref array[j]);
-                }
-            }
-
-            Util.Exchange(ref array[i + 1], ref array[r]);
-            return (i + 1);
-        }
+        private static int PartitionDefault(T[] array, Func<T, int> keySelector, Comparison<int> comparison, int p, int r) 
+            => array.PartitionDefault(keySelector, comparison, p, r);
 
         private static int PartitionOptimizeEqualsKeys(T[] array, Func<T, int> keySelector, Comparison<int> comparison,
             int p, int r)
@@ -82,11 +68,7 @@ namespace Oz.Algorithms.Sort
         }
 
         private static int PartitionRandomized(T[] array, Func<T, int> keySelector, Comparison<int> comparison, int p,
-            int r)
-        {
-            int index = _randomSource.RandomValue(p, r + 1);
-            Util.Exchange(ref array[r], ref array[index]);
-            return PartitionDefault(array, keySelector, comparison, p, r);
-        }
+            int r) =>
+            array.RandomizedPartition(keySelector, comparison, p, r);
     }
 }

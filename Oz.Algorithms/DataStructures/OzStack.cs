@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Oz.Algorithms.DataStructures
 {
-    public class Stackk<T> : IEnumerable<T>
+    public class OzStack<T> : IEnumerable<T>
     {
         private readonly T[] _array;
         private int _top;
 
-        public Stackk(int capacity)
+        public OzStack(int capacity)
         {
             _array = new T[capacity];
             _top = -1;

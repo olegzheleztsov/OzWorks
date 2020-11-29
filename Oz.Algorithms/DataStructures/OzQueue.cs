@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Oz.Algorithms.DataStructures
 {
-    public class Queuee<T> : IEnumerable<T>
+    public class OzQueue<T> : IEnumerable<T>
     {
         private readonly T[] _array;
         private int _head;
         private int _tail;
 
-        public Queuee(int capacity)
+        public OzQueue(int capacity)
         {
             _array = new T[capacity + 1];
             _head = _tail = 0;

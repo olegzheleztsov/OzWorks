@@ -1,4 +1,10 @@
-﻿$HEADER$namespace $NAMESPACE$
+﻿using System;
+using System.Collections.Generic;
+
+namespace Oz.Algorithms.Sort
 {
-  public interface $INTERFACE$ {$END$}
+    public interface IListSorter<T>
+    {
+        void Sort(List<T> list, Func<T, int> keySelector, Comparison<int> comparison);
+    }
 }
