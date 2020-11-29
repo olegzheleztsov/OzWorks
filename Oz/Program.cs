@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Configs;
@@ -11,16 +12,18 @@ using Oz.Algorithms.Matrices;
 using Oz.Algorithms.Numerics;
 using Oz.Algorithms.Search;
 using Oz.Algorithms.Sort;
+using Oz.Sort;
 using static System.Console;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace Oz
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<QuickVsInsertBenchmark>(DefaultConfig.Instance.WithOptions(ConfigOptions.DisableOptimizationsValidator));
+            var queueCase = new QueueeCase();
+            queueCase.Run();
         }
 
         private static void TestHeapSorter()

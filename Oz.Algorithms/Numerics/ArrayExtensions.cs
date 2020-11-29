@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Oz.Algorithms.Numerics
 {
@@ -49,5 +50,23 @@ namespace Oz.Algorithms.Numerics
                 array[randomIndex] = temp;
             }
         }
+
+        public static string GetStringRepresentation<T>(this T[] array, Func<T, string> elementStringConverter)
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append("[");
+            for (var i = 0; i < array.Length; i++)
+            {
+                stringBuilder.Append(i != array.Length - 1
+                    ? $" {elementStringConverter(array[i])},"
+                    : $" {elementStringConverter(array[i])} ");
+            }
+
+            stringBuilder.Append("]");
+            return stringBuilder.ToString();
+        }
+
+        public static string GetStringRepresentation<T>(this T[] array)
+            => array.GetStringRepresentation(element => element?.ToString() ?? string.Empty);
     }
 }
