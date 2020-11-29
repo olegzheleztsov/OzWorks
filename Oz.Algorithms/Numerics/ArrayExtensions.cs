@@ -68,5 +68,6 @@ namespace Oz.Algorithms.Numerics
 
         public static string GetStringRepresentation<T>(this T[] array)
             => array.GetStringRepresentation(element => element?.ToString() ?? string.Empty);
+        
     }
 }

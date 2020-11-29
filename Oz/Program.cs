@@ -12,6 +12,7 @@ using Oz.Algorithms.Matrices;
 using Oz.Algorithms.Numerics;
 using Oz.Algorithms.Search;
 using Oz.Algorithms.Sort;
+using Oz.DataStructures;
 using Oz.Sort;
 using static System.Console;
 using static Newtonsoft.Json.JsonConvert;
@@ -22,8 +23,7 @@ namespace Oz
     {
         private static void Main(string[] args)
         {
-            var queueCase = new QueueeCase();
-            queueCase.Run();
+            CyclicDoubleLinkedListCase.QueueOnSingleLinkedList();
         }
 
         private static void TestHeapSorter()
