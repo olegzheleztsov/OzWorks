@@ -23,6 +23,9 @@ namespace Oz.Algorithms.DataStructures
             _linkedList.Insert(value);
         }
 
+        public bool IsEmpty => _linkedList.IsEmpty;
+        public bool NonEmpty => !IsEmpty;
+
         public T Pop()
         {
             if (_linkedList.IsEmpty)

@@ -42,5 +42,7 @@ namespace Oz.DataStructures
                 Console.WriteLine(queue.Dequeue());
             }
         }
+        
+        
     }
 }

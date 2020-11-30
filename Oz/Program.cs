@@ -23,7 +23,8 @@ namespace Oz
     {
         private static void Main(string[] args)
         {
-            CyclicDoubleLinkedListCase.QueueOnSingleLinkedList();
+            var tree = new BinaryTreeSample();
+            tree.Visit();
         }
 
         private static void TestHeapSorter()
