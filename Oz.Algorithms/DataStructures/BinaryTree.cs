@@ -6,7 +6,6 @@ namespace Oz.Algorithms.DataStructures
     {
         private readonly BinaryTreeNode _root;
 
-
         public BinaryTree(BinaryTreeNode root)
         {
             _root = root;
@@ -28,6 +27,7 @@ namespace Oz.Algorithms.DataStructures
             {
                 return;
             }
+
             VisitIterative(_root, visitor);
         }
 

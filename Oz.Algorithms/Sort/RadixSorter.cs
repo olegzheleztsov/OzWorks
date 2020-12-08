@@ -10,6 +10,7 @@ namespace Oz.Algorithms.Sort
         public RadixSorter(Func<T, int, int> keySelector, Comparison<int> comparison)
         {
             _keySelector = keySelector;
+            _comparison = comparison;
         }
 
         public void Sort(T[] array, int count)

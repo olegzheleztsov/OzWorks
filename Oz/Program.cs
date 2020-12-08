@@ -21,10 +21,10 @@ namespace Oz
 {
     internal static class Program
     {
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            var tree = new BinaryTreeSample();
-            tree.Visit();
+            var tree = new SearchBinaryTreeCase();
+            tree.SuccessorPredecessor();
         }
 
         private static void TestHeapSorter()

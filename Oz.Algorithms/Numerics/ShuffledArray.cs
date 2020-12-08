@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Oz.Algorithms.Sort;
 
 namespace Oz.Algorithms.Numerics
 {
-    public class ShuffledArray<T>
+    public class ShuffledArray<T> : IEnumerable<T>
     {
         private readonly int[] _priorityArray;
         private readonly IRandomSource _randomSource;
@@ -52,6 +53,19 @@ namespace Oz.Algorithms.Numerics
         public static implicit operator T[](ShuffledArray<T> source)
         {
             return source.Value;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            foreach (var element in Value)
+            {
+                yield return element;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
