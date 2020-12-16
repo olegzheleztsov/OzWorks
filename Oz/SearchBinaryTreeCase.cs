@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Oz.Algorithms;
 using Oz.Algorithms.DataStructures;
+using Oz.Algorithms.DataStructures.Trees;
 using Oz.Algorithms.Numerics;
 
 namespace Oz

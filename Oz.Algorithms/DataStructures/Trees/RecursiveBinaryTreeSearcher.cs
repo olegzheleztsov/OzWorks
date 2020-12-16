@@ -1,0 +1,31 @@
+﻿using System;
+
+namespace Oz.Algorithms.DataStructures.Trees
+{
+    public class RecursiveBinaryTreeSearcher : ITreeSearcher
+    {
+        private readonly Func<ITreeNode, int> _keySelector;
+        private readonly IBinaryTree _tree;
+
+        public RecursiveBinaryTreeSearcher(IBinaryTree tree, Func<ITreeNode, int> keySelector)
+        {
+            _tree = tree;
+            _keySelector = keySelector;
+        }
+
+        public ITreeNode Search(int key)
+        {
+            return _tree == null ? default : _Search(_tree.Root, key);
+        }
+
+        private ITreeNode _Search(ITreeNode node, int key)
+        {
+            if (_tree.IsNull(node) || key == _keySelector(node))
+            {
+                return node;
+            }
+
+            return _Search(key < _keySelector(node) ? node.LeftChild : node.RightChild, key);
+        }
+    }
+}

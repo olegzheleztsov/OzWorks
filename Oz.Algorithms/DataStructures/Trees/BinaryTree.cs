@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oz.Algorithms.DataStructures
+namespace Oz.Algorithms.DataStructures.Trees
 {
     public class BinaryTree<T>
     {

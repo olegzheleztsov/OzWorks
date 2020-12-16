@@ -1,6 +1,6 @@
-﻿namespace Oz.Algorithms.DataStructures
+﻿namespace Oz.Algorithms.DataStructures.Trees
 {
-    public class BinaryTreeNode<T>
+    public class BinaryTreeNode<T> : ITreeNode
     {
         public BinaryTreeNode(T data)
         {
@@ -18,9 +18,26 @@
 
         public bool HasRight => Right != null;
 
+        public ITreeNode LeftChild => Left;
+
+        public ITreeNode RightChild => Right;
+        public ITreeNode ParentNode => Parent;
+
         public override string ToString()
         {
             return $"Data: {Data?.ToString()}, Left: {Left != null}, Right: {Right != null}, Parent: {Parent != null}";
+        }
+
+        public void SetLeft(BinaryTreeNode<T> other)
+        {
+            Left = other;
+            other.Parent = this;
+        }
+
+        public void SetRight(BinaryTreeNode<T> other)
+        {
+            Right = other;
+            other.Parent = this;
         }
     }
 }

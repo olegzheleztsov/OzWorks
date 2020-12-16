@@ -1,5 +1,6 @@
 ﻿using System;
 using Oz.Algorithms.DataStructures;
+using Oz.Algorithms.DataStructures.Trees;
 
 namespace Oz.DataStructures
 {
