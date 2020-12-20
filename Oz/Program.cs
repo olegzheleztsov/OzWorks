@@ -1,21 +1,19 @@
 ﻿using System;
-using Oz;
 using Oz.Algorithms.DataStructures.Trees;
 
 var tree = new RbTree<int>(key => key);
-
-for (int i = 1; i <= 20; i++)
+for (var i = 1; i <= 100; i++)
 {
     tree.Insert(tree.CreateNode(i, TreeNodeColor.Red));
 }
 
 var searcher = BinaryTreeSearcherFactory.Create<RbTreeNode<int>>(tree, node => node.Data, SearchMethod.Recursive);
-
-for (int i = 1; i <= 20; i++)
+for (var i = 1; i <= 100; i++)
 {
     Console.WriteLine(tree.ToString());
     tree.Delete(searcher.Search(i));
 }
+
 Console.WriteLine(tree.ToString());
 
 /*

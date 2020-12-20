@@ -18,10 +18,25 @@
 
         public bool HasRight => Right != null;
 
-        public ITreeNode LeftChild => Left;
+        public ITreeNode LeftChild
+        {
+            get => Left;
+            set => Left = value as BinaryTreeNode<T>;
+        }
 
-        public ITreeNode RightChild => Right;
-        public ITreeNode ParentNode => Parent;
+        public ITreeNode RightChild
+        {
+            get => Right;
+            set => Right = value as BinaryTreeNode<T>;
+        }
+
+        public ITreeNode ParentNode
+        {
+            get => Parent;
+            set => Parent = value as BinaryTreeNode<T>;
+        }
+
+        public object Value => Data;
 
         public override string ToString()
         {

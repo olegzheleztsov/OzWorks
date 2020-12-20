@@ -74,7 +74,7 @@ namespace Oz.Algorithms.Tests.DataStructures.Trees
 
             var x = searcher.Search(11);
             var y = searcher.Search(18);
-            tree.LeftRotate(x as RbTreeNode<int>);
+            tree.TreeLeftRotate(x as RbTreeNode<int>);
             
             Assert.True(y.LeftChild == x);
             Assert.True(y.RightChild == searcher.Search(19));
@@ -93,8 +93,8 @@ namespace Oz.Algorithms.Tests.DataStructures.Trees
 
             var x = searcher.Search(11);
             var y = searcher.Search(18);
-            tree.LeftRotate(x as RbTreeNode<int>);
-            tree.RightRotate(y as RbTreeNode<int>);
+            tree.TreeLeftRotate(x as RbTreeNode<int>);
+            tree.TreeRightRotate(y as RbTreeNode<int>);
             
             Assert.True(x.RightChild == y);
             Assert.True(y.ParentNode == x);

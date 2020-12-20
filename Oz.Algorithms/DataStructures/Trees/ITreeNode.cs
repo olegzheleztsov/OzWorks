@@ -2,9 +2,10 @@
 {
     public interface ITreeNode
     {
-        ITreeNode LeftChild { get;}
-        ITreeNode RightChild { get; }
+        ITreeNode LeftChild { get; set; }
+        ITreeNode RightChild { get; set; }
+        ITreeNode ParentNode { get; set; }
         
-        ITreeNode ParentNode { get; }
+        object Value { get; }
     }
 }

@@ -26,12 +26,19 @@ namespace Oz.Algorithms.DataStructures.Trees
         }
 
 
-        public ITreeNode Root => _root;
+        public ITreeNode Root
+        {
+            get => _root;
+            set => _root = value as BinaryTreeNode<T>;
+        }
 
         public bool IsNull(ITreeNode node)
         {
             return node == null;
         }
+
+        public ITreeNode NullNode => null;
+        public Func<object, int> KeySelector => obj => _keySelector((T) obj);
 
         public IEnumerator<BinaryTreeNode<T>> GetEnumerator()
         {
