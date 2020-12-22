@@ -1,0 +1,9 @@
+﻿@model AnimalSlot
+
+<div class="card">
+    <div class="card-body">
+        <div>(@Model.Animal.Name)(&nbsp;@Model.Animal.Kind.ToString())</div>
+        <div>Age: @Model.Animal.Age, Weight: @Model.Animal.Weight, Sex: @Model.Animal.Sex.ToString()</div>
+        <div>Count: @Model.Count</div>
+    </div>
+</div>
