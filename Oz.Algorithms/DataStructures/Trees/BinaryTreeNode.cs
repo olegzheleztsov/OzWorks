@@ -8,51 +8,54 @@
         }
 
         public T Data { get; }
-        public BinaryTreeNode<T> Left { get; set; }
-        public BinaryTreeNode<T> Right { get; set; }
-        public BinaryTreeNode<T> Parent { get; set; }
+        public bool IsRoot => ParentNode == null;
 
-        public bool IsRoot => Parent == null;
+        public bool HasLeft => LeftChild != null;
 
-        public bool HasLeft => Left != null;
-
-        public bool HasRight => Right != null;
+        public bool HasRight => RightChild != null;
 
         public ITreeNode LeftChild
         {
-            get => Left;
-            set => Left = value as BinaryTreeNode<T>;
+            get;
+            set;
         }
 
         public ITreeNode RightChild
         {
-            get => Right;
-            set => Right = value as BinaryTreeNode<T>;
+            get;
+            set;
         }
 
         public ITreeNode ParentNode
         {
-            get => Parent;
-            set => Parent = value as BinaryTreeNode<T>;
+            get;
+            private set;
+        }
+
+        public virtual void SetParent(ITreeNode parentNode)
+        {
+            ParentNode = parentNode;
         }
 
         public object Value => Data;
 
         public override string ToString()
         {
-            return $"Data: {Data?.ToString()}, Left: {Left != null}, Right: {Right != null}, Parent: {Parent != null}";
+            return $"Data: {Data?.ToString()}, Left: {LeftChild != null}, Right: {RightChild != null}, Parent: {ParentNode != null}";
         }
 
-        public void SetLeft(BinaryTreeNode<T> other)
+        public BinaryTreeNode<T> SetLeft(BinaryTreeNode<T> other)
         {
-            Left = other;
-            other.Parent = this;
+            LeftChild = other;
+            other.SetParent(this);
+            return this;
         }
 
-        public void SetRight(BinaryTreeNode<T> other)
+        public BinaryTreeNode<T> SetRight(BinaryTreeNode<T> other)
         {
-            Right = other;
-            other.Parent = this;
+            RightChild = other;
+            other.SetParent(this);
+            return this;
         }
     }
 }

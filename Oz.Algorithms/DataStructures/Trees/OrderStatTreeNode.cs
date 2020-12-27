@@ -1,6 +1,6 @@
 ﻿namespace Oz.Algorithms.DataStructures.Trees
 {
-    public class OrderStatTreeNode<T> : BinaryTreeNode<T>, IColoredTreeNode
+    public class OrderStatTreeNode<T> : BinaryTreeNode<T>, IOrderStatTreeNode
     {
         private readonly bool _isNull;
 
@@ -10,10 +10,15 @@
             Color = color;
             _isNull = isNull;
         }
-
-
+        
         public int Size { get; private set; }
         public TreeNodeColor Color { get; set; }
+
+        public override void SetParent(ITreeNode parentNode)
+        {
+            base.SetParent(parentNode);
+            UpdateSize();
+        }
 
         public int UpdateSize()
         {
@@ -22,8 +27,8 @@
                 return 0;
             }
 
-            var left = Left as OrderStatTreeNode<T>;
-            var right = Right as OrderStatTreeNode<T>;
+            var left = LeftChild as OrderStatTreeNode<T>;
+            var right = RightChild as OrderStatTreeNode<T>;
             var leftSize = left?.UpdateSize() ?? 0;
             var rightSize = right?.UpdateSize() ?? 0;
             Size = leftSize + rightSize + 1;

@@ -120,38 +120,38 @@ namespace Oz.Algorithms.DataStructures.Trees
 
         public BinaryTreeNode<T> Successor(BinaryTreeNode<T> node)
         {
-            if (node.Right != null)
+            if (node.RightChild != null)
             {
                 var minimumSearcher =
                     TreeMinimumSearcherFactory.Create<BinaryTreeNode<T>>(this, SearchMethod.Recursive);
-                return minimumSearcher.Minimum(node.Right);
+                return minimumSearcher.Minimum(node.RightChild as BinaryTreeNode<T>);
             }
 
-            var parent = node.Parent;
-            while (parent != null && node == parent.Right)
+            var parent = node.ParentNode;
+            while (parent != null && node == parent.RightChild)
             {
-                node = parent;
-                parent = parent.Parent;
+                node = parent as BinaryTreeNode<T>;
+                parent = parent.ParentNode;
             }
 
-            return parent;
+            return parent as BinaryTreeNode<T>;
         }
 
         public BinaryTreeNode<T> Predecessor(BinaryTreeNode<T> node)
         {
-            if (node.Left != null)
+            if (node.LeftChild != null)
             {
-                return _Maximum(node.Left);
+                return _Maximum(node.LeftChild as BinaryTreeNode<T>);
             }
 
-            var parent = node.Parent;
-            while (parent != null && node == parent.Left)
+            var parent = node.ParentNode;
+            while (parent != null && node == parent.LeftChild)
             {
-                node = parent;
-                parent = parent.Parent;
+                node = parent as BinaryTreeNode<T>;
+                parent = parent.ParentNode;
             }
 
-            return parent;
+            return parent as BinaryTreeNode<T>;
         }
 
         public void Insert(T data)
@@ -163,22 +163,22 @@ namespace Oz.Algorithms.DataStructures.Trees
             {
                 changedElement = currentElement;
                 currentElement = _keySelector(newNode.Data) < _keySelector(currentElement.Data)
-                    ? currentElement.Left
-                    : currentElement.Right;
+                    ? currentElement.LeftChild as BinaryTreeNode<T>
+                    : currentElement.RightChild as BinaryTreeNode<T>;
             }
 
-            newNode.Parent = changedElement;
+            newNode.SetParent(changedElement);
             if (changedElement == null)
             {
                 _root = newNode;
             }
             else if (_keySelector(newNode.Data) < _keySelector(changedElement.Data))
             {
-                changedElement.Left = newNode;
+                changedElement.LeftChild = newNode;
             }
             else
             {
-                changedElement.Right = newNode;
+                changedElement.RightChild = newNode;
             }
         }
 
@@ -194,29 +194,29 @@ namespace Oz.Algorithms.DataStructures.Trees
 
         public void Delete(BinaryTreeNode<T> nodeToDelete)
         {
-            if (nodeToDelete.Left == null)
+            if (nodeToDelete.LeftChild == null)
             {
-                Transplant(nodeToDelete, nodeToDelete.Right);
+                Transplant(nodeToDelete, nodeToDelete.RightChild as BinaryTreeNode<T>);
             }
-            else if (nodeToDelete.Right == null)
+            else if (nodeToDelete.RightChild == null)
             {
-                Transplant(nodeToDelete, nodeToDelete.Left);
+                Transplant(nodeToDelete, nodeToDelete.LeftChild as BinaryTreeNode<T>);
             }
             else
             {
                 var minimumSearcher =
                     TreeMinimumSearcherFactory.Create<BinaryTreeNode<T>>(this, SearchMethod.Recursive);
-                var newNode = minimumSearcher.Minimum(nodeToDelete.Right);
-                if (newNode.Parent != nodeToDelete)
+                var newNode = minimumSearcher.Minimum(nodeToDelete.RightChild as BinaryTreeNode<T>);
+                if (newNode.ParentNode != nodeToDelete)
                 {
-                    Transplant(newNode, newNode.Right);
-                    newNode.Right = nodeToDelete.Right;
-                    newNode.Right.Parent = newNode;
+                    Transplant(newNode, newNode.RightChild as BinaryTreeNode<T>);
+                    newNode.RightChild = nodeToDelete.RightChild;
+                    newNode.RightChild.SetParent(newNode);
                 }
 
                 Transplant(nodeToDelete, newNode);
-                newNode.Left = nodeToDelete.Left;
-                newNode.Left.Parent = newNode;
+                newNode.LeftChild = nodeToDelete.LeftChild;
+                newNode.LeftChild.SetParent(newNode);
             }
         }
 
@@ -231,30 +231,31 @@ namespace Oz.Algorithms.DataStructures.Trees
 
         private void Transplant(BinaryTreeNode<T> oldNode, BinaryTreeNode<T> newNode)
         {
-            if (oldNode.Parent == null)
+            if (oldNode.ParentNode == null)
             {
                 _root = newNode;
             }
-            else if (oldNode == oldNode.Parent.Left)
+            else if (oldNode == oldNode.ParentNode.LeftChild)
             {
-                oldNode.Parent.Left = newNode;
+                oldNode.ParentNode.LeftChild = newNode;
             }
             else
             {
-                oldNode.Parent.Right = newNode;
+                oldNode.ParentNode.RightChild = newNode;
             }
 
-            if (newNode != null)
-            {
-                newNode.Parent = oldNode.Parent;
-            }
+            newNode?.SetParent(oldNode.ParentNode);
         }
 
         private BinaryTreeNode<T> _Maximum(BinaryTreeNode<T> node)
         {
-            while (node.Right != null)
+            if (node == null)
             {
-                node = node.Right;
+                return null;
+            }
+            while (node?.RightChild != null)
+            {
+                node = node.RightChild as BinaryTreeNode<T>;
             }
 
             return node;
@@ -262,7 +263,7 @@ namespace Oz.Algorithms.DataStructures.Trees
 
         private BinaryTreeNode<T> _MaximumRecursive(BinaryTreeNode<T> node)
         {
-            return node.Right == null ? node : _MaximumRecursive(node.Right);
+            return node.RightChild == null ? node : _MaximumRecursive(node.RightChild as BinaryTreeNode<T>);
         }
     }
 }

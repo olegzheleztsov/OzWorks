@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using Oz.Algorithms.DataStructures.Trees;
 using Xunit;
 
@@ -6,7 +6,7 @@ namespace Oz.Algorithms.Tests.DataStructures.Trees
 {
     public class RbTreeTests
     {
-        private RbTree<int> CreateTestTree()
+        private static RbTree<int> CreateTestTree()
         {
             var tree = new RbTree<int>(val => val);
             var n2 = tree.CreateNode(2);
@@ -23,12 +23,12 @@ namespace Oz.Algorithms.Tests.DataStructures.Trees
             var n19 = tree.CreateNode(19);
             var n22 = tree.CreateNode(22);
             var n20 = tree.CreateNode(20);
-            
+
             n3.SetLeft(n2);
             n4.SetLeft(n3);
             n4.SetRight(n6);
             n7.SetLeft(n4);
-            
+
             n22.SetLeft(n20);
             n19.SetRight(n22);
             n14.SetLeft(n12);
@@ -45,15 +45,15 @@ namespace Oz.Algorithms.Tests.DataStructures.Trees
         private RbTree<int> CreateTestTreeForInsert()
         {
             var tree = new RbTree<int>(val => val);
-            var n11 = tree.CreateNode(11, TreeNodeColor.Black);
+            var n11 = tree.CreateNode(11);
             var n2 = tree.CreateNode(2, TreeNodeColor.Red);
-            var n1 = tree.CreateNode(1, TreeNodeColor.Black);
-            var n7 = tree.CreateNode(7, TreeNodeColor.Black);
+            var n1 = tree.CreateNode(1);
+            var n7 = tree.CreateNode(7);
             var n5 = tree.CreateNode(5, TreeNodeColor.Red);
             var n8 = tree.CreateNode(8, TreeNodeColor.Red);
-            var n14 = tree.CreateNode(14, TreeNodeColor.Black);
+            var n14 = tree.CreateNode(14);
             var n15 = tree.CreateNode(15, TreeNodeColor.Red);
-            
+
             n7.SetLeft(n5);
             n7.SetRight(n8);
             n2.SetLeft(n1);
@@ -69,33 +69,43 @@ namespace Oz.Algorithms.Tests.DataStructures.Trees
         public void Should_Correctly_Rotate_Left()
         {
             var tree = CreateTestTree();
-            static int KeySelector(ITreeNode node) => ((RbTreeNode<int>) node).Data;
+
+            static int KeySelector(ITreeNode node)
+            {
+                return ((RbTreeNode<int>) node).Data;
+            }
+
             var searcher = BinaryTreeSearcherFactory.Create(tree, KeySelector, SearchMethod.Iterative);
 
             var x = searcher.Search(11);
             var y = searcher.Search(18);
             tree.TreeLeftRotate(x as RbTreeNode<int>);
-            
+
             Assert.True(y.LeftChild == x);
             Assert.True(y.RightChild == searcher.Search(19));
-            Assert.True(((RbTreeNode<int>) y).RbParent == searcher.Search(7));
+            Assert.True(((RbTreeNode<int>) y).ParentNode == searcher.Search(7));
             Assert.True(searcher.Search(7).RightChild == y);
-            Assert.True(((RbTreeNode<int>) x).Parent == y);
-            Assert.True(((BinaryTreeNode<int>) searcher.Search(19)).Parent == y);
+            Assert.True(((RbTreeNode<int>) x).ParentNode == y);
+            Assert.True(((BinaryTreeNode<int>) searcher.Search(19)).ParentNode == y);
         }
 
         [Fact]
         public void Should_Correctly_Rotate_Right()
         {
             var tree = CreateTestTree();
-            static int KeySelector(ITreeNode node) => ((RbTreeNode<int>) node).Data;
+
+            static int KeySelector(ITreeNode node)
+            {
+                return ((RbTreeNode<int>) node).Data;
+            }
+
             var searcher = BinaryTreeSearcherFactory.Create(tree, KeySelector, SearchMethod.Iterative);
 
             var x = searcher.Search(11);
             var y = searcher.Search(18);
             tree.TreeLeftRotate(x as RbTreeNode<int>);
             tree.TreeRightRotate(y as RbTreeNode<int>);
-            
+
             Assert.True(x.RightChild == y);
             Assert.True(y.ParentNode == x);
             Assert.True(x.LeftChild == searcher.Search(9));
@@ -117,30 +127,51 @@ namespace Oz.Algorithms.Tests.DataStructures.Trees
 
             var searcher =
                 BinaryTreeSearcherFactory.Create<RbTreeNode<int>>(tree, node => node.Data, SearchMethod.Recursive);
-            
+
             Assert.True(searcher.Search(4).Color == TreeNodeColor.Red);
-            Assert.True(searcher.Search(4).RbParent == searcher.Search(5));
-            Assert.True(searcher.Search(5).RbLeft == searcher.Search(4));
+            Assert.True(searcher.Search(4).ParentNode == searcher.Search(5));
+            Assert.True(searcher.Search(5).LeftChild == searcher.Search(4));
             Assert.True(searcher.Search(5).Color == TreeNodeColor.Black);
-            Assert.True(searcher.Search(1).RbParent == searcher.Search(2));
+            Assert.True(searcher.Search(1).ParentNode == searcher.Search(2));
             Assert.True(searcher.Search(1).Color == TreeNodeColor.Black);
-            Assert.True(searcher.Search(2).RbLeft == searcher.Search(1));
-            Assert.True(searcher.Search(2).RbRight == searcher.Search(5));
+            Assert.True(searcher.Search(2).LeftChild == searcher.Search(1));
+            Assert.True(searcher.Search(2).RightChild == searcher.Search(5));
             Assert.True(searcher.Search(2).Color == TreeNodeColor.Red);
             Assert.True(searcher.Search(7).Color == TreeNodeColor.Black);
-            Assert.True(searcher.Search(7).RbLeft == searcher.Search(2));
-            Assert.True(searcher.Search(7).RbRight == searcher.Search(11));
+            Assert.True(searcher.Search(7).LeftChild == searcher.Search(2));
+            Assert.True(searcher.Search(7).RightChild == searcher.Search(11));
             Assert.True(searcher.Search(11).Color == TreeNodeColor.Red);
-            Assert.True(searcher.Search(11).RbParent == searcher.Search(7));
-            Assert.True(searcher.Search(11).RbLeft == searcher.Search(8));
-            Assert.True(searcher.Search(8).RbParent == searcher.Search(11));
+            Assert.True(searcher.Search(11).ParentNode == searcher.Search(7));
+            Assert.True(searcher.Search(11).LeftChild == searcher.Search(8));
+            Assert.True(searcher.Search(8).ParentNode == searcher.Search(11));
             Assert.True(searcher.Search(8).Color == TreeNodeColor.Black);
-            Assert.True(searcher.Search(11).RbRight == searcher.Search(14));
-            Assert.True(searcher.Search(14).RbParent == searcher.Search(11));
+            Assert.True(searcher.Search(11).RightChild == searcher.Search(14));
+            Assert.True(searcher.Search(14).ParentNode == searcher.Search(11));
             Assert.True(searcher.Search(14).Color == TreeNodeColor.Black);
-            Assert.True(searcher.Search(14).RbRight == searcher.Search(15));
-            Assert.True(searcher.Search(15).RbParent == searcher.Search(14));
+            Assert.True(searcher.Search(14).RightChild == searcher.Search(15));
+            Assert.True(searcher.Search(15).ParentNode == searcher.Search(14));
             Assert.True(searcher.Search(15).Color == TreeNodeColor.Red);
+        }
+
+        [Fact]
+        public void Shoud_Correctly_Enumerate_Tree()
+        {
+            var tree = CreateTestTree();
+            var output = tree.Enumerate(7, 17).ToList();
+            Assert.True(output.All(node => tree.KeySelector(node.Data) >= 7 && tree.KeySelector(node.Data) <= 17));
+            Assert.True(output.Count() == 6);
+        }
+
+        [Fact]
+        public void Should_Correctly_Enumerate_On_Non_Root_Subtree()
+        {
+            var tree = CreateTestTree();
+            var searcher =
+                BinaryTreeSearcherFactory.Create(tree, node => tree.KeySelector(node.Value), SearchMethod.Recursive);
+            var n4 = searcher.Search(4);
+            var output = tree.Enumerate(4, 7, n4 as RbTreeNode<int>).ToList();
+            Assert.True(output.All(node => tree.KeySelector(node.Data) >= 4 && tree.KeySelector(node.Data) <= 7));
+            Assert.True(output.Count() == 2);
         }
     }
 }

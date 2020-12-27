@@ -15,10 +15,10 @@ namespace Oz.Algorithms.DataStructures.Trees
             pivotNode.RightChild = rotateNode.LeftChild;
             if (!tree.IsNull(rotateNode.LeftChild))
             {
-                rotateNode.LeftChild.ParentNode = pivotNode;
+                rotateNode.LeftChild.SetParent(pivotNode);
             }
 
-            rotateNode.ParentNode = pivotNode.ParentNode;
+            rotateNode.SetParent(pivotNode.ParentNode);
             if (tree.IsNull(pivotNode.ParentNode))
             {
                 tree.Root = rotateNode;
@@ -33,7 +33,7 @@ namespace Oz.Algorithms.DataStructures.Trees
             }
 
             rotateNode.LeftChild = pivotNode;
-            pivotNode.ParentNode = rotateNode;
+            pivotNode.SetParent(rotateNode);
         }
 
         public static void TreeRightRotate(this IBinaryTree tree, ITreeNode pivotNode)
@@ -47,10 +47,10 @@ namespace Oz.Algorithms.DataStructures.Trees
             pivotNode.LeftChild = rotatedNode.RightChild;
             if (!tree.IsNull(rotatedNode.RightChild))
             {
-                rotatedNode.RightChild.ParentNode = pivotNode;
+                rotatedNode.RightChild.SetParent(pivotNode);
             }
 
-            rotatedNode.ParentNode = pivotNode.ParentNode;
+            rotatedNode.SetParent(pivotNode.ParentNode);
             if (tree.IsNull(pivotNode.ParentNode))
             {
                 tree.Root = rotatedNode;
@@ -65,7 +65,7 @@ namespace Oz.Algorithms.DataStructures.Trees
             }
 
             rotatedNode.RightChild = pivotNode;
-            pivotNode.ParentNode = rotatedNode;
+            pivotNode.SetParent(rotatedNode);
         }
 
         public static void Insert(this IBinaryTree tree, IColoredTreeNode nodeToInsert)
@@ -80,7 +80,7 @@ namespace Oz.Algorithms.DataStructures.Trees
                     : currentNode.RightChild;
             }
 
-            nodeToInsert.ParentNode = previousNode;
+            nodeToInsert.SetParent(previousNode);
             if (tree.IsNull(previousNode))
             {
                 tree.Root = nodeToInsert;
@@ -123,18 +123,18 @@ namespace Oz.Algorithms.DataStructures.Trees
                 workingNode = (IColoredTreeNode) fixingNode.RightChild;
                 if (fixingNode.ParentNode == nodeToDelete)
                 {
-                    workingNode.ParentNode = fixingNode;
+                    workingNode.SetParent(fixingNode);
                 }
                 else
                 {
                     tree.Transplant(fixingNode, fixingNode.RightChild);
                     fixingNode.RightChild = nodeToDelete.RightChild;
-                    fixingNode.RightChild.ParentNode = fixingNode;
+                    fixingNode.RightChild.SetParent(fixingNode);
                 }
 
                 tree.Transplant(nodeToDelete, fixingNode);
                 fixingNode.LeftChild = nodeToDelete.LeftChild;
-                fixingNode.LeftChild.ParentNode = fixingNode;
+                fixingNode.LeftChild.SetParent(fixingNode);
                 fixingNode.Color = nodeToDelete.Color;
             }
 
@@ -291,10 +291,10 @@ namespace Oz.Algorithms.DataStructures.Trees
                 firstNode.ParentNode.RightChild = secondNode;
             }
 
-            secondNode.ParentNode = firstNode.ParentNode;
+            secondNode.SetParent(firstNode.ParentNode);
         }
 
-        public static string GetColoredTreeString(this IBinaryTree tree, IColoredTreeNode startNode)
+        public static string GetColoredTreeString(this IBinaryTree tree)
         {
             var stringBuilder = new StringBuilder();
             var preorderWalker =
@@ -314,6 +314,11 @@ namespace Oz.Algorithms.DataStructures.Trees
                 }
 
                 nodeStr += $"{coloredNode.Value.ToString()}{GetColorString(coloredNode.Color)}  ";
+
+                if (node is IOrderStatTreeNode)
+                {
+                    nodeStr += $"Size: {(node as IOrderStatTreeNode).Size}  ";
+                }
 
                 if (tree.IsNull(coloredNode.LeftChild))
                 {
