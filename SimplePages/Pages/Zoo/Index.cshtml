@@ -1,0 +1,30 @@
+﻿@page
+@model SimplePages.Pages.Zoo.Index
+
+@{
+    ViewData["title"] = "Zoo";
+}
+
+<a class="btn btn-primary" asp-area="" asp-page="AddAnimal">Add New Animal</a>
+<p>Animals in zoo:</p>
+<div class="container-fluid">
+    @foreach (var animal in Model.Animals)
+    {
+        <partial name="AnimalView" model="animal" />
+    }
+</div>
+<div>Total amount of animals: @(Model.Animals.Sum(animal => animal.Count))/@(Model.ZooService.ZooCapacity)</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

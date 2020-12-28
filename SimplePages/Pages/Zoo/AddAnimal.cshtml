@@ -1,0 +1,21 @@
+﻿@page
+@model SimplePages.Pages.Zoo.AddAnimal
+
+@{
+    ViewData["title"] = "Add Animal";
+}
+<form asp-page="AddAnimal" method="post" class="container-fluid vertical-container-space-around">
+    <div class="form-group">
+        <label asp-for="AnimalSlot.Animal.Name" class="col-form-label-lg"></label>
+        <input asp-for="AnimalSlot.Animal.Name" class="form-control"/>
+        <span asp-validation-for="AnimalSlot.Animal.Name" class="validation-message text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AnimalSlot.Animal.Kind" class="col-form-label-lg"></label>
+        <select asp-for="AnimalSlot.Animal.Kind" asp-items="@Html.GetEnumSelectList<AnimalKind>()" class="form-control">
+            <option value="">Not Selected</option>
+        </select>
+        <span asp-validation-for="AnimalSlot.Animal.Name" class="validation-message text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Animal</button>
+</form>
