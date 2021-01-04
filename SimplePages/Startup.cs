@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SimplePages.Models.AdventureWorks;
 using SimplePages.Services;
 using SimplePages.Services.Interfaces;
 
@@ -25,9 +27,19 @@ namespace SimplePages
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            services.AddDbContext<AdventureWorksDbContext>(options =>
+            {
+                var connectionString =
+                    "Data Source=DESKTOP-0C3QBAG;Integrated Security=True;Initial Catalog=AdventureWorks2019;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                options.UseSqlServer(connectionString, configuration =>
+                {
+                    configuration.UseHierarchyId();
+                }).EnableSensitiveDataLogging().LogTo(Console.WriteLine);
+            });
+            
             services.AddScoped<IZooService, ZooService>();
-            services.AddRazorPages();
-        }
+            services.AddRazorPages();}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

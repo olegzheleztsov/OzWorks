@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using Oz.Algorithms.Matrices;
 
 namespace Oz.Algorithms
 {
@@ -29,5 +30,7 @@ namespace Oz.Algorithms
         }
 
         public double RandomDouble => GetRandomInstance().NextDouble();
+
+        public float RandomFloat => (float) RandomDouble;
     }
 }

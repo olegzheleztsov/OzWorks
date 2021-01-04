@@ -4,7 +4,7 @@ namespace Oz.Algorithms.Matrices
 {
     public class MatrixBase<T>
     {
-        private readonly T[] _array;
+        protected readonly T[] _array;
 
         public MatrixBase(T[,] array2D)
         {

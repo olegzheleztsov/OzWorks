@@ -7,7 +7,8 @@ namespace SimplePages.Pages.Zoo
 {
     public class AddAnimal : PageModel
     {
-        [BindProperty] public AnimalSlot AnimalSlot { get; set; } = new AnimalSlot();
+        [BindProperty] 
+        public AnimalSlot AnimalSlot { get; set; } = new AnimalSlot();
 
         public async Task OnGet()
         {

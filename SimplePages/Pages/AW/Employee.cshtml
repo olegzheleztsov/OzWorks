@@ -1,0 +1,14 @@
+﻿@page
+@model SimplePages.Pages.AW.Employee
+
+<a class="btn btn-primary" asp-page="Employee" asp-page-handler="Employees">Get Employees</a>
+
+@if (!string.IsNullOrEmpty(Model.EmployeesSummary))
+{
+    <div>@Model.EmployeesSummary</div>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.FirstEmployee))
+{
+    <div>@Model.FirstEmployee</div>
+}

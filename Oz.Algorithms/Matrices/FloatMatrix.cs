@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Oz.Algorithms.Matrices
 {
-    public class FloatMatrix : MatrixBase<float>
+    public class FloatMatrix : MatrixBase<float>, IEquatable<FloatMatrix>, ICloneable
     {
         public FloatMatrix(float[,] array2D) : base(array2D)
         {
@@ -15,6 +16,51 @@ namespace Oz.Algorithms.Matrices
 
         public FloatMatrix(int rows, int columns, float[] array) : base(rows, columns, array)
         {
+        }
+
+        public FloatMatrix(FloatMatrix other) : this(other.Rows, other.Columns)
+        {
+            Array.Copy(other._array, _array, Rows * Columns);
+        }
+
+        public bool IsSquareMatrix => Rows == Columns;
+
+        public object Clone()
+        {
+            return new FloatMatrix(this);
+        }
+
+        public bool Equals(FloatMatrix other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+
+            if (other.Rows != Rows || other.Columns != Columns)
+            {
+                return false;
+            }
+
+            var isEqual = true;
+            for (var i = 0; i < Rows; i++)
+            {
+                for (var j = 0; j < Columns; j++)
+                {
+                    if (Util.Compare(this[i, j], other[i, j]) != 0)
+                    {
+                        isEqual = false;
+                        break;
+                    }
+                }
+            }
+
+            return isEqual;
         }
 
         public FloatMatrix Multiply(FloatMatrix other)
@@ -42,8 +88,13 @@ namespace Oz.Algorithms.Matrices
             return result;
         }
 
-        public FloatMatrix MultiplyRecursively(FloatMatrix other)
+        private FloatMatrix _MultiplyRecursively(FloatMatrix other)
         {
+            if (Rows != Columns || other.Rows != other.Columns || Rows != other.Rows)
+            {
+                throw new ArgumentException("Recursive multiplication allowed only between square matrices");
+            }
+
             var first = new FloatMatrixRegion(this, 0, 0, Rows, Columns);
             var second = new FloatMatrixRegion(other, 0, 0, other.Rows, other.Columns);
             var resultMatrix = new FloatMatrix(Rows, other.Columns);
@@ -53,8 +104,13 @@ namespace Oz.Algorithms.Matrices
             return resultMatrix;
         }
 
-        public FloatMatrix FastMultiply(FloatMatrix other)
+        private FloatMatrix _FastMultiply(FloatMatrix other)
         {
+            if (Rows != Columns || other.Rows != other.Columns || Rows != other.Rows)
+            {
+                throw new ArgumentException("Recursive multiplication allowed only between square matrices");
+            }
+
             var first = new FloatMatrixRegion(this, 0, 0, Rows, Columns);
             var second = new FloatMatrixRegion(other, 0, 0, other.Rows, other.Columns);
             var resultMatrix = new FloatMatrix(Rows, other.Columns);
@@ -66,7 +122,73 @@ namespace Oz.Algorithms.Matrices
 
         public static FloatMatrix operator *(FloatMatrix first, FloatMatrix second)
         {
+            if (first.IsSquareMatrix && second.IsSquareMatrix && first.Rows == second.Rows)
+            {
+                return MultiplyFast(first, second);
+            }
+
             return first.Multiply(second);
+        }
+
+        public static bool operator ==(FloatMatrix first, FloatMatrix second)
+        {
+            return first?.Equals(second) ?? ReferenceEquals(second, null);
+        }
+
+        public static bool operator !=(FloatMatrix first, FloatMatrix second)
+        {
+            if (ReferenceEquals(first, null))
+            {
+                return !ReferenceEquals(second, null);
+            }
+
+            return !first.Equals(second);
+        }
+
+        public static FloatMatrix MultiplyRecursively(FloatMatrix first, FloatMatrix second)
+        {
+            return first._MultiplyRecursively(second);
+        }
+
+        public static FloatMatrix MultiplyFast(FloatMatrix first, FloatMatrix second)
+        {
+            return first._FastMultiply(second);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(obj, null))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(obj, this))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((FloatMatrix) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 0;
+            for (var i = 0; i < Rows; i++)
+            {
+                for (var j = 0; j < Columns; j++)
+                {
+                    if (i == 0 && j == 0)
+                    {
+                        hashCode = ((int) this[i, j]).GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode ^= ((int) this[i, j]).GetHashCode();
+                    }
+                }
+            }
+
+            return hashCode;
         }
 
         public override string ToString()
@@ -84,5 +206,6 @@ namespace Oz.Algorithms.Matrices
 
             return stringBuilder.ToString();
         }
+        
     }
 }
