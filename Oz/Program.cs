@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Oz.Algorithms;
 using Oz.Algorithms.DataStructures;
 
@@ -173,7 +174,6 @@ Console.WriteLine(tree);
 */
 
 
-
 void TestDoubleLinkedCyclicList()
 {
     var list = new OzDoubleCyclicLinkedList<int>(Allocators.DoubleLinkedNodeAllocator);
@@ -216,25 +216,65 @@ void TestConcatenation()
 
 void TestFibonacciHeapInsertAndExtract()
 {
-    var fHeap = new FibonacciHeap<int>(key => key);
+    var fHeap = new FibonacciHeap<KeyInteger>();
 
     var randomSource = new DefaultRandomSource();
 
-    for (int i = 0; i < 20; i++)
+    for (var i = 0; i < 20; i++)
     {
-        var node = new FibonacciHeapNode<int>(randomSource.RandomValue(1, 100));
+        var node = new FibonacciHeapNode<KeyInteger>(new KeyInteger(randomSource.RandomValue(1, 100)));
         fHeap.Insert(node);
     }
 
-    for (int i = 0; i < 20; i++)
+    for (var i = 0; i < 20; i++)
     {
         var minNode = fHeap.ExtractMin();
         Console.Write($"{minNode.Data} ");
         Console.WriteLine("STATE:");
         Console.WriteLine(fHeap);
     }
+
     Console.WriteLine();
     Console.WriteLine($"Fibonacci heap is empty: {fHeap.IsEmpty}");
 }
 
-TestFibonacciHeapInsertAndExtract();
+void TestFibonacciHeapDeletion()
+{
+    var heap = new FibonacciHeap<KeyInteger>();
+    for (int i = 0; i < 10; i++)
+    {
+        heap.Insert(new FibonacciHeapNode<KeyInteger>(new KeyInteger(i)));
+    }
+
+    Console.WriteLine(string.Join(" ", heap.Select(v => v.Key)));
+    for (int i = 9; i >= 0; i--)
+    {
+        var i1 = i;
+        var node = heap.Find(val => val.Key == i1).FirstOrDefault();
+        if (node != null)
+        {
+            heap.Delete(node);
+        }
+        Console.WriteLine(string.Join(" ", heap.Select(v => v.Key)));
+    }
+}
+
+//TestFibonacciHeapInsertAndExtract();
+TestFibonacciHeapDeletion();
+
+public sealed class KeyInteger : IKeyData
+{
+    public KeyInteger(int value)
+    {
+        Key = value;
+    }
+
+    /// <inheritdoc />
+    public int Key { get; private set; }
+
+    /// <inheritdoc />
+    public void SetKey(int key)
+    {
+        Key = key;
+    }
+}
