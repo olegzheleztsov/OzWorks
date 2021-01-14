@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using SimplePages.Config;
 using SimplePages.Models.AdventureWorks;
 using SimplePages.Services;
 using SimplePages.Services.Interfaces;
@@ -27,6 +30,8 @@ namespace SimplePages
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<GymSettings>(Configuration.GetSection(nameof(GymSettings)));
+            services.AddSingleton<IGymSettings>(sp => sp.GetRequiredService<IOptions<GymSettings>>().Value);
             
             services.AddDbContext<AdventureWorksDbContext>(options =>
             {
@@ -37,9 +42,14 @@ namespace SimplePages
                     configuration.UseHierarchyId();
                 }).EnableSensitiveDataLogging().LogTo(Console.WriteLine);
             });
+
+            services.AddScoped<IGymService, GymService>();
             
             services.AddScoped<IZooService, ZooService>();
-            services.AddRazorPages();}
+            services.AddRazorPages();
+            services.AddAutoMapper(typeof(Startup).Assembly);
+            services.AddScoped<IExerciseNames, ExerciseNames>();
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

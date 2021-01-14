@@ -1,0 +1,15 @@
+﻿@page
+@model SimplePages.Pages.Gym.Trainings
+
+<div>
+   <a class="btn btn-outline-secondary" asp-page="AddTraining">
+       Add Training
+   </a> 
+</div>
+
+<div>
+    @foreach (var training in Model.TrainingCollection)
+    {
+        <partial name="_TrainingView" model="training" />
+    }
+</div>

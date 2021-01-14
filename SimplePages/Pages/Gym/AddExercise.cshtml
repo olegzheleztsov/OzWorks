@@ -1,0 +1,18 @@
+﻿@page
+@model SimplePages.Pages.Gym.AddExercise
+
+<form asp-page="AddExercise">
+   
+    <input asp-for="TrainingId" type="hidden" />
+   
+    <div class="form-group">
+        <label asp-for="Exercise.Name">Name</label>
+        <select asp-for="Exercise.Name" asp-items="Model.ExerciseNameItems" class="list-group"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Exercise.Value">Value</label>
+        <input asp-for="Exercise.Value">
+    </div>
+    <input type="submit" class="btn btn-primary" value="Add Exercise">
+</form>
