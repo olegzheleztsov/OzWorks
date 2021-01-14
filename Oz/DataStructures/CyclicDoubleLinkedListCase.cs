@@ -8,7 +8,7 @@ namespace Oz.DataStructures
     {
         public static void Run()
         {
-            var list = new OzDoubleCyclicLinkedList<int>();
+            var list = new OzDoubleCyclicLinkedList<int>(Allocators.DoubleLinkedNodeAllocator);
             list.Insert(1);
             list.Insert(2);
             list.Insert(3);

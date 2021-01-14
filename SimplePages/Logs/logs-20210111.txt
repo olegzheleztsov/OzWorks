@@ -1,0 +1,25 @@
+2021-01-11 03:08:49.118 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-11 03:08:49.122 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-11 03:08:49.123 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-11 03:08:49.123 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-11 03:08:49.123 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages
+2021-01-11 03:08:57.935 +02:00 [Information] SimplePages.Pages.LogSample: Loaded 6840 recipes
+2021-01-11 03:08:57.935 +02:00 [Information] RecipeApp.RecipeService: Additionally loaded: 56 recipes
+2021-01-11 03:08:57.935 +02:00 [Information] SimplePages.Pages.LogSample: User 123 loaded recipe 456
+2021-01-11 03:09:00.567 +02:00 [Information] SimplePages.Pages.LogSample: Loaded 7127 recipes
+2021-01-11 03:09:00.576 +02:00 [Warning] SimplePages.Pages.LogSample: Could not find recipe with id 84
+2021-01-11 03:09:00.576 +02:00 [Information] RecipeApp.RecipeService: Additionally loaded: 70 recipes
+2021-01-11 03:09:00.576 +02:00 [Information] SimplePages.Pages.LogSample: User 123 loaded recipe 456
+2021-01-11 03:09:01.437 +02:00 [Information] SimplePages.Pages.LogSample: Loaded 6923 recipes
+2021-01-11 03:09:01.437 +02:00 [Information] RecipeApp.RecipeService: Additionally loaded: 72 recipes
+2021-01-11 03:09:01.437 +02:00 [Information] SimplePages.Pages.LogSample: User 123 loaded recipe 456
+2021-01-11 03:09:02.068 +02:00 [Information] SimplePages.Pages.LogSample: Loaded 4690 recipes
+2021-01-11 03:09:02.069 +02:00 [Information] RecipeApp.RecipeService: Additionally loaded: 27 recipes
+2021-01-11 03:09:02.069 +02:00 [Information] SimplePages.Pages.LogSample: User 123 loaded recipe 456
+2021-01-11 03:09:02.780 +02:00 [Information] SimplePages.Pages.LogSample: Loaded 9019 recipes
+2021-01-11 03:09:02.780 +02:00 [Information] RecipeApp.RecipeService: Additionally loaded: 30 recipes
+2021-01-11 03:09:02.780 +02:00 [Information] SimplePages.Pages.LogSample: User 123 loaded recipe 456
+2021-01-11 03:09:03.424 +02:00 [Information] SimplePages.Pages.LogSample: Loaded 4322 recipes
+2021-01-11 03:09:03.424 +02:00 [Warning] SimplePages.Pages.LogSample: Could not find recipe with id 81
+2021-01-11 03:09:03.424 +02:00 [Information] RecipeApp.RecipeService: Additionally loaded: 33 recipes
+2021-01-11 03:09:03.424 +02:00 [Information] SimplePages.Pages.LogSample: User 123 loaded recipe 456
