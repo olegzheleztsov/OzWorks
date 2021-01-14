@@ -1,19 +1,24 @@
 ﻿@page
 @model SimplePages.Pages.Gym.AddTraining
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<div>
+<form asp-page="AddTraining" method="post">
+    <input asp-for="Training.Id">
     
-</div>
-</body>
-</html>
+    <div class="form-group">
+        <label asp-for="Training.Date"></label>
+        <input asp-for="Training.Date" >
+        <span asp-validation-for="Training.Date"></span>
+    </div>
+    
+    @* @if (Model.Training != null) *@
+    @* { *@
+    @*     foreach (var exercise in Model.Training.Exercises) *@
+    @*     { *@
+    @*         <partial name="_AddExercise" model="exercise"/> *@
+    @*     } *@
+    @* } *@
+    @* <a class="btn btn-secondary" asp-page-handler="AddExercise" asp-page="AddTraining">Add Exercise</a> *@
+    
+    <input type="submit" value="Add Training">
+    
+</form>

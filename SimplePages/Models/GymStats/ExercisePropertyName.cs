@@ -1,7 +1,7 @@
 ﻿namespace SimplePages.Models.GymStats
 {
-    public class ExercisePropertyName
+    public static class ExercisePropertyName
     {
-        
+        public const string Value = "Value";
     }
 }

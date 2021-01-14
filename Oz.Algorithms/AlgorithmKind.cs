@@ -2,6 +2,8 @@
 {
     public enum AlgorithmKind
     {
-        
+        Recursive,
+        Iterative,
+        Inverse
     }
 }

@@ -2,6 +2,13 @@
 {
     public enum BodyPart
     {
-        
+        Legs,
+        Shoulders,
+        Chest,
+        Biceps,
+        Triceps,
+        Back,
+        Press,
+        General
     }
 }

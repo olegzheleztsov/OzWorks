@@ -2,6 +2,9 @@
 {
     public class OzDoubleCyclicLinkedListTests
     {
-        
+        public void Should_Concatenation_Works_Correctly()
+        {
+            
+        }
     }
 }

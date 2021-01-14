@@ -189,7 +189,7 @@ namespace Oz.Algorithms.DataStructures
                 var temp = _data[index];
                 _data[index] = _data[smallestIndex];
                 _data[smallestIndex] = temp;
-                MaxHeapify(smallestIndex);
+                MinHeapify(smallestIndex);
             }
         }
 
@@ -237,6 +237,17 @@ namespace Oz.Algorithms.DataStructures
             for (var i = (int) Math.Floor(heap.HeapSize / 2.0); i >= 0; i--)
             {
                 heap.MaxHeapify(i);
+            }
+
+            return heap;
+        }
+
+        public static Heap<T> MinHeap(T[] data, Func<T, int> keySelector)
+        {
+            var heap = new Heap<T>(data, keySelector, Comparisions.StandardComparision);
+            for (var i = (int) Math.Floor(heap.HeapSize / 2.0); i >= 0; i--)
+            {
+                heap.MinHeapify(i);
             }
 
             return heap;
