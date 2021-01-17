@@ -1,0 +1,83 @@
+2021-01-17 03:54:42.507 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 03:54:42.579 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 03:54:42.579 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 03:54:42.579 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 03:54:42.580 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 03:55:57.293 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 5ffaef76c87a2f39eb13a07e
+2021-01-17 03:56:04.221 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 5ffaef76c87a2f39eb13a07e
+2021-01-17 03:56:11.362 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Breeding hands in the simulator","Value":"12"} for training: 5ffaef76c87a2f39eb13a07e
+2021-01-17 03:56:17.907 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 5ffaef76c87a2f39eb13a07e
+2021-01-17 03:56:22.320 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Breeding hands in the simulator","Value":"45"} for training: 5ffaef76c87a2f39eb13a07e
+2021-01-17 03:56:58.870 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 04:16:26.195 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 04:16:26.219 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 04:16:26.219 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 04:16:26.219 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 04:16:26.219 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 04:22:15.949 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 04:22:26.913 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 04:22:26.938 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 04:22:26.938 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 04:22:26.939 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 04:22:26.939 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 04:26:26.401 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 04:26:36.257 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 04:26:36.278 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 04:26:36.279 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 04:26:36.279 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 04:26:36.279 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 04:29:08.290 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 04:29:18.305 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 04:29:18.327 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 04:29:18.327 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 04:29:18.327 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 04:29:18.327 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 04:37:07.475 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 04:37:18.505 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 04:37:18.532 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 04:37:18.533 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 04:37:18.533 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 04:37:18.533 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 04:42:42.935 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 04:42:54.549 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 04:42:54.573 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 04:42:54.573 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 04:42:54.573 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 04:42:54.573 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 04:45:04.882 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 04:45:14.829 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 04:45:14.850 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 04:45:14.851 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 04:45:14.852 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 04:45:14.852 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 04:48:16.828 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 04:48:27.199 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 04:48:27.225 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 04:48:27.225 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 04:48:27.225 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 04:48:27.226 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 04:48:50.093 +02:00 [Information] SimplePages.Pages.Gym.EditTraining: Receiced: {"Id":"5ff987cf2d0a51c4e4711f4f","Date":"2021-01-08T00:00:00","Exercises":null}
+2021-01-17 14:36:14.959 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 15:12:43.237 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 15:12:43.258 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 15:12:43.259 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 15:12:43.259 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 15:12:43.259 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 15:13:06.897 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 5ffaef76c87a2f39eb13a07e
+2021-01-17 15:13:12.461 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Seated Leg Curl","Value":"1"} for training: 5ffaef76c87a2f39eb13a07e
+2021-01-17 15:13:15.221 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 5ffaef76c87a2f39eb13a07e
+2021-01-17 15:13:21.001 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Dumbbell breeding","Value":"2"} for training: 5ffaef76c87a2f39eb13a07e
+2021-01-17 15:13:41.598 +02:00 [Information] SimplePages.Pages.Gym.EditTraining: Received: {"Id":"5ffaef76c87a2f39eb13a07e","Date":"2021-01-08T00:00:00","Exercises":null}
+2021-01-17 15:17:30.358 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-01-17 15:17:42.208 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-01-17 15:17:42.238 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-01-17 15:17:42.239 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-01-17 15:17:42.239 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-01-17 15:17:42.239 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\development\OzWorks\SimplePages
+2021-01-17 15:17:58.306 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 5ff987cf2d0a51c4e4711f4f
+2021-01-17 15:18:03.225 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Bench press","Value":"1"} for training: 5ff987cf2d0a51c4e4711f4f
+2021-01-17 15:18:13.836 +02:00 [Information] SimplePages.Pages.Gym.EditTraining: Received: {"Id":"5ff987cf2d0a51c4e4711f4f","Date":"2021-01-07T00:00:00","Exercises":[{"Value":"2","ExerciseId":12}]}
+2021-01-17 15:18:18.479 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 5ff987cf2d0a51c4e4711f4f
+2021-01-17 15:18:24.383 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":6,"Name":"Lying press","Value":"33"} for training: 5ff987cf2d0a51c4e4711f4f
+2021-01-17 15:18:46.833 +02:00 [Information] SimplePages.Pages.Gym.EditTraining: Received: {"Id":"5ff987cf2d0a51c4e4711f4f","Date":"2021-01-06T00:00:00","Exercises":[{"Value":"2","ExerciseId":12},{"Value":"66","ExerciseId":18}]}
+2021-01-17 15:19:01.892 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...

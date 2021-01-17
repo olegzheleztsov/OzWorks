@@ -1,0 +1,31 @@
+﻿@page
+@model SimplePages.Pages.Gym.EditTraining
+
+<form asp-page="EditTraining" method="post">
+    
+    <input asp-for="TrainingViewModel.Id" hidden/>
+
+    <div class="form-group">
+        <label asp-for="TrainingViewModel.Date"></label>
+        <input asp-for="TrainingViewModel.Date">
+        <span asp-validation-for="TrainingViewModel.Date"></span>
+    </div>
+
+    @if (Model.TrainingViewModel.Exercises != null)
+    {
+        for (int i = 0; i < Model.TrainingViewModel.Exercises.Count; i++)
+        {
+            <div class="form-group">
+                <label class="col-form-label" asp-for="@Model.TrainingViewModel.Exercises[i].ExerciseId"></label>
+                <select class="list-group" asp-for="@Model.TrainingViewModel.Exercises[i].ExerciseId" asp-items="Model.ExerciseNameItems"></select>
+
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" asp-for="@Model.TrainingViewModel.Exercises[i].Value"></label>
+                <input class="form-control" asp-for="@Model.TrainingViewModel.Exercises[i].Value">
+            </div>
+        }
+    }
+    
+    <input type="submit" class="btn btn-primary" value="Update">
+</form>

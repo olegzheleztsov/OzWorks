@@ -9,5 +9,7 @@ namespace SimplePages.Services.Interfaces
         BodyPart GetBodyPartForExerciseName(int exerciseNameId);
 
         ExerciseName GetExerciseName(int exerciseNameId);
+
+        ExerciseName GetExerciseName(BodyPart bodyPart, string name);
     }
 }

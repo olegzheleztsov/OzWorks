@@ -69,3 +69,15 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.element-margin {
+    margin: 8pt;
+}
+
+.element-padding-16 {
+    padding: 16pt;
+}
+
+.element-padding-8 {
+    padding: 8pt;
+}

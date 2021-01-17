@@ -4,6 +4,7 @@ using AutoMapper;
 using FluentAssertions;
 using SimplePages.Models.GymStats;
 using SimplePages.Profiles;
+using SimplePages.Services;
 using SimplePages.ViewModels;
 using Xunit;
 
@@ -14,10 +15,12 @@ namespace SimplePages.Tests.Profiles
         [Fact]
         public void Should_Correctly_Map_Training()
         {
+            
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<GymProfile>();
+                cfg.AddProfile(new GymProfile(new ExerciseNames()));
             });
+            
 
             var viewModel = new TrainingViewModel()
             {
@@ -27,14 +30,15 @@ namespace SimplePages.Tests.Profiles
                 {
                     new PhysicalExerciseViewModel()
                     {
-                        BodyPart = BodyPart.Back,
+                        ExerciseId = 2,
                         Value = "15"
                     }
                 }
             };
 
+            var exerciseNameService = new ExerciseNames();
             var mapper = config.CreateMapper();
-            var model = mapper.Map<TrainingViewModel, Training>(viewModel);
+            var model = mapper.Map<Training>(viewModel);
             model.Should().NotBe(null);
             model.Date.Should().BeSameDateAs(viewModel.Date);
             Assert.NotNull(model);
@@ -42,7 +46,7 @@ namespace SimplePages.Tests.Profiles
             Assert.Equal(viewModel.Date, model.Date);
             Assert.Equal(viewModel.Exercises.Count, model.Exercises.Count);
             Assert.Equal(viewModel.Exercises[0].Value, model.Exercises[0].Value);
-            Assert.Equal(viewModel.Exercises[0].BodyPart, model.Exercises[0].BodyPart);
+            Assert.Equal(viewModel.Exercises[0].ExerciseId, exerciseNameService.GetExerciseName(model.Exercises[0].BodyPart, model.Exercises[0].Name).Id);
         }
     }
 }

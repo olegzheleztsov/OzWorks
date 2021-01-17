@@ -13,8 +13,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using SimplePages.Config;
 using SimplePages.Models.AdventureWorks;
+using SimplePages.Profiles;
 using SimplePages.Services;
 using SimplePages.Services.Interfaces;
+using SimplePages.ViewServices;
 
 namespace SimplePages
 {
@@ -47,8 +49,12 @@ namespace SimplePages
             
             services.AddScoped<IZooService, ZooService>();
             services.AddRazorPages();
-            services.AddAutoMapper(typeof(Startup).Assembly);
             services.AddScoped<IExerciseNames, ExerciseNames>();
+            services.AddScoped<IViewHelperService, ViewHelperService>();
+            services.AddScoped(provider => new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new GymProfile(provider.GetService<IExerciseNames>()));
+            }).CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

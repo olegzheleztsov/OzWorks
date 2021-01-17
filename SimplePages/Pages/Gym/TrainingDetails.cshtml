@@ -1,0 +1,9 @@
+﻿@page
+@model SimplePages.Pages.Gym.TrainingDetails
+
+<div class="container-fluid">
+    <div class="row">
+        <partial name="_TrainingView" model="@Model.TrainingViewModel"/>
+    </div>
+    <a class="btn btn-primary" asp-page="EditTraining" asp-route-id="@Model.TrainingViewModel.Id">Edit Training</a>
+</div>

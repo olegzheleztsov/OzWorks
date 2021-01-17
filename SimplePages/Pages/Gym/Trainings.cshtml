@@ -2,14 +2,34 @@
 @model SimplePages.Pages.Gym.Trainings
 
 <div>
-   <a class="btn btn-outline-secondary" asp-page="AddTraining">
-       Add Training
-   </a> 
+    <a class="btn btn-outline-secondary" asp-page="AddTraining">
+        Add Training
+    </a>
+    <div class="element-margin element-padding-16">
+        <div class="col-12">
+            @foreach (var training in Model.TrainingCollection)
+            {
+                <div class="element-margin element-padding-16">
+                    <div class="card element-margin element-padding-8">
+                        <div class="card-body">
+                            <p class="p-0">Count of exercises: @(training.Exercises?.Count ?? 0)</p>
+                            <a class="btn btn-secondary element-margin"
+                               asp-page="TrainingDetails"
+                               asp-route-id="@(training.Id)">
+                                Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>        
+    </div>
+
 </div>
 
-<div>
-    @foreach (var training in Model.TrainingCollection)
-    {
-        <partial name="_TrainingView" model="training" />
-    }
-</div>
+@* <div> *@
+@*     @foreach (var training in Model.TrainingCollection) *@
+@*     { *@
+@*         <partial name="_TrainingView" model="training" /> *@
+@*     } *@
+@* </div> *@
