@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Oz.Algorithms.DataStructures
 {
-    public class FibonacciHeapNode<T> : IDoubleLinkedNode<T> where T : IKeyData
+    public class FibonacciHeapNode<T> : IDoubleLinkedNode<T> where T : IKey
     {
         public FibonacciHeapNode(T data)
         {

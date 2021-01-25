@@ -10,7 +10,7 @@ namespace Oz.Algorithms.DataStructures
     ///     Structure like priority queue with fast amortized operations
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
-    public sealed class FibonacciHeap<T> : IEnumerable<T> where T : IKeyData
+    public sealed class FibonacciHeap<T> : IEnumerable<T> where T : IKey
     {
         private OzDoubleCyclicLinkedList<T> _rootList;
 

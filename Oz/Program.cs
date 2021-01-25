@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Oz.Algorithms;
 using Oz.Algorithms.DataStructures;
+using Oz.RecordsSample;
+
 
 /*
 double[] prices = {1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
@@ -260,9 +264,56 @@ void TestFibonacciHeapDeletion()
 }
 
 //TestFibonacciHeapInsertAndExtract();
-TestFibonacciHeapDeletion();
+//TestFibonacciHeapDeletion();
 
-public sealed class KeyInteger : IKeyData
+//Sample.Run();
+
+//Oz.RangeSample.RangeSample.Run();
+//
+// var proto = new ProtoVanEmdeBoas(65536);
+//
+// for (int i = 100; i >= 10; i -= 10)
+// {
+//     proto.Insert(i);
+// }
+//
+// var min = proto.Minimum();
+// Console.WriteLine($"Minimum: {(min.HasValue ? min.Value : "<NONE>")}");
+//
+// var max = proto.Maximum();
+// Console.WriteLine($"Maximum: {(max.HasValue ? max.Value : "<NONE>")}");
+//
+// Console.WriteLine($"Is 20 Member? : {proto.IsMember(20)}, Is 25 Member? : {proto.IsMember(25)}");
+//
+// Console.WriteLine($"Successor of 30 is: {proto.Successor(30)}");
+// Console.WriteLine($"Predecessor of 30 is: {proto.Predecessor(30)}");
+//
+// Console.WriteLine("Delete 30");
+// proto.Delete(30);
+// Console.WriteLine($"After delete is 30 member? : {proto.IsMember(30)}");
+
+
+void TestVanEmdeTree()
+{
+    VanEmdeBoasTree tree = new VanEmdeBoasTree(32);
+    for (int i = 0; i < 32; i++)
+    {
+        tree.Insert(i);
+    }
+    Console.WriteLine($"Is 5 member?: {tree.IsMember(5)}");
+    Console.WriteLine($"Successor of 5: {tree.Successor(5)}, Successofr of 9: {tree.Successor(9)}");
+    Console.WriteLine($"Predecessor of 5: {tree.Predecessor(5)}, Predecessor of 0: {tree.Predecessor(0)}");
+    Console.WriteLine("Delete 5:");
+    tree.Delete(5);
+    Console.WriteLine($"Is 5 member? : {tree.IsMember(5)}");
+    Console.WriteLine("Complete tree");
+    Console.WriteLine(tree.ToString());
+}
+
+TestVanEmdeTree();
+StringBuilder sb = new StringBuilder();
+
+public sealed class KeyInteger : IKey
 {
     public KeyInteger(int value)
     {

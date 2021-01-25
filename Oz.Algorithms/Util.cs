@@ -30,5 +30,10 @@ namespace Oz.Algorithms
                 return 1;
             }
         }
+
+        public static bool IsPowerOf2(int value)
+        {
+            return value != 0 && ((value & (value - 1)) == 0);
+        }
     }
 }
