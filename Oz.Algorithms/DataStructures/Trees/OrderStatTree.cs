@@ -76,7 +76,7 @@ namespace Oz.Algorithms.DataStructures.Trees
         /// <summary>
         ///     Returns order of node in inorder traveling
         /// </summary>
-        /// <param name="node">Node from tree</param>
+        /// <param name="node">OzSingleLinkedListNode from tree</param>
         /// <returns>Rank of this node</returns>
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public int Rank(OrderStatTreeNode<T> node)

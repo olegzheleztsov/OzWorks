@@ -80,7 +80,7 @@ namespace Oz.Algorithms.DataStructures
         /// <summary>
         ///     Convenient method that allocates fibonacci node for the heap
         /// </summary>
-        /// <param name="data">Node data</param>
+        /// <param name="data">OzSingleLinkedListNode data</param>
         /// <returns>New node for the heap</returns>
         private IDoubleLinkedNode<T> FibonacciNodeAllocator(T data)
         {
@@ -89,9 +89,9 @@ namespace Oz.Algorithms.DataStructures
         }
 
         /// <summary>
-        ///     Insert node to the heap. Works with amortized time O(1)
+        ///     InsertFirst node to the heap. Works with amortized time O(1)
         /// </summary>
-        /// <param name="node">Node to be inserted</param>
+        /// <param name="node">OzSingleLinkedListNode to be inserted</param>
         public void Insert(FibonacciHeapNode<T> node)
         {
             node.Degree = 0;
@@ -355,8 +355,8 @@ namespace Oz.Algorithms.DataStructures
         /// <summary>
         ///     Cut element from its parent
         /// </summary>
-        /// <param name="cutNode">Node to be cut</param>
-        /// <param name="parentNode">Parent Node</param>
+        /// <param name="cutNode">OzSingleLinkedListNode to be cut</param>
+        /// <param name="parentNode">Parent OzSingleLinkedListNode</param>
         private void Cut(FibonacciHeapNode<T> cutNode, FibonacciHeapNode<T> parentNode)
         {
             parentNode.Child.Delete(cutNode);
@@ -369,7 +369,7 @@ namespace Oz.Algorithms.DataStructures
         /// <summary>
         ///     Cascading cut the node
         /// </summary>
-        /// <param name="targetNode">Node to be cutted</param>
+        /// <param name="targetNode">OzSingleLinkedListNode to be cutted</param>
         private void CascadingCut(FibonacciHeapNode<T> targetNode)
         {
             var z = targetNode.Parent;

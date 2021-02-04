@@ -60,5 +60,37 @@ namespace Oz.Algorithms.Matrices
             return Multiply(sequence, low, sequence[low, high], matrices)
                    * Multiply(sequence, sequence[low, high] + 1, high, matrices);
         }
+
+        public static float[,] ConvertToFloatArray2D(this byte[,] matrix)
+        {
+            var rows = matrix.GetUpperBound(0) + 1;
+            var columns = matrix.GetUpperBound(1) + 1;
+            var result = new float[rows, columns];
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < columns; j++)
+                {
+                    result[i, j] = matrix[i, j];
+                }
+            }
+
+            return result;
+        }
+
+        public static int[,] ConvertToIntegerArray2D(this float[,] matrix)
+        {
+            var rows = matrix.GetUpperBound(0) + 1;
+            var columns = matrix.GetUpperBound(1) + 1;
+            var result = new int[rows, columns];
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < columns; j++)
+                {
+                    result[i, j] = (int)matrix[i, j];
+                }
+            }
+
+            return result;
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace Oz.Algorithms.DataStructures
 
         public void Push(T value)
         {
-            _linkedList.Insert(value);
+            _linkedList.InsertFirst(value);
         }
 
         public bool IsEmpty => _linkedList.IsEmpty;

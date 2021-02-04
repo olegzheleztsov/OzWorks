@@ -4,22 +4,101 @@ using System.Collections.Generic;
 
 namespace Oz.Algorithms.DataStructures
 {
+    /// <summary>
+    ///     Single linked list with pointers to head and tail
+    /// </summary>
+    /// <typeparam name="T">Type of node's data</typeparam>
     public class OzSingleLinkedList<T> : IEnumerable<T>
     {
-        private Node _head;
-        private Node _last;
-        
-        public Node Search(Func<T, bool> condition)
-        {
-            var current = _head;
-            while (current != null && !condition(current.Data))
-            {
-                current = current.Next;
-            }
+        private OzSingleLinkedListNode<T> _head;
+        private OzSingleLinkedListNode<T> _last;
 
-            return current;
+        /// <summary>
+        ///     Head node value (T default if list is empty)
+        /// </summary>
+        public T HeadValue => _head != null ? _head.Data : default;
+
+        /// <summary>
+        ///     Is list empty?
+        /// </summary>
+        public bool IsEmpty => _head == null;
+
+        public bool IsLast(OzSingleLinkedListNode<T> node) => node == _last;
+
+        /// <summary>
+        ///     Count of elements in the list
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                if (IsEmpty)
+                {
+                    return 0;
+                }
+
+                var current = _head;
+                var count = 1;
+
+                while (current.Next != null)
+                {
+                    count++;
+                    current = current.Next;
+                }
+
+                return count;
+            }
         }
 
+
+        /// <summary>
+        ///     Enumerates list elements
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<T> GetEnumerator()
+        {
+            var current = _head;
+            while (current != null)
+            {
+                yield return current.Data;
+                current = current.Next;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        ///     Search first node that conform to condition
+        /// </summary>
+        /// <param name="condition">Search condition</param>
+        /// <returns>List node</returns>
+        public OzSingleLinkedListNode<T> Search(Func<T, bool> condition)
+        {
+            var found = false;
+            var current = _head;
+            while (current != null)
+            {
+                if (!condition(current.Data))
+                {
+                    current = current.Next;
+                }
+                else
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            return found ? current : null;
+        }
+
+        /// <summary>
+        ///     Delete's first node that conforms to condition
+        /// </summary>
+        /// <param name="condition"></param>
         public void Delete(Func<T, bool> condition)
         {
             var node = Search(condition);
@@ -29,42 +108,60 @@ namespace Oz.Algorithms.DataStructures
             }
         }
 
+        public void Clear()
+        {
+            while (!IsEmpty)
+            {
+                Delete(obj => true);
+            }
+        }
+
+        /// <summary>
+        ///     Delete head of the list
+        /// </summary>
         public void DeleteHead()
         {
             Delete(_head);
         }
 
-        public T HeadValue => _head != null ? _head.Data : default;
-
-        public bool IsEmpty => _head == null;
-
-        public void Insert(T data)
+        /// <summary>
+        ///     Insert new node into head position (from list start)
+        /// </summary>
+        /// <param name="data">Node's data</param>
+        public void InsertFirst(T data)
         {
-            var newNode = new Node(data) {Next = _head};
+            var newNode = new OzSingleLinkedListNode<T>(data) {Next = _head};
             _head = newNode;
-            
+
             if (newNode.Next == null)
             {
                 _last = newNode;
             }
         }
 
+        /// <summary>
+        ///     Insert node into list end
+        /// </summary>
+        /// <param name="data">Node's data</param>
         public void InsertLast(T data)
         {
-            
             if (_last == null)
             {
-                Insert(data);
+                InsertFirst(data);
             }
             else
             {
-                var newNode = new Node(data);
+                var newNode = new OzSingleLinkedListNode<T>(data);
                 _last.Next = newNode;
                 _last = newNode;
             }
         }
 
-        public void Delete(Node node)
+        /// <summary>
+        ///     Delete's node from list by node reference
+        /// </summary>
+        /// <param name="node">Node to delete</param>
+        public void Delete(OzSingleLinkedListNode<T> node)
         {
             if (node == _head)
             {
@@ -73,7 +170,7 @@ namespace Oz.Algorithms.DataStructures
             else
             {
                 var current = _head;
-                Node previous = null;
+                OzSingleLinkedListNode<T> previous = null;
                 while (current != null && current != node)
                 {
                     previous = current;
@@ -88,34 +185,14 @@ namespace Oz.Algorithms.DataStructures
             }
         }
 
-        public class Node
-        {
-            public Node() : this(default)
-            {
-            }
-
-            public Node(T data)
-            {
-                Data = data;
-            }
-
-            public Node Next { get; set; }
-            public T Data { get; }
-        }
-
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerable<OzSingleLinkedListNode<T>> EnumerateNodes()
         {
             var current = _head;
             while (current != null)
             {
-                yield return current.Data;
+                yield return current;
                 current = current.Next;
             }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

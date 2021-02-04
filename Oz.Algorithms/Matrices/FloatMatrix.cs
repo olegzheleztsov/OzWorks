@@ -6,6 +6,7 @@ namespace Oz.Algorithms.Matrices
 {
     public class FloatMatrix : MatrixBase<float>, IEquatable<FloatMatrix>, ICloneable
     {
+        public FloatMatrix(byte[,] array2D) : base(array2D.ConvertToFloatArray2D()) {}
         public FloatMatrix(float[,] array2D) : base(array2D)
         {
         }
