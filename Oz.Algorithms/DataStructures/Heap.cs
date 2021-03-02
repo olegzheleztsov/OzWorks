@@ -19,8 +19,6 @@ namespace Oz.Algorithms.DataStructures
             _comparison = comparison;
         }
 
-        public int Key(int index) => _keySelector(_data[index]);
-
         public int HeapSize
         {
             get => _heapSize;
@@ -38,6 +36,7 @@ namespace Oz.Algorithms.DataStructures
                     {
                         newArraySize = 1;
                     }
+
                     while (newArraySize < value)
                     {
                         newArraySize <<= 1;
@@ -65,12 +64,20 @@ namespace Oz.Algorithms.DataStructures
 
         public IEnumerator<T> GetEnumerator()
         {
-            return ((IEnumerable<T>) _data).GetEnumerator();
+            for (var i = 0; i < HeapSize; i++)
+            {
+                yield return _data[i];
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public int Key(int index)
+        {
+            return _keySelector(_data[index]);
         }
 
         private void ResizeArrayToSize(int newSize)

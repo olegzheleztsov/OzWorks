@@ -1,32 +1,45 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Oz.Algorithms.Graph
 {
-    public class AdjacentListGraph<T> : IGraph<T>
+    public abstract class AdjacentListGraph<T> : IGraph<T>
     {
-        public AdjacentListGraph(bool directed) :
-            this(new T[] { }, new (int from, int to)[] { }, directed)
+        protected AdjacentListGraph(IReadOnlyList<T> vertices, IEdge<T>[] edges, Func<GraphVertex<T>, GraphVertex<T>, int> weightFunc)
         {
+            WeightFunc = weightFunc;
+            Edges = edges;
+            SetupVertices(vertices);
         }
 
-        public AdjacentListGraph(T[] vertices, IEnumerable<(int from, int to)> edges, bool directed)
+        protected AdjacentListGraph(IReadOnlyList<GraphVertex<T>> vertices, IEdge<T>[] edges,
+            Func<GraphVertex<T>, GraphVertex<T>, int> weightFunc)
         {
-            IsDirected = directed;
-            Setup(vertices, edges);
-        }
+            WeightFunc = weightFunc;
+            
+            foreach (var v in vertices)
+            {
+                (v as LinkedGraphVertex<T>)?.LinkedVertices.Clear();
+            }
 
-        private AdjacentListGraph(LinkedGraphVertex<T>[] vertices, bool directed)
-        {
-            Vertices = vertices;
-            IsDirected = directed;
+            Vertices = vertices.ToArray();
+            Edges = edges;
+            UpdateEdges();
         }
-
-        public LinkedGraphVertex<T>[] Vertices { get; private set; }
+        
+        public GraphVertex<T>[] Vertices { get; private set; }
 
         public int VertexCount => Vertices.Length;
+        public int EdgeCount => Edges.Count();
+
+        public IEdge<T>[] Edges { get; }
+
+        public abstract IEdge<T> GetEdge(int fromIndex, int toIndex);
+        
+        public Func<GraphVertex<T>, GraphVertex<T>, int> WeightFunc { get; protected set; }
 
         public IEnumerable<GraphVertex<T>> AdjacentVertices(GraphVertex<T> vertex)
         {
@@ -40,64 +53,33 @@ namespace Oz.Algorithms.Graph
             return linkedVertex.LinkedVertices;
         }
 
-        public AdjacentListGraph<T> Transposed
+        public GraphVertex<T> GetVertex(int index)
         {
-            get
-            {
-                if (!IsDirected)
-                {
-                    throw new InvalidOperationException("Impossible transpose non direct graph");
-                }
-
-                var transposedEdges = new List<(int from, int to)>();
-                for (var i = 0; i < Vertices.Length; i++)
-                {
-                    transposedEdges.AddRange(Vertices[i].LinkedVertices.Select(vertex => (vertex.Index, i)));
-                }
-
-                return new AdjacentListGraph<T>(Vertices.Select(v => v.Data).ToArray(),
-                    transposedEdges, IsDirected);
-            }
+            return Vertices[index];
         }
 
-        public IGraph<T> TransposedGraph => Transposed;
 
-        public void Setup(T[] vertices, IEnumerable<(int from, int to)> edges)
+        public IEnumerator<GraphVertex<T>> GetEnumerator()
         {
-            Vertices = new LinkedGraphVertex<T>[vertices.Length];
-
-            for (var i = 0; i < vertices.Length; i++)
-            {
-                Vertices[i] = new LinkedGraphVertex<T>(i, vertices[i]);
-            }
-            
-            foreach (var (fromIndex, toIndex) in edges)
-            {
-                Vertices[fromIndex].AddLinkedVertex(Vertices[toIndex]);
-                if (!IsDirected)
-                {
-                    Vertices[toIndex].AddLinkedVertex(Vertices[fromIndex]);
-                }
-            }
+            return ((IEnumerable<GraphVertex<T>>) Vertices).GetEnumerator();
         }
 
-        public bool IsDirected { get; }
-        
-        public IEnumerable<GraphVertex<T>> GraphVertices => Vertices;
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
-        public GraphVertex<T> GetVertex(int index) => Vertices[index];
-        
-        
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
             for (var i = 0; i < Vertices.Length; i++)
             {
-                stringBuilder.Append(!Vertices[i].LinkedVertices.IsEmpty ? $"{i} -> " : $"{i}:");
+                stringBuilder.Append(
+                    !((LinkedGraphVertex<T>) Vertices[i]).LinkedVertices.IsEmpty ? $"{i} -> " : $"{i}:");
 
-                foreach (var linkedVertex in Vertices[i].LinkedVertices.EnumerateNodes())
+                foreach (var linkedVertex in ((LinkedGraphVertex<T>) Vertices[i]).LinkedVertices.EnumerateNodes())
                 {
-                    stringBuilder.Append(!Vertices[i].LinkedVertices.IsLast(linkedVertex)
+                    stringBuilder.Append(!((LinkedGraphVertex<T>) Vertices[i]).LinkedVertices.IsLast(linkedVertex)
                         ? $"{linkedVertex.Data.Index} -> "
                         : $"{linkedVertex.Data.Index}");
                 }
@@ -106,6 +88,27 @@ namespace Oz.Algorithms.Graph
             }
 
             return stringBuilder.ToString();
+        }
+
+        private void SetupVertices(IReadOnlyList<T> vertices)
+        {
+            Vertices = new GraphVertex<T>[vertices.Count];
+
+            for (var i = 0; i < vertices.Count; i++)
+            {
+                Vertices[i] = new LinkedGraphVertex<T>(i, vertices[i]);
+            }
+
+            UpdateEdges();
+        }
+
+        private void UpdateEdges()
+        {
+            foreach (var edge in Edges)
+            {
+                edge.FromVertex = GetVertex(edge.FromIndex);
+                edge.ToVertex = GetVertex(edge.ToIndex);
+            }
         }
     }
 }

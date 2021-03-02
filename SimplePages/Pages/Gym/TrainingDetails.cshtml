@@ -5,5 +5,12 @@
     <div class="row">
         <partial name="_TrainingView" model="@Model.TrainingViewModel"/>
     </div>
-    <a class="btn btn-primary" asp-page="EditTraining" asp-route-id="@Model.TrainingViewModel.Id">Edit Training</a>
+    <div class="row">
+        <div class="col-md-12 justify-content-md-end">
+            <a class="btn btn-primary" asp-page="EditTraining" 
+               asp-route-id="@Model.TrainingViewModel.Id">Edit Training</a>
+            <a class="btn btn-secondary" asp-page="AddTraining">Add Training Day</a>
+        </div>
+    </div>
+
 </div>

@@ -10,15 +10,13 @@
         <span asp-validation-for="Training.Date"></span>
     </div>
     
-    @* @if (Model.Training != null) *@
-    @* { *@
-    @*     foreach (var exercise in Model.Training.Exercises) *@
-    @*     { *@
-    @*         <partial name="_AddExercise" model="exercise"/> *@
-    @*     } *@
-    @* } *@
-    @* <a class="btn btn-secondary" asp-page-handler="AddExercise" asp-page="AddTraining">Add Exercise</a> *@
-    
-    <input type="submit" value="Add Training">
+    <div class="row">
+        <div class="col justify-content-sm-end">
+            <input type="submit" value="Add Training">
+        </div>
+        <div class="col justify-content-sm-end">
+            <a class="btn btn-secondary" asp-page="Trainings">Return to trainings</a>
+        </div>
+    </div>
     
 </form>

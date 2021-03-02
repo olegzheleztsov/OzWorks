@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Oz.Algorithms.Matrices
 {
@@ -37,6 +38,14 @@ namespace Oz.Algorithms.Matrices
             _array = array;
         }
 
+        public MatrixBase(int rows, int columns, T initialValue)
+            : this(rows, columns, new T[rows * columns])
+        {
+            Array.Fill(_array, initialValue);
+        }
+
+        public bool IsSquareMatrix => Rows == Columns;
+        
         public T this[int row, int column]
         {
             get
@@ -102,6 +111,22 @@ namespace Oz.Algorithms.Matrices
             }
 
             return array2d;
+        }
+        
+        public override string ToString()
+        {
+            var stringBuilder = new StringBuilder();
+            for (var i = 0; i < Rows; i++)
+            {
+                for (var j = 0; j < Columns; j++)
+                {
+                    stringBuilder.Append(j == Columns - 1 ? $"{this[i, j]}" : $"{this[i, j]}, ");
+                }
+
+                stringBuilder.AppendLine();
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }

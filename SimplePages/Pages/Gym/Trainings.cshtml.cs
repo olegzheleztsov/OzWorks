@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -28,6 +29,11 @@ namespace SimplePages.Pages.Gym
             var trainings = await _gymService.GetAsync().ConfigureAwait(false);
             TrainingCollection = _mapper.Map<List<Training>, List<TrainingViewModel>>(trainings).OrderByDescending(tr => tr.Date).ToList();
             return Page();
+        }
+
+        public int GetNumberOfDaysPassed(TrainingViewModel trainingViewModel)
+        {
+            return (DateTime.Now - trainingViewModel.Date).Days;
         }
     }
 }

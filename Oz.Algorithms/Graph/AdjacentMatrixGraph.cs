@@ -1,104 +1,81 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Oz.Algorithms.Matrices;
 
 namespace Oz.Algorithms.Graph
 {
-    public class AdjacentMatrixGraph<T> : IGraph<T>
+    public abstract class AdjacentMatrixGraph<T> : IGraph<T>
     {
-        private byte[,] _adjacencyMatrix;
+        protected byte[,] AdjacencyMatrix;
 
-        private GraphVertex<T>[] _vertices;
-
-        public AdjacentMatrixGraph(bool directed) :
-            this(new T[] { }, new (int from, int to)[] { }, directed)
+        protected AdjacentMatrixGraph(T[] vertices, IEdge<T>[] edges, Func<GraphVertex<T>, GraphVertex<T>, int> weightFunc)
         {
-        }
-
-        public AdjacentMatrixGraph(T[] vertices, IEnumerable<(int from, int to)> edges, bool directed)
-        {
-            IsDirected = directed;
-            Setup(vertices, edges);
-        }
-
-        private AdjacentMatrixGraph(T[] vertices, byte[,] adjacencyMatrix, bool directed)
-        {
-            IsDirected = directed;
+            WeightFunc = weightFunc;
+            Edges = edges;
             SetupVertices(vertices);
-            _adjacencyMatrix = adjacencyMatrix;
         }
 
-        public AdjacentMatrixGraph<T> Transposed
-        {
-            get
-            {
-                if (!IsDirected)
-                {
-                    throw new InvalidOperationException("Impossible transpose non direct graph");
-                }
+        public IEdge<T>[] Edges { get; }
 
-                var transposedMatrix = new MatrixBase<byte>(_adjacencyMatrix).Transposed;
-                return new AdjacentMatrixGraph<T>(_vertices.Select(v => v.Data).ToArray(), transposedMatrix,
-                    true);
-            }
-        }
+        public int EdgeCount => Edges.Length;
 
-        public IGraph<T> TransposedGraph => Transposed;
+        public abstract IEdge<T> GetEdge(int fromIndex, int toIndex);
 
         public GraphVertex<T> GetVertex(int index)
         {
-            return _vertices[index];
+            return Vertices[index];
         }
 
-        public int VertexCount => _vertices.Length;
+        public int VertexCount => Vertices.Length;
 
         public IEnumerable<GraphVertex<T>> AdjacentVertices(GraphVertex<T> vertex)
         {
             return GetAdjacentVertices(vertex.Index);
         }
 
-        public void Setup(T[] vertices, IEnumerable<(int from, int to)> edges)
-        {
-            SetupVertices(vertices);
-            SetupEdges(edges);
-        }
+        public Func<GraphVertex<T>, GraphVertex<T>, int> WeightFunc { get; protected set; }
 
-        public bool IsDirected { get; }
-        public IEnumerable<GraphVertex<T>> GraphVertices => _vertices;
+        public GraphVertex<T>[] Vertices { get; private set; }
 
-        private void SetupVertices(T[] vertices)
+        public IEnumerator<GraphVertex<T>> GetEnumerator()
         {
-            _vertices = new GraphVertex<T>[vertices.Length];
-            for (var i = 0; i < vertices.Length; i++)
+            foreach (var vertex in Vertices)
             {
-                _vertices[i] = new GraphVertex<T>(i, vertices[i]);
+                yield return vertex;
             }
         }
 
-        private void SetupEdges(IEnumerable<(int from, int to)> edges)
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            _adjacencyMatrix = new byte[_vertices.Length, _vertices.Length];
-            foreach (var (from, to) in edges)
+            return GetEnumerator();
+        }
+
+        private void SetupVertices(T[] vertices)
+        {
+            Vertices = new GraphVertex<T>[vertices.Length];
+            for (var i = 0; i < vertices.Length; i++)
             {
-                _adjacencyMatrix[from, to] = 1;
-                if (!IsDirected)
-                {
-                    _adjacencyMatrix[to, from] = 1;
-                }
+                Vertices[i] = new GraphVertex<T>(i, vertices[i]);
+            }
+
+            foreach (var edge in Edges)
+            {
+                edge.FromVertex = GetVertex(edge.FromIndex);
+                edge.ToVertex = GetVertex(edge.ToIndex);
             }
         }
 
         private IEnumerable<GraphVertex<T>> GetAdjacentVertices(int vertexIndex)
         {
-            return _vertices.Where((t, i) => _adjacencyMatrix[vertexIndex, i] > 0);
+            return Vertices.Where((_, i) => AdjacencyMatrix[vertexIndex, i] > 0);
         }
 
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
-            for (var i = 0; i < _vertices.Length; i++)
+            for (var i = 0; i < Vertices.Length; i++)
             {
                 var adjacentVertices = GetAdjacentVertices(i).ToArray();
                 stringBuilder.Append(adjacentVertices.Length > 0 ? $"{i} -> " : $"{i}:");

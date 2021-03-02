@@ -52,7 +52,10 @@ namespace SimplePages.Pages.Gym
             training.Exercises.Add(exercise);
             await _gymService.UpdateAsync(TrainingId, training);
 
-            return RedirectToPage("Trainings");
+            return RedirectToPage("TrainingDetails", new
+            {
+                id = TrainingId
+            });
         }
     }
 }

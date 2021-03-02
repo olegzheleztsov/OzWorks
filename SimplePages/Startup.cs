@@ -48,7 +48,10 @@ namespace SimplePages
             services.AddScoped<IGymService, GymService>();
             
             services.AddScoped<IZooService, ZooService>();
-            services.AddRazorPages();
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AddPageRoute("/gym/trainings", "/gym");
+            });
             services.AddScoped<IExerciseNames, ExerciseNames>();
             services.AddScoped<IViewHelperService, ViewHelperService>();
             services.AddScoped(provider => new MapperConfiguration(cfg =>
@@ -78,7 +81,11 @@ namespace SimplePages
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapRazorPages(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
         }
+        
     }
 }

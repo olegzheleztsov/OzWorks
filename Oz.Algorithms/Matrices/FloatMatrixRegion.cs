@@ -15,7 +15,6 @@
 
         public static void AddRegions(FloatMatrixRegion first, FloatMatrixRegion second, FloatMatrixRegion result)
         {
-            var n = first.Rows;
             for (var i = 0; i < first.Rows; i++)
             {
                 for (var j = 0; j < first.Columns; j++)
@@ -27,7 +26,6 @@
 
         public static void SubtractRegions(FloatMatrixRegion first, FloatMatrixRegion second, FloatMatrixRegion result)
         {
-            var n = first.Rows;
             for (var i = 0; i < first.Rows; i++)
             {
                 for (var j = 0; j < first.Columns; j++)

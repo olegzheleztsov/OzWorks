@@ -2,13 +2,13 @@
 
 namespace Oz.Algorithms.DataStructures
 {
-    public class PriorityQueue<T>
+    public class MaxPriorityQueue<T>
     {
-        private readonly Heap<PriorityNode> _heap;
+        private readonly Heap<PriorityNode<T>> _heap;
 
-        public PriorityQueue()
+        public MaxPriorityQueue()
         {
-            _heap = new Heap<PriorityNode>(new PriorityNode[] { }, node => node.Priority,
+            _heap = new Heap<PriorityNode<T>>(new PriorityNode<T>[] { }, node => node.Priority,
                 Comparisions.StandardComparision);
         }
 
@@ -61,20 +61,10 @@ namespace Oz.Algorithms.DataStructures
         public void Insert(T value, int priority)
         {
             _heap.HeapSize++;
-            _heap[_heap.HeapSize - 1] = new PriorityNode(int.MinValue, value);
+            _heap[_heap.HeapSize - 1] = new PriorityNode<T>(int.MinValue, value);
             IncreasePriority(_heap.HeapSize - 1, priority);
         }
 
-        private class PriorityNode
-        {
-            public PriorityNode(int priority, T data)
-            {
-                Priority = priority;
-                Data = data;
-            }
 
-            public int Priority { get; set; }
-            public T Data { get; }
-        }
     }
 }

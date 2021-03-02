@@ -1,46 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Oz.Algorithms;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 using Oz.Algorithms.DataStructures;
+using Oz.Config;
 using Oz.Graph;
-using Oz.RecordsSample;
-using static System.Console;
 
-TestConnectedComponents();
+//TestSingleLinkedList();
 
-void TestConnectedComponents()
-{
-    var test = new GraphCase();
-    test.TestConnectedComponents();
-}
+// void TestSingleLinkedList()
+// {
+//     OzSingleLinkedList<int> numbers = new OzSingleLinkedList<int>();
+//     numbers.InsertLastRange(new List<int>() {1, 2, 3});
+//     Console.WriteLine(string.Join(" ", numbers));
+//     numbers.Clear();
+//     numbers.InsertLastRange(new []{4, 5});
+//     Console.WriteLine(string.Join(" ", numbers));
+// }
 
-void TestTopologicalSort()
-{
-    var graphCase = new GraphCase();
-    graphCase.RunTopologicalSort();
-}
+GraphCase graphCase = new GraphCase();
+graphCase.SlowAllPairsShortestPaths();
 
-void TestDfs()
-{
-    var graphCase = new GraphCase();
-    graphCase.RunDfsOnListGraph();
-    Console.WriteLine("-----------------");
-    graphCase.RunDfsOnMatrixGraph();
-}
-
-void TestBfs()
-{
-    var graphCase = new GraphCase();
-    graphCase.RunBfs();
-    WriteLine("Nex graph:");
-    graphCase.RunBfsOnMatrixGraph();   
-}
-
-void TestPathFinding()
-{
-    var graphCase = new GraphCase();
-    graphCase.VerifyPathFinding();
-}
-
+// Initialize();
+//
+// static void Initialize()
+// {
+//     var builder = new ConfigurationBuilder()
+//         .SetBasePath(Directory.GetCurrentDirectory())
+//         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+//         .AddUserSecrets<CityGraphGenerator>()
+//         .AddEnvironmentVariables();
+//     IConfigurationRoot configurationRoot = builder.Build();
+//     CitiesConfig citiesConfig = new CitiesConfig();
+//     configurationRoot.GetSection("Cities").Bind(citiesConfig);
+//     
+//     Console.WriteLine($"Path: {citiesConfig.WorldCitiesFilePath}, File Size: {new FileInfo(citiesConfig.WorldCitiesFilePath).Length}");
+// }
+//

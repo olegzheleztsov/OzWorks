@@ -23,8 +23,6 @@ namespace Oz.Algorithms.DataStructures
         /// </summary>
         public bool IsEmpty => _head == null;
 
-        public bool IsLast(OzSingleLinkedListNode<T> node) => node == _last;
-
         /// <summary>
         ///     Count of elements in the list
         /// </summary>
@@ -70,6 +68,11 @@ namespace Oz.Algorithms.DataStructures
             return GetEnumerator();
         }
 
+        public bool IsLast(OzSingleLinkedListNode<T> node)
+        {
+            return node == _last;
+        }
+
         /// <summary>
         ///     Search first node that conform to condition
         /// </summary>
@@ -93,6 +96,11 @@ namespace Oz.Algorithms.DataStructures
             }
 
             return found ? current : null;
+        }
+
+        public bool Contains(Func<T, bool> condition)
+        {
+            return Search(condition) != null;
         }
 
         /// <summary>
@@ -157,6 +165,23 @@ namespace Oz.Algorithms.DataStructures
             }
         }
 
+        public void InsertLastRange(IEnumerable<T> datas)
+        {
+            foreach (var data in datas)
+            {
+                InsertLast(data);
+            }
+        }
+        
+
+        public void InsertFirstRange(IEnumerable<T> datas)
+        {
+            foreach (var data in datas)
+            {
+                InsertFirst(data);
+            }
+        }
+
         /// <summary>
         ///     Delete's node from list by node reference
         /// </summary>
@@ -165,7 +190,15 @@ namespace Oz.Algorithms.DataStructures
         {
             if (node == _head)
             {
-                _head = _head.Next;
+                if (_head == _last)
+                {
+                    _head = null;
+                    _last = null;
+                }
+                else
+                {
+                    _head = _head.Next;
+                }
             }
             else
             {

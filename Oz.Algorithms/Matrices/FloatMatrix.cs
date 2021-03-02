@@ -23,9 +23,7 @@ namespace Oz.Algorithms.Matrices
         {
             Array.Copy(other._array, _array, Rows * Columns);
         }
-
-        public bool IsSquareMatrix => Rows == Columns;
-
+        
         public object Clone()
         {
             return new FloatMatrix(this);

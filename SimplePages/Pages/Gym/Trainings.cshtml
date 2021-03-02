@@ -12,12 +12,21 @@
                 <div class="element-margin element-padding-16">
                     <div class="card element-margin element-padding-8">
                         <div class="card-body">
-                            <p class="p-0">Count of exercises: @(training.Exercises?.Count ?? 0)</p>
-                            <a class="btn btn-secondary element-margin"
-                               asp-page="TrainingDetails"
-                               asp-route-id="@(training.Id)">
-                                Details
-                            </a>
+                            <div class="row">
+                                <div class="col-md-4">
+                                                                <p class="p-0">Count of exercises: @(training.Exercises?.Count ?? 0)</p>
+                                                                <a class="btn btn-secondary element-margin"
+                                                                   asp-page="TrainingDetails"
+                                                                   asp-route-id="@(training.Id)">
+                                                                    Details
+                                                                </a>
+                                </div> 
+                                <div class="col">
+                                    <p class="p-2">Date: @(training.Date.ToLongDateString())</p>
+                                    <p class="p-3">Gym was @(Model.GetNumberOfDaysPassed(training)) day(s) ago.</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

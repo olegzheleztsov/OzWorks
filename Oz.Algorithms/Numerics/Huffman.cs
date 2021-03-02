@@ -21,7 +21,7 @@ namespace Oz.Algorithms.Numerics
                 throw new ArgumentException("Should be more than 2 characters in the alphabet");
             }
 
-            var priorityQueue = new PriorityQueue<HuffmanNode>();
+            var priorityQueue = new MaxPriorityQueue<HuffmanNode>();
             foreach (var characterInfo in _characterInfos)
             {
                 var node = new HuffmanNode(characterInfo);

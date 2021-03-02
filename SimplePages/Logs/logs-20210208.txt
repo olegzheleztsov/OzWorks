@@ -1,0 +1,45 @@
+2021-02-08 22:05:11.526 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-02-08 22:05:11.566 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-02-08 22:05:11.567 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-02-08 22:05:11.567 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-02-08 22:05:11.567 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages
+2021-02-08 22:14:35.995 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-02-08 22:14:36.019 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-02-08 22:14:36.019 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-02-08 22:14:36.019 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-02-08 22:14:36.019 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages
+2021-02-08 22:14:54.418 +02:00 [Error] Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware: An unhandled exception has occurred while executing the request.
+Microsoft.AspNetCore.Routing.Matching.AmbiguousMatchException: The request matched multiple endpoints. Matches: 
+
+/Gym/Trainings
+/Index
+   at Microsoft.AspNetCore.Routing.Matching.DefaultEndpointSelector.ReportAmbiguity(CandidateState[] candidateState)
+   at Microsoft.AspNetCore.Routing.Matching.DefaultEndpointSelector.ProcessFinalCandidates(HttpContext httpContext, CandidateState[] candidateState)
+   at Microsoft.AspNetCore.Routing.Matching.DefaultEndpointSelector.Select(HttpContext httpContext, CandidateState[] candidateState)
+   at Microsoft.AspNetCore.Routing.Matching.DefaultEndpointSelector.SelectAsync(HttpContext httpContext, CandidateSet candidateSet)
+   at Microsoft.AspNetCore.Routing.Matching.DfaMatcher.SelectEndpointWithPoliciesAsync(HttpContext httpContext, IEndpointSelectorPolicy[] policies, CandidateSet candidateSet)
+   at Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware.<Invoke>g__AwaitMatch|8_1(EndpointRoutingMiddleware middleware, HttpContext httpContext, Task matchTask)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-02-08 22:27:40.159 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-02-08 22:27:57.081 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-02-08 22:27:57.109 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-02-08 22:27:57.110 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-02-08 22:27:57.110 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-02-08 22:27:57.110 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages
+2021-02-08 22:28:45.913 +02:00 [Critical] Microsoft.AspNetCore.Server.Kestrel: Unable to start Kestrel.
+System.InvalidOperationException: A path base can only be configured using IApplicationBuilder.UsePathBase().
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.ParseAddress(String address, Boolean& https)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(IEnumerable`1 listenOptions, AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+2021-02-08 22:30:07.584 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-02-08 22:30:07.609 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-02-08 22:30:07.609 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-02-08 22:30:07.609 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-02-08 22:30:07.609 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages
+2021-02-08 22:35:19.743 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-02-08 22:35:19.772 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-02-08 22:35:19.773 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-02-08 22:35:19.773 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-02-08 22:35:19.773 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages

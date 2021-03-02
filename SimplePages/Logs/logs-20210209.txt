@@ -1,0 +1,153 @@
+2021-02-09 00:06:11.167 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-02-09 00:06:27.741 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-02-09 00:06:27.767 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-02-09 00:06:27.768 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-02-09 00:06:27.768 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-02-09 00:06:27.769 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages
+2021-02-09 00:09:35.312 +02:00 [Information] SimplePages.Pages.Gym.AddTraining: Posted training: {"Id":null,"Date":"2021-01-29T00:00:00","Exercises":null}
+2021-02-09 00:09:55.007 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:10:47.704 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Squats","Value":"20/20/20"} for training: 6021b69f81704dc92c38817c
+2021-02-09 00:11:05.404 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:12:40.644 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-02-09 00:12:54.927 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-02-09 00:12:54.947 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-02-09 00:12:54.947 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-02-09 00:12:54.947 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-02-09 00:12:54.947 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages
+2021-02-09 00:13:21.705 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:13:53.353 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Bench press","Value":"45/60/60"} for training: 6021b69f81704dc92c38817c
+2021-02-09 00:13:59.605 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:14:30.369 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Rear leg muscles in the simulator","Value":"25/25/25"} for training: 6021b69f81704dc92c38817c
+2021-02-09 00:14:32.324 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:15:00.797 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Seated Leg Curl","Value":"35/35/35"} for training: 6021b69f81704dc92c38817c
+2021-02-09 00:15:24.792 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:15:42.969 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Dumbbell breeding","Value":"7/7/7"} for training: 6021b69f81704dc92c38817c
+2021-02-09 00:15:46.643 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:16:01.269 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Breeding hands in the simulator","Value":"30/35/35"} for training: 6021b69f81704dc92c38817c
+2021-02-09 00:16:21.956 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:16:46.981 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Pull-ups on the bar","Value":"50/50/50"} for training: 6021b69f81704dc92c38817c
+2021-02-09 00:17:02.673 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:17:17.440 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":6,"Name":"Lying press","Value":"1"} for training: 6021b69f81704dc92c38817c
+2021-02-09 00:17:24.776 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b69f81704dc92c38817c
+2021-02-09 00:17:44.191 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Exercise bike","Value":null} for training: 6021b69f81704dc92c38817c
+2021-02-09 00:20:32.735 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-02-09 00:20:44.546 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-02-09 00:20:44.574 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-02-09 00:20:44.574 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-02-09 00:20:44.575 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-02-09 00:20:44.575 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages
+2021-02-09 00:21:19.194 +02:00 [Information] SimplePages.Pages.Gym.AddTraining: Posted training: {"Id":null,"Date":"2021-02-01T00:00:00","Exercises":null}
+2021-02-09 00:21:37.546 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b95fb44bba991c71fc20
+2021-02-09 00:21:51.716 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Squats","Value":"25/25/25"} for training: 6021b95fb44bba991c71fc20
+2021-02-09 00:21:53.769 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b95fb44bba991c71fc20
+2021-02-09 00:22:13.598 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Bench press","Value":"60/60/65"} for training: 6021b95fb44bba991c71fc20
+2021-02-09 00:22:15.933 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b95fb44bba991c71fc20
+2021-02-09 00:22:32.032 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Rear leg muscles in the simulator","Value":"25/25/30"} for training: 6021b95fb44bba991c71fc20
+2021-02-09 00:22:36.690 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b95fb44bba991c71fc20
+2021-02-09 00:22:58.074 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Seated Leg Curl","Value":"35/35/40"} for training: 6021b95fb44bba991c71fc20
+2021-02-09 00:23:00.636 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b95fb44bba991c71fc20
+2021-02-09 00:23:10.245 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Dumbbell breeding","Value":"7/8/8"} for training: 6021b95fb44bba991c71fc20
+2021-02-09 00:23:12.737 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b95fb44bba991c71fc20
+2021-02-09 00:23:28.320 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Breeding hands in the simulator","Value":"35/40/40"} for training: 6021b95fb44bba991c71fc20
+2021-02-09 00:23:35.903 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b95fb44bba991c71fc20
+2021-02-09 00:24:13.939 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Pull-ups on the bar","Value":"50/45/45"} for training: 6021b95fb44bba991c71fc20
+2021-02-09 00:24:19.479 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b95fb44bba991c71fc20
+2021-02-09 00:24:29.687 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":6,"Name":"Lying press","Value":"1"} for training: 6021b95fb44bba991c71fc20
+2021-02-09 00:24:31.016 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021b95fb44bba991c71fc20
+2021-02-09 00:24:59.687 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Exercise bike","Value":"4/5 + 1/6"} for training: 6021b95fb44bba991c71fc20
+2021-02-09 00:25:23.206 +02:00 [Information] SimplePages.Pages.Gym.AddTraining: Posted training: {"Id":null,"Date":"2021-02-03T00:00:00","Exercises":null}
+2021-02-09 00:26:22.248 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021ba53b44bba991c71fc21
+2021-02-09 00:26:34.959 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Squats","Value":"20/20/20"} for training: 6021ba53b44bba991c71fc21
+2021-02-09 00:26:37.005 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021ba53b44bba991c71fc21
+2021-02-09 00:26:50.104 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Bench press","Value":"60/60/60"} for training: 6021ba53b44bba991c71fc21
+2021-02-09 00:26:51.321 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021ba53b44bba991c71fc21
+2021-02-09 00:27:11.855 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Rear leg muscles in the simulator","Value":"30/30/30"} for training: 6021ba53b44bba991c71fc21
+2021-02-09 00:27:14.200 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021ba53b44bba991c71fc21
+2021-02-09 00:27:28.910 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Seated Leg Curl","Value":"35/35/35"} for training: 6021ba53b44bba991c71fc21
+2021-02-09 00:27:33.859 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021ba53b44bba991c71fc21
+2021-02-09 00:27:40.796 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Dumbbell breeding","Value":"7/7/7"} for training: 6021ba53b44bba991c71fc21
+2021-02-09 00:27:42.721 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021ba53b44bba991c71fc21
+2021-02-09 00:27:56.094 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Breeding hands in the simulator","Value":"35/35/35"} for training: 6021ba53b44bba991c71fc21
+2021-02-09 00:27:58.624 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021ba53b44bba991c71fc21
+2021-02-09 00:28:18.046 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Pull-ups on the bar","Value":"50/50/50"} for training: 6021ba53b44bba991c71fc21
+2021-02-09 00:28:23.715 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021ba53b44bba991c71fc21
+2021-02-09 00:28:30.949 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":6,"Name":"Lying press","Value":"1"} for training: 6021ba53b44bba991c71fc21
+2021-02-09 00:28:36.829 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021ba53b44bba991c71fc21
+2021-02-09 00:29:00.050 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Exercise bike","Value":"5/5"} for training: 6021ba53b44bba991c71fc21
+2021-02-09 00:29:15.971 +02:00 [Information] SimplePages.Pages.Gym.AddTraining: Posted training: {"Id":null,"Date":"2021-02-08T00:00:00","Exercises":null}
+2021-02-09 00:29:32.550 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:29:48.439 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Squats","Value":"25/25/25"} for training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:29:50.548 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:30:00.937 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Bench press","Value":"65/65/65"} for training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:30:02.295 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:30:11.772 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Rear leg muscles in the simulator","Value":"35/35/35"} for training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:30:13.107 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:30:23.678 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":0,"Name":"Seated Leg Curl","Value":"35/35/35"} for training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:30:28.872 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:30:35.924 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Dumbbell breeding","Value":"7/8/8"} for training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:30:37.039 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:30:54.382 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":1,"Name":"Breeding hands in the simulator","Value":"35/40/40"} for training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:31:02.068 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:31:12.206 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Pull-ups on the bar","Value":"45/45/45"} for training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:31:14.660 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:31:22.916 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":6,"Name":"Lying press","Value":"1"} for training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:31:26.702 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:32:10.138 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Exercise bike","Value":"3:50/5 + 1:10/6"} for training: 6021bb3bb44bba991c71fc22
+2021-02-09 00:35:16.522 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2021-02-09 00:35:29.942 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: https://localhost:5051
+2021-02-09 00:35:29.967 +02:00 [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5050
+2021-02-09 00:35:29.967 +02:00 [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2021-02-09 00:35:29.967 +02:00 [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2021-02-09 00:35:29.967 +02:00 [Information] Microsoft.Hosting.Lifetime: Content root path: D:\Development\OzWorks\SimplePages
+2021-02-09 00:36:31.412 +02:00 [Information] SimplePages.Pages.Gym.AddTraining: Posted training: {"Id":null,"Date":"2021-02-01T00:00:00","Exercises":null}
+2021-02-09 00:37:02.772 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:37:14.818 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":2,"Name":"Press the bar horizontal","Value":"40/45/45"} for training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:37:17.024 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:37:30.229 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":2,"Name":"Dumbbell breeding horizontal","Value":"16/16/16"} for training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:37:31.764 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:37:49.081 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":2,"Name":"Breeding hands in the simulator","Value":"35/35/35"} for training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:37:53.814 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:38:03.827 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":3,"Name":"Dumbbell curl","Value":"8/9/9"} for training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:38:05.429 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:38:21.030 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":3,"Name":"Barbell curl","Value":"5/7.5/7.5"} for training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:38:27.917 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:38:38.073 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Pull-ups on the bar","Value":"50/50/50"} for training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:38:46.132 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:38:51.688 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":6,"Name":"Lying press","Value":"1"} for training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:38:52.839 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:39:04.181 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Exercise bike","Value":"4/5 + 1/6"} for training: 6021bcef3e0a9b3ddcd4273d
+2021-02-09 00:39:49.775 +02:00 [Information] SimplePages.Pages.Gym.AddTraining: Posted training: {"Id":null,"Date":"2021-02-02T00:00:00","Exercises":null}
+2021-02-09 00:40:08.866 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:40:22.015 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":2,"Name":"Press the bar horizontal","Value":"45/45/45"} for training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:40:23.990 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:40:34.391 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":2,"Name":"Dumbbell breeding horizontal","Value":"16/16/16"} for training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:40:35.788 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:40:49.100 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":2,"Name":"Breeding hands in the simulator","Value":"35/35/40"} for training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:40:54.700 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:41:01.136 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":3,"Name":"Dumbbell curl","Value":"9/9/9"} for training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:41:03.076 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:41:15.915 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":3,"Name":"Barbell curl","Value":"7.5/7.5/7.5"} for training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:41:35.754 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:41:45.150 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Pull-ups on the bar","Value":"45/45/45"} for training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:41:49.693 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:41:57.625 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":6,"Name":"Lying press","Value":"1"} for training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:41:59.057 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:42:30.995 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Exercise bike","Value":"5:30/5 + 0:30/6"} for training: 6021bdb53e0a9b3ddcd4273e
+2021-02-09 00:42:56.933 +02:00 [Information] SimplePages.Pages.Gym.AddTraining: Posted training: {"Id":null,"Date":"2021-02-04T00:00:00","Exercises":null}
+2021-02-09 00:43:02.459 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:43:14.107 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":2,"Name":"Press the bar horizontal","Value":"40/45/45"} for training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:43:15.470 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:43:30.304 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":2,"Name":"Dumbbell breeding horizontal","Value":"16/16/16"} for training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:43:31.726 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:43:46.421 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":2,"Name":"Breeding hands in the simulator","Value":"35/35/40"} for training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:43:47.880 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:43:56.693 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":3,"Name":"Dumbbell curl","Value":"9/9/9"} for training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:43:59.838 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:44:09.836 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":3,"Name":"Barbell curl","Value":"5/5/5"} for training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:44:14.943 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:44:25.368 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Pull-ups on the bar","Value":"50/50/50"} for training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:44:35.477 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:44:40.607 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":6,"Name":"Lying press","Value":"1"} for training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:44:41.971 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Add exercise: to training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:44:54.105 +02:00 [Information] SimplePages.Pages.Gym.AddExercise: Posted exercise: {"BodyPart":7,"Name":"Exercise bike","Value":"4/5 + 1/6"} for training: 6021be703e0a9b3ddcd4273f
+2021-02-09 00:45:37.662 +02:00 [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
