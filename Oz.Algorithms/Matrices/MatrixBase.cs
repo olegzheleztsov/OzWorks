@@ -68,15 +68,11 @@ namespace Oz.Algorithms.Matrices
         {
             get
             {
-                if (Rows != Columns)
-                {
-                    throw new InvalidOperationException("Only square matrices can be transposed");
-                }
 
-                var result = new T[Rows, Columns];
-                for (var i = 0; i < Rows; i++)
+                var result = new T[Columns, Rows];
+                for (var i = 0; i < Columns; i++)
                 {
-                    for (var j = 0; j < Columns; j++)
+                    for (var j = 0; j < Rows; j++)
                     {
                         result[i, j] = this[j, i];
                     }
@@ -85,6 +81,8 @@ namespace Oz.Algorithms.Matrices
                 return result;
             }
         }
+        
+        
 
         private void AssertIndices(int row, int column)
         {

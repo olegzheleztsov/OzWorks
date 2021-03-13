@@ -1,4 +1,5 @@
 ﻿using System;
+using Oz.Algorithms.Matrices;
 
 namespace Oz.Algorithms
 {
@@ -28,6 +29,11 @@ namespace Oz.Algorithms
             }
 
             return 1;
+        }
+
+        public static bool Approximately(float first, float second, float eps = Eps)
+        {
+            return MathF.Abs(first - second) < eps;
         }
 
         public static bool IsPowerOf2(int value)

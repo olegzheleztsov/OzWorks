@@ -35,6 +35,7 @@ namespace Oz.Algorithms.Matrices
         {
             return new IntegerMatrix(this);
         }
+        
 
         public bool Equals(IntegerMatrix other)
         {
@@ -100,7 +101,11 @@ namespace Oz.Algorithms.Matrices
             {
                 throw new ArgumentException("Recursive multiplication allowed only between square matrices");
             }
-
+            if (!Util.IsPowerOf2(Rows))
+            {
+                throw new ArgumentException("Matrix should be  power of 2");
+            }
+            
             var first = new IntegerMatrixRegion(this, 0, 0, Rows, Columns);
             var second = new IntegerMatrixRegion(other, 0, 0, other.Rows, other.Columns);
             var resultMatrix = new IntegerMatrix(Rows, other.Columns);
@@ -114,6 +119,11 @@ namespace Oz.Algorithms.Matrices
             if (Rows != Columns || other.Rows != other.Columns || Rows != other.Rows)
             {
                 throw new ArgumentException("Recursive multiplication allowed only between square matrices");
+            }
+
+            if (!Util.IsPowerOf2(Rows))
+            {
+                throw new ArgumentException("Matrix should be  power of 2");
             }
 
             var first = new IntegerMatrixRegion(this, 0, 0, Rows, Columns);

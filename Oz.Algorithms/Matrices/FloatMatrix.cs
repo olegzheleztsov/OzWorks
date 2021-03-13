@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Oz.Algorithms.Matrices
@@ -93,7 +94,11 @@ namespace Oz.Algorithms.Matrices
             {
                 throw new ArgumentException("Recursive multiplication allowed only between square matrices");
             }
-
+            if (!Util.IsPowerOf2(Rows))
+            {
+                throw new ArgumentException("Matrix should be  power of 2");
+            }
+            
             var first = new FloatMatrixRegion(this, 0, 0, Rows, Columns);
             var second = new FloatMatrixRegion(other, 0, 0, other.Rows, other.Columns);
             var resultMatrix = new FloatMatrix(Rows, other.Columns);
@@ -109,6 +114,10 @@ namespace Oz.Algorithms.Matrices
             {
                 throw new ArgumentException("Recursive multiplication allowed only between square matrices");
             }
+            if (!Util.IsPowerOf2(Rows))
+            {
+                throw new ArgumentException("Matrix should be  power of 2");
+            }
 
             var first = new FloatMatrixRegion(this, 0, 0, Rows, Columns);
             var second = new FloatMatrixRegion(other, 0, 0, other.Rows, other.Columns);
@@ -121,7 +130,7 @@ namespace Oz.Algorithms.Matrices
 
         public static FloatMatrix operator *(FloatMatrix first, FloatMatrix second)
         {
-            if (first.IsSquareMatrix && second.IsSquareMatrix && first.Rows == second.Rows)
+            if (first.IsSquareMatrix && second.IsSquareMatrix && first.Rows == second.Rows && Util.IsPowerOf2(first.Rows))
             {
                 return MultiplyFast(first, second);
             }
@@ -205,6 +214,37 @@ namespace Oz.Algorithms.Matrices
 
             return stringBuilder.ToString();
         }
-        
+
+        public static FloatMatrix FromColumns(IList<float[]> columns)
+        {
+            var colCount = columns.Count();
+            var rowCount = columns.Max(c => c.Length);
+            var matrix = new FloatMatrix(rowCount, colCount);
+            for (var c = 0; c < colCount; c++)
+            {
+                var rCount = columns[c].Length;
+                for (var r = 0; r < rCount; r++)
+                {
+                    matrix[r, c] = columns[c][r];
+                }
+            }
+
+            return matrix;
+        }
+
+        public static FloatMatrix Identity(int size)
+        {
+            var matrix = new FloatMatrix(size, size);
+            for (int i = 0; i < size; i++)
+            {
+                matrix[i, i] = 1f;
+            }
+
+            return matrix;
+        }
+
+        public FloatMatrix Inverted => new LinearSolver().ComputeInvertedMatrix(this);
+
+        public FloatMatrix TransposedMatrix => new FloatMatrix(Transposed);
     }
 }
