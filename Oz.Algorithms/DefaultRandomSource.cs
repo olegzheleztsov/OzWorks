@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using System.Security.Cryptography;
 using Oz.Algorithms.Matrices;
 
@@ -6,7 +7,7 @@ namespace Oz.Algorithms
 {
     public class DefaultRandomSource : IRandomSource
     {
-        private static readonly RNGCryptoServiceProvider _provider = new RNGCryptoServiceProvider();
+        private static readonly RNGCryptoServiceProvider Provider = new RNGCryptoServiceProvider();
 
         [ThreadStatic] private static Random _random;
 
@@ -16,7 +17,7 @@ namespace Oz.Algorithms
             if (instance == null)
             {
                 var buffer = new byte[4];
-                _provider.GetBytes(buffer);
+                Provider.GetBytes(buffer);
                 _random = instance = new Random(BitConverter.ToInt32(buffer, 0));
             }
 
@@ -27,6 +28,47 @@ namespace Oz.Algorithms
         {
             var instance = GetRandomInstance();
             return instance.Next(minValue, maxValue);
+        }
+
+        public BigInteger RandomBigInteger(BigInteger minValue, BigInteger maxValue)
+        {
+            if (minValue > maxValue)
+            {
+                var buff = minValue;
+                minValue = maxValue;
+                maxValue = buff;
+            }
+
+            var offset = -minValue;
+            maxValue += offset;
+            var value = RandomInRangeFromZeroToPositive(maxValue) - offset;
+            return value;
+        }
+
+        private BigInteger RandomInRangeFromZeroToPositive(BigInteger max)
+        {
+            BigInteger value;
+            var bytes = max.ToByteArray();
+            byte zeroBitsMask = 0b00000000;
+            var mostSignificantByte = bytes[^1];
+            for (var i = 7; i >= 0; i--)
+            {
+                if ((mostSignificantByte & (0b1 << i)) != 0)
+                {
+                    var zeroBits = 7 - i;
+                    zeroBitsMask = (byte) (0b11111111 >> zeroBits);
+                    break;
+                }
+            }
+
+            do
+            {
+                GetRandomInstance().NextBytes(bytes);
+                bytes[^1] &= zeroBitsMask;
+                value = new BigInteger(bytes);
+            } while (value > max);
+
+            return value;
         }
 
         public double RandomDouble => GetRandomInstance().NextDouble();

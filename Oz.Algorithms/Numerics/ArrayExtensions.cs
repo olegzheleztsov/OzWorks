@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Oz.Algorithms.Numerics
@@ -68,6 +70,34 @@ namespace Oz.Algorithms.Numerics
 
         public static string GetStringRepresentation<T>(this T[] array)
             => array.GetStringRepresentation(element => element?.ToString() ?? string.Empty);
-        
+
+
+        public static T[] Extend<T>(this T[] array, int newLength, T defaultValue)
+        {
+            var newArray = new T[newLength];
+            for (var i = 0; i < newArray.Length; i++)
+            {
+                if (i < array.Length)
+                {
+                    newArray[i] = array[i];
+                }
+                else
+                {
+                    newArray[i] = defaultValue;
+                }
+            }
+
+            return newArray;
+        }
+
+        public static T[] GetEvenIndices<T>(this T[] array)
+        {
+            return array.Where((a, i) => i % 2 == 0).ToArray();
+        }
+
+        public static T[] GetOddIndices<T>(this T[] array)
+        {
+            return array.Where((a, i) => i % 2 != 0).ToArray();
+        }
     }
 }

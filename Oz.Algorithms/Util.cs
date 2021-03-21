@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using Oz.Algorithms.Matrices;
 
 namespace Oz.Algorithms
@@ -40,6 +41,22 @@ namespace Oz.Algorithms
         {
             return value != 0 && (value & (value - 1)) == 0;
         }
+
+        /// <summary>
+        /// Returns the next power of 2 that greater than number
+        /// </summary>
+        /// <param name="number">Input number</param>
+        /// <returns>Power of 2 that greater than input number</returns>
+        public static int NextPowerOf2(int number)
+        {
+            var curPower = 1;
+            while (curPower < number)
+            {
+                curPower *= 2;
+            }
+
+            return curPower;
+        }
         
         public static bool IsInfinity(int value)
         {
@@ -63,6 +80,11 @@ namespace Oz.Algorithms
             }
 
             return value.ToString();
+        }
+
+        public static Complex RootOfUnit(int n, int degree)
+        {
+            return new Complex(Math.Cos(2.0 * Math.PI * degree / n), Math.Sin(2.0 * Math.PI * degree / n));
         }
     }
 }
