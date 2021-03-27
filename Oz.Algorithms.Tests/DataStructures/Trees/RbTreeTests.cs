@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using FluentAssertions;
 using Oz.Algorithms.DataStructures.Trees;
 using Xunit;
 
@@ -63,6 +64,34 @@ namespace Oz.Algorithms.Tests.DataStructures.Trees
             n11.SetRight(n14);
             tree.SetRoot(n11);
             return tree;
+        }
+
+        [Fact]
+        public void Should_Correctly_Find_Successor_In_RbTree()
+        {
+            var tree = CreateTestTreeForInsert();
+            var searcher = BinaryTreeSearcherFactory
+                .Create(tree, n => (n as RbTreeNode<int>).Data, SearchMethod.Iterative);
+            var node = searcher.Search(2);
+            node.Should().NotBeNull();
+            var successor = tree.FindSuccessor(node);
+            successor.Should().NotBeNull();
+            (successor as RbTreeNode<int>).Data.Should().Be(5);
+
+            var n15 = searcher.Search(15);
+            tree.IsNull(tree.FindSuccessor(n15)).Should().BeTrue();
+        }
+
+        [Fact]
+        public void Should_Correctly_Find_Predecessor_In_RbTree()
+        {
+            var tree = CreateTestTreeForInsert();
+            var searcher = BinaryTreeSearcherFactory
+                .Create(tree, n => (n as RbTreeNode<int>).Data, SearchMethod.Iterative);
+            var node = searcher.Search(2);
+            node.Should().NotBeNull();
+            tree.FindPredecessor(node).Data.Should().Be(1);
+            tree.IsNull(tree.FindPredecessor(searcher.Search(1))).Should().BeTrue();
         }
 
         [Fact]

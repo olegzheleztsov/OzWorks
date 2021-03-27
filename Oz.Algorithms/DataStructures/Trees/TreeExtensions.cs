@@ -4,6 +4,41 @@ namespace Oz.Algorithms.DataStructures.Trees
 {
     public static class TreeExtensions
     {
+        public static ITreeNode Successor(this IBinaryTree tree, ITreeNode node)
+        {
+            if (!tree.IsNull(node.RightChild))
+            {
+                var minimumSearcher = TreeMinimumSearcherFactory.Create<ITreeNode>(tree, SearchMethod.Recursive);
+                return minimumSearcher.Minimum(node.RightChild);
+            }
+
+            var parent = node.ParentNode;
+            while (parent != null && !tree.IsNull(parent) && node == parent.RightChild)
+            {
+                node = parent;
+                parent = parent.ParentNode;
+            }
+
+            return parent;
+        }
+
+        public static ITreeNode Predecessor(this IBinaryTree tree, ITreeNode node)
+        {
+            if (!tree.IsNull(node.LeftChild))
+            {
+                return TreeMaximumSearcherFactory.Create(tree).Maximum(node.LeftChild);
+            }
+
+            var parent = node.ParentNode;
+            while (parent != null && !tree.IsNull(parent) && node == parent.LeftChild)
+            {
+                node = parent;
+                parent = parent.ParentNode;
+            }
+
+            return parent;
+        }
+        
         public static void TreeLeftRotate(this IBinaryTree tree, ITreeNode pivotNode)
         {
             var rotateNode = pivotNode.RightChild;

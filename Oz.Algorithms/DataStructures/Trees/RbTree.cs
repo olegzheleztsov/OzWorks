@@ -7,18 +7,17 @@ namespace Oz.Algorithms.DataStructures.Trees
     {
         private readonly Func<T, int> _keySelector;
         private RbTreeNode<T> _root;
-
+        private readonly RbTreeNode<T> _nil;
+        
         public RbTree(Func<T, int> keySelector)
         {
-            Nil = new RbTreeNode<T>(default);
-            Nil.LeftChild = Nil.RightChild = Nil;
-            _root = Nil;
+            _nil = new RbTreeNode<T>(default);
+            _nil.LeftChild = _nil.RightChild = _nil;
+            _root = _nil;
             _keySelector = keySelector;
         }
-
-        private RbTreeNode<T> Nil { get; }
-
-        public ITreeNode NullNode => Nil;
+        
+        public ITreeNode NullNode => _nil;
         public Func<object, int> KeySelector => obj => _keySelector((T) obj);
 
         public ITreeNode Root
@@ -30,13 +29,13 @@ namespace Oz.Algorithms.DataStructures.Trees
 
         public bool IsNull(ITreeNode node)
         {
-            return node == Nil;
+            return node == _nil;
         }
 
         public RbTreeNode<T> CreateNode(T data, TreeNodeColor color = TreeNodeColor.Black)
         {
             var node = new RbTreeNode<T>(data, color);
-            node.LeftChild = node.RightChild = Nil;
+            node.LeftChild = node.RightChild = _nil;
             return node;
         }
 
@@ -48,11 +47,11 @@ namespace Oz.Algorithms.DataStructures.Trees
         public void SetRoot(RbTreeNode<T> root)
         {
             _root = root;
-            _root.SetParent(Nil);
+            _root.SetParent(_nil);
         }
 
         /// <summary>
-        ///     Enumerates nodes who keys between minKey and maxKey
+        ///     Enumerates nodes which keys between minKey and maxKey
         /// </summary>
         /// <param name="minKey">Min key to enumerate</param>
         /// <param name="maxKey">Max key to enumerate</param>
@@ -99,5 +98,20 @@ namespace Oz.Algorithms.DataStructures.Trees
 
             return outputList;
         }
+
+        public RbTreeNode<T> FindSuccessor(ITreeNode node)
+            => this.Successor(node) as RbTreeNode<T>;
+
+        public RbTreeNode<T> FindPredecessor(ITreeNode node)
+            => this.Predecessor(node) as RbTreeNode<T>;
+
+        public ITreeSearcher<RbTreeNode<T>> CreateSearcher()
+            => BinaryTreeSearcherFactory.Create<RbTreeNode<T>>(this, node => KeySelector(node.Data), SearchMethod.Recursive);
+        
+        public ITreeMaximumSearcher<RbTreeNode<T>> CreateMaximumSearcher() 
+            => TreeMaximumSearcherFactory.Create<RbTreeNode<T>>(this);
+        
+        public ITreeMinimumSearcher<RbTreeNode<T>> CreateMinimumSearcher()
+            => TreeMinimumSearcherFactory.Create<RbTreeNode<T>>(this, SearchMethod.Recursive);
     }
 }

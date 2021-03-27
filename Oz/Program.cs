@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using Oz.Algorithms;
+using Oz.Algorithms.DataStructures.Trees;
 using Oz.Algorithms.Numerics;
 using Oz.Algorithms.Strings;
+using Oz.Nutshell;
 
 namespace Oz
 {
@@ -13,9 +15,41 @@ namespace Oz
     {
         public static void Main(string[] args)
         {
-            TestMatchRabinKarp(@"d:\development\match.txt", "war");
-            TestMatchFiniteAutomation(@"d:\development\match.txt", "war");
-            TestMatchKnuthMorrisPratt(@"d:\development\match.txt", "war");
+            AssembliesTests.PrintAlc();
+        }
+        
+        
+        
+
+        public record NodeData(int Value);
+        private static void TestSuccessorsInRbTree()
+        {
+            RbTree<NodeData> tree = new RbTree<NodeData>(data => data.Value);
+            var rndIntegers = Enumerable.Range(1, 10).ToArray().Shuffled();
+
+            foreach (var val in rndIntegers)
+            {
+                tree.Insert(tree.CreateNode(new NodeData(val)));
+            }
+
+            var searcher = tree.CreateSearcher();
+            var node1 = searcher.Search(1);
+            while (!tree.IsNull(node1))
+            {
+                Console.WriteLine(node1.Data.ToString());
+                node1 = tree.Successor(node1) as RbTreeNode<NodeData>;
+            }
+            Console.WriteLine("--------------------------------");
+
+            var n10 = searcher.Search(10);
+            while (!tree.IsNull(n10))
+            {
+                Console.WriteLine(n10.Data.ToString());
+                n10 = tree.Predecessor(n10) as RbTreeNode<NodeData>;
+            }
+            Console.WriteLine("---------------------");
+            Console.WriteLine($"Max: {tree.CreateMaximumSearcher().Maximum(tree.Root as RbTreeNode<NodeData>).Data}");
+            Console.WriteLine($"Min: {tree.CreateMinimumSearcher().Minimum().Data}");
         }
 
         private static void TestMatchKnuthMorrisPratt(string fileName, string pattern)

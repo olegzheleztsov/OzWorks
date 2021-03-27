@@ -263,7 +263,8 @@ namespace Oz.Algorithms.DataStructures.Trees
 
         private BinaryTreeNode<T> _MaximumRecursive(BinaryTreeNode<T> node)
         {
-            return node.RightChild == null ? node : _MaximumRecursive(node.RightChild as BinaryTreeNode<T>);
+            return node.RightChild == null  ? node : 
+                _MaximumRecursive(node.RightChild as BinaryTreeNode<T>);
         }
     }
 }
