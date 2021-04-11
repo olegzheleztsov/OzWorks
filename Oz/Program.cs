@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 using Oz.Algorithms;
 using Oz.Algorithms.DataStructures.Trees;
 using Oz.Algorithms.Numerics;
 using Oz.Algorithms.Strings;
+using Oz.LeetCode;
+using Oz.Misc;
 using Oz.Nutshell;
+using Oz.RecordsSample;
+using Oz.Rob;
 
 namespace Oz
 {
@@ -15,12 +20,12 @@ namespace Oz
     {
         public static void Main(string[] args)
         {
-            AssembliesTests.PrintAlc();
+            var diceStatistics = new DiceStatistics(1000000);
+            var results = diceStatistics.CollectNormalizedStatistics(200);
+            var drawer = new DiceStatisticsDrawer(results);
+            drawer.Draw();
         }
         
-        
-        
-
         public record NodeData(int Value);
         private static void TestSuccessorsInRbTree()
         {

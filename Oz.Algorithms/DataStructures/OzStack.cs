@@ -42,6 +42,9 @@ namespace Oz.Algorithms.DataStructures
             _array[_top] = value;
         }
 
+        public T Peek() 
+            => _array[_top];
+
         public T Pop()
         {
             if (IsEmpty)
