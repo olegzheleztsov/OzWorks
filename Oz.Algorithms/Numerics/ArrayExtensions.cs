@@ -99,5 +99,185 @@ namespace Oz.Algorithms.Numerics
         {
             return array.Where((a, i) => i % 2 != 0).ToArray();
         }
+
+        public static double Average(this double[] array)
+        {
+            if (array == null)
+            {
+                return 0.0;
+            }
+
+            if (array.Length == 0)
+            {
+                return 0.0;
+            }
+
+            var length = array.Length;
+            var sum = array.Sum();
+            return sum / length;
+        }
+
+        public static float Average(this float[] array)
+        {
+            if (array == null)
+            {
+                return 0.0F;
+            }
+
+            if (array.Length == 0)
+            {
+                return 0.0F;
+            }
+
+            var length = array.Length;
+            var sum = array.Sum();
+            return sum / length;
+        }
+
+        public static double Average(this int[] array)
+        {
+            if (array == null)
+            {
+                return 0.0;
+            }
+
+            if (array.Length == 0)
+            {
+                return 0.0;
+            }
+
+            var length = array.Length;
+            var sum = array.Sum();
+            return (double)sum / length;
+        }
+
+        public static double StdVariance(this double[] array)
+        {
+            if (array == null || array.Length == 0)
+            {
+                return 0.0;
+            }
+
+            var avg = array.Average();
+            var sum = array.Sum(element => (element - avg) * (element - avg));
+            return sum / array.Length;
+        }
+
+        public static float StdVariance(this float[] array)
+        {
+            if (array == null || array.Length == 0)
+            {
+                return 0.0F;
+            }
+
+            var avg = array.Average();
+            var sum = array.Sum(element => (element - avg) * (element - avg));
+            return sum / array.Length;
+        }
+
+        public static double StdVariance(this int[] array)
+        {
+            if (array == null || array.Length == 0)
+            {
+                return 0.0F;
+            }
+
+            var avg = array.Average();
+            var sum = array.Sum(element => (element - avg) * (element - avg));
+            return sum / array.Length;
+        }
+
+        public static double StdDev(this double[] array)
+        {
+            var stdVar = array.StdVariance();
+            return Util.ApproximatelyZero(stdVar) ? 0.0 : Math.Sqrt(stdVar);
+        }
+        
+        public static double StdDev(this float[] array)
+        {
+            var stdVar = array.StdVariance();
+            return Util.ApproximatelyZero(stdVar) ? 0.0 : Math.Sqrt(stdVar);
+        }
+        
+        public static double StdDev(this int[] array)
+        {
+            var stdVar = array.StdVariance();
+            return Util.ApproximatelyZero(stdVar) ? 0.0 : Math.Sqrt(stdVar);
+        }
+
+        public static double Median(this double[] array)
+        {
+            if (array == null || array.Length == 0)
+            {
+                throw new ArgumentException("Array should not be empty");
+            }
+
+            if (array.Length == 1)
+            {
+                return array[0];
+            }
+            
+            Array.Sort(array);
+
+            var length = array.Length;
+            if (length % 2 != 0)
+            {
+                var middle = length >> 1;
+                return array[middle];
+            }
+
+            var midNext = length / 2;
+            return (array[midNext - 1] + array[midNext]) / 2;
+        }
+        
+        public static float Median(this float[] array)
+        {
+            if (array == null || array.Length == 0)
+            {
+                throw new ArgumentException("Array should not be empty");
+            }
+
+            if (array.Length == 1)
+            {
+                return array[0];
+            }
+            
+            Array.Sort(array);
+
+            var length = array.Length;
+            if (length % 2 != 0)
+            {
+                var middle = length >> 1;
+                return array[middle];
+            }
+
+            var midNext = length / 2;
+            return (array[midNext - 1] + array[midNext]) / 2;
+        }
+        
+        public static double Median(this int[] array)
+        {
+            if (array == null || array.Length == 0)
+            {
+                throw new ArgumentException("Array should not be empty");
+            }
+
+            if (array.Length == 1)
+            {
+                return array[0];
+            }
+            
+            Array.Sort(array);
+
+            var length = array.Length;
+            if (length % 2 != 0)
+            {
+                var middle = length >> 1;
+                return array[middle];
+            }
+
+            var midNext = length / 2;
+            return (array[midNext - 1] + array[midNext]) / 2.0;
+        }
     }
 }

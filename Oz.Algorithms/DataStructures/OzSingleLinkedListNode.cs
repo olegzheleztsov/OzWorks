@@ -1,10 +1,10 @@
 ﻿namespace Oz.Algorithms.DataStructures
 {
     /// <summary>
-    ///     Node for single linked list
+    ///     OzDoubleLinkedListNode for single linked list
     /// </summary>
     /// <typeparam name="T">Type of single linked list data</typeparam>
-    public class OzSingleLinkedListNode<T>
+    public class OzSingleLinkedListNode<T> : IListNode<T>, ISelfOrganizedListNode
     {
         public OzSingleLinkedListNode() : this(default)
         {
@@ -18,10 +18,10 @@
         /// <summary>
         ///     Reference to next node
         /// </summary>
-        public OzSingleLinkedListNode<T> Next { get; set; }
+        public IListNode<T> Next { get; set; }
 
         /// <summary>
-        ///     Node's data
+        ///     OzDoubleLinkedListNode's data
         /// </summary>
         public T Data { get; }
     }

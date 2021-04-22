@@ -1,0 +1,50 @@
+﻿@page "/alg"
+
+<h3>Test Algorithms</h3>
+
+<div class="row">
+    <div class="col">
+        <input type="number" @bind="@_numberToFactor" />
+        <button class="btn btn-primary" @onclick="@FindFactors">Find Factors</button>
+        @if (_factors.Any())
+        {
+            <ul>
+                @foreach (var factor in _factors)
+                {
+                    <li>
+                        @factor
+                    </li>
+                }
+            </ul>
+        }
+        <p style="color: red">
+            @_errorMessage
+        </p>
+    </div>
+    <div class="col">
+        <input type="number" @bind="@_numberToFactorOptimized" />
+        <button class="btn btn-primary" @onclick="@FindFactorsOptimized">Find Factors Optimized</button>
+        @if (_factorsOptimized.Any())
+        {
+            <ul>
+                @foreach (var factor in _factorsOptimized)
+                {
+                    <li>
+                        @factor
+                    </li>
+                }
+            </ul>
+        }
+        <p style="color:red">
+            @_errorMessageOptimized
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <FindPrimesComponent></FindPrimesComponent>
+</div>
+
+<div class="row">
+    <FindPrimeComponent></FindPrimeComponent>
+</div>

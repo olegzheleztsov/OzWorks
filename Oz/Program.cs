@@ -1,251 +1,186 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Numerics;
-using System.Threading.Tasks;
+using BenchmarkDotNet.Running;
+using Newtonsoft.Json;
 using Oz.Algorithms;
-using Oz.Algorithms.DataStructures.Trees;
-using Oz.Algorithms.Numerics;
-using Oz.Algorithms.Strings;
+using Oz.Algorithms.DataStructures;
+using Oz.Algorithms.Rod;
+using static System.Console;
 using Oz.LeetCode;
-using Oz.Misc;
-using Oz.Nutshell;
-using Oz.RecordsSample;
 using Oz.Rob;
+using System.Threading.Tasks;
 
 namespace Oz
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            var diceStatistics = new DiceStatistics(1000000);
-            var results = diceStatistics.CollectNormalizedStatistics(200);
-            var drawer = new DiceStatisticsDrawer(results);
-            drawer.Draw();
-        }
-        
-        public record NodeData(int Value);
-        private static void TestSuccessorsInRbTree()
-        {
-            RbTree<NodeData> tree = new RbTree<NodeData>(data => data.Value);
-            var rndIntegers = Enumerable.Range(1, 10).ToArray().Shuffled();
-
-            foreach (var val in rndIntegers)
+            var task = Task.Factory.StartNew(async () =>
             {
-                tree.Insert(tree.CreateNode(new NodeData(val)));
-            }
-
-            var searcher = tree.CreateSearcher();
-            var node1 = searcher.Search(1);
-            while (!tree.IsNull(node1))
-            {
-                Console.WriteLine(node1.Data.ToString());
-                node1 = tree.Successor(node1) as RbTreeNode<NodeData>;
-            }
-            Console.WriteLine("--------------------------------");
-
-            var n10 = searcher.Search(10);
-            while (!tree.IsNull(n10))
-            {
-                Console.WriteLine(n10.Data.ToString());
-                n10 = tree.Predecessor(n10) as RbTreeNode<NodeData>;
-            }
-            Console.WriteLine("---------------------");
-            Console.WriteLine($"Max: {tree.CreateMaximumSearcher().Maximum(tree.Root as RbTreeNode<NodeData>).Data}");
-            Console.WriteLine($"Min: {tree.CreateMinimumSearcher().Minimum().Data}");
+                await Task.Delay(1000);
+                WriteLine("Hello");
+            });
+            await task.ConfigureAwait(true);
+            WriteLine("Hello");
         }
 
-        private static void TestMatchKnuthMorrisPratt(string fileName, string pattern)
+        private static void TestSorting()
         {
-            var results = StringWrapperUtils.MatchKnuthMorrisPratt(File.ReadAllText(fileName), pattern);
-            Console.WriteLine("KNUTH-MORRIS-PRATH:");
-            Console.WriteLine($"Count of matches: {results.Count}");
-            Console.WriteLine($"Matching: {string.Join(", ", results)}");
-        }
-
-        private static void TestMatchFiniteAutomation(string fileName, string pattern)
-        {
-            // string source = "aaaabbbababababaaabbdbdb";
-            // var alphabet = source.Select(ch => ch).Distinct().ToList();
-            // var resultPositions = StringWrapperUtils.MatchFiniteAutomation(source, "aab", alphabet);
-            // Console.WriteLine($"Matches: {string.Join(" ", resultPositions)}");
-
-            var text = File.ReadAllText(fileName);
-
-            var chars = new HashSet<char>();
-            foreach (var ch in text)
-            {
-                chars.Add(ch);
-            }
-
-            var resultPositions = StringWrapperUtils.MatchFiniteAutomation(text, pattern, chars);
-            
-            Console.WriteLine("FINITE-AUTOMATION");
-            Console.WriteLine($"Count of matches: {resultPositions.Count}");
-            Console.WriteLine($"Matching: {string.Join(", ", resultPositions)}");
-        }
-        
-        
-
-        private static void TestMatchRabinKarp(string fileName, string pattern)
-        {
-            //read text
-            var text = File.ReadAllText(fileName);
-            
-            //find unique characers
-            var chars = new HashSet<char>();
-            foreach (var ch in text)
-            {
-                chars.Add(ch);
-            }
-            Console.WriteLine($"Different chars: {chars.Count}");
-            
-            //create mapping chars -> codes
-            int counter = 0;
-            var mapping = chars.OrderBy(c => c).ToDictionary(ch => ch, ch => counter++);
-
-            //find prime number for algorithm
-            var baseValue = mapping.Count;
-            var primeHigh = int.MaxValue / baseValue;
-            var targetPrime = 0;
-            while (primeHigh >= 3)
-            {
-                //only odd numbers allowed
-                if (primeHigh % 2 != 0)
-                {
-                    var pseudoRandom = new MillerRabinPseudorandom(primeHigh);
-                    if (pseudoRandom.MayBePrime(1000))
-                    {
-                        targetPrime = primeHigh;
-                        break;
-                    }
-                }
-
-                primeHigh--;
-            }
-
-            if (targetPrime == 0)
-            {
-                Console.WriteLine("Not found prime");
-                return;
-            }
-            Console.WriteLine($"Target prime found: {targetPrime}");
-
-            //find matching
-            var results = StringWrapperUtils.MatchRabinKarp(text, pattern, targetPrime, mapping);
-            
-            Console.WriteLine("RABIN-KARP:");
-            Console.WriteLine($"Count of matches: {results.Count}");
-            Console.WriteLine($"Matching: {string.Join(", ", results)}");
-
-            // foreach (var index in results)
-            // {
-            //     Console.WriteLine($"{index}: {new StringWrapper(text).Substring(index, pattern.Length)}");
-            // }
-        }
-
-        private static void TestMillerRabinPrime()
-        {
-            for (int i = 3; i < 100; i += 2)
-            {
-                var pseudorandom = new MillerRabinPseudorandom(i);
-                Console.WriteLine($"{i} is prime: {pseudorandom.MayBePrime(100)}");
-            }
-        }
-
-        private static void TestRandomBigIntegers()
-        {
+            var list1 = new OzSingleLinkedList<int>();
             var source = new DefaultRandomSource();
-            int zeroCount = 0, thousandCount = 0;
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 10; i++)
             {
-                var val = source.RandomBigInteger(500, 1000);
-                
-                Console.WriteLine($"Rand in [0, 1000] is {val}");
-                if (val == 500)
-                {
-                    zeroCount++;
-                }
+                list1.InsertLast(source.RandomValue(1, 101));
+            }
+            Console.WriteLine(list1);
+            list1.InsertionSort(Comparisions.StandardComparision);
+            Console.WriteLine($"Insertion sort: {list1}");
+            
+            list1.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                list1.InsertLast(source.RandomValue(1, 101));
+            }
+            Console.WriteLine(list1);
+            list1.SelectionSort(Comparisions.StandardComparision);
+            Console.WriteLine($"Selection sort: {list1}");
+        }
 
-                if (val == 1000)
+        private static void TestSorted()
+        {
+            var list = new OzSingleLinkedList<int>();
+            list.InsertLastRange(new int[] {1, 2, 3, 4, 5});
+            WriteLine($"{list} Sorted?: {list.IsSorted(Comparisions.StandardComparision)}");
+            
+            list.Clear();
+            list.InsertLastRange(new int[]{1, 2, 3, 5, 4});
+            WriteLine($"{list} Sorted?: {list.IsSorted(Comparisions.StandardComparision)}");
+
+            var dList = new OzDoubleLinkedList<int>();
+            dList.InsertLastRange(new [] {1, 2, 3, 4, 5});
+            WriteLine($"dl: {dList} Sorted?: {dList.IsSorted(Comparisions.StandardComparision)}");
+            
+            dList.Clear();
+            dList.InsertLastRange(new[] {1, 2, 3, 5, 4});
+            WriteLine($"dl: {dList} Sorted?: {dList.IsSorted(Comparisions.StandardComparision)}");
+
+        }
+
+        private static void TestInsertSorted()
+        {
+            var list = new OzDoubleLinkedList<int>();
+            var randomSource = new DefaultRandomSource();
+            for (int i = 0; i < 100; i++)
+            {
+                var number = randomSource.RandomValue(1, 101);
+                WriteLine($"Will insert: {number}");
+                list.InsertSorted(number, (a, b) => a.CompareTo(b));
+                WriteLine(list);
+            }
+        }
+
+        private static void TestInsertFirstLastForDLL()
+        {
+            var list1 = new OzDoubleLinkedList<int>();
+            for (int i = 0; i < 10; i++)
+            {
+                list1.InsertLast(i);
+            }
+            WriteLine(list1);
+
+            var list2 = new OzDoubleLinkedList<int>();
+            for (int i = 0; i < 10; i++)
+            {
+                list2.InsertFirst(i);
+            }
+            WriteLine(list2);
+            WriteLine();
+
+            while (!list1.IsEmpty)
+            {
+                list1.Delete(data => data == list1.TailNode.Data);
+                WriteLine(list1);
+                WriteLine($"Count: {list1.Count}");
+            }
+
+            while (!list2.IsEmpty)
+            {
+                list2.Delete(data => data == list2.HeadNode.Data);
+                WriteLine(list2);
+                WriteLine($"Count: {list2.Count}");
+            }
+        }
+
+        private static void TestMaxOnList()
+        {
+            var list = new OzSingleLinkedList<int>();
+            var randomSource = new DefaultRandomSource();
+
+            for (int i = 0; i < 10; i++)
+            {
+                list.InsertFirst(randomSource.RandomValue(1, 101));
+            }
+            
+            Console.WriteLine($"Max value: {list.Max().Data}");
+            Console.WriteLine(list);
+        }
+
+
+        private static void TestCircles()
+        {
+            var list = new OzSingleLinkedList<char>();
+            list.InsertLast('A');
+            list.InsertLast('B');
+            list.InsertLast('C');
+            list.InsertLast('D');
+            list.InsertLast('E');
+            list.InsertLast('F');
+            list.InsertLast('G');
+            list.InsertLast('H');
+
+            var hNode = list.Search(value => value == 'H');
+            var dNode = list.Search(value => value == 'D');
+            hNode.Next = dNode;
+
+            foreach (var value in list)
+            {
+                Console.WriteLine(value);
+            }
+
+            var circleNode = list.GetStartCircleNode();
+            Console.WriteLine(circleNode?.Data);
+        }
+        
+        
+
+        private static void TestFindPrime()
+        {
+            var prime = Numerics.FindPrime(10, 1000);
+            Console.WriteLine(prime);
+        }
+
+        private static void TestRandomBigInteger()
+        {
+            var defaultRandomSource = new DefaultRandomSource();
+            var frequencies = new Dictionary<BigInteger, int>();
+            
+            for (var i = 0; i < 10000; i++)
+            {
+                var rndNumber = defaultRandomSource.RandomBigInteger(5, 10);
+                if (frequencies.ContainsKey(rndNumber))
                 {
-                    thousandCount++;
+                    frequencies[rndNumber]++;
+                }
+                else
+                {
+                    frequencies[rndNumber] = 1;
                 }
             }
-            Console.WriteLine($"Zero count: {zeroCount}, Thousand count: {thousandCount}");
-        }
-
-        private static void TestPrimes()
-        {
-            BigInteger value = 2;
-
-            for (; value < new BigInteger(10000000); value++)
-            {
-                var pseudoprime = new Pseudoprime(value);
-                if (pseudoprime.MayBePrime)
-                {
-                    Console.WriteLine($"{value} may be prime");
-                }
-            }
-        }
-
-        private static void TestBigIntegerAsBinaryString()
-        {
-            BigInteger v1 = 3;
-            Console.WriteLine(v1.ToBinaryString());
-
-            BigInteger v2 = 100;
-            Console.WriteLine(v2.ToString());
-
-            BigInteger v3 = 1454456;
-            Console.WriteLine(v3.ToBinaryString());
-        }
-
-        private static void TestBigIntegersDivision()
-        {
-            BigInteger minus5 = -5;
-            BigInteger three = 3;
-            var floor = BigInteger.DivRem(minus5, three, out var remainder);
-            Console.WriteLine($"Floor: {floor}, Remainder: {remainder}");
-        }
-
-        private static void TestFloors()
-        {
-            double a = 5, b = 3;
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            a = 6;
-            b = 3;
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            (a, b) = (7, 3);
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            (a, b) = (0, 3);
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            (a, b) = (0, -3);
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            (a, b) = (-1, 3);
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            (a, b) = (-1, -3);
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            (a, b) = (1, -3);
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            (a, b) = (-5, 3);
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            (a, b) = (5, -3);
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
-
-            (a, b) = (-5, -3);
-            Console.WriteLine($"floor {a} / {b} = {Math.Floor(a / b)}");
+            
+            WriteLine(JsonConvert.SerializeObject(frequencies.OrderBy(pair => pair.Key)));
         }
     }
 }

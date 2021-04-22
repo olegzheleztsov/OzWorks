@@ -1,0 +1,132 @@
+﻿@page "/counter"
+@using System.Threading
+
+<h1>Counter</h1>
+
+<p>
+    Current count:
+    <span class="@_backgroundColor">@_currentCount</span>
+</p>
+
+<p>
+    Second cound: @_secondCount
+</p>
+
+<p>
+    First Increment:
+    <input type="number" @bind="@_increment"
+           @onkeypress="KeyHandler"
+           @onkeypress:preventDefault="true"/>
+    <input type="number" @bind="@_increment" @bind:event="oninput"/>
+</p>
+
+<p>
+    Second Increment:
+    <input type="number" value="@_secondIncrement"
+           @onchange="@(e => _secondIncrement = int.Parse($"{e.Value}"))">
+</p>
+<button
+    class="btn btn-primary"
+    disabled="@(_currentCount >= 10)"
+    @onclick="@IncrementCount">
+    Click me
+</button>
+
+<button class="btn btn-secondary"
+        @onclick="AutoIncrement">
+    Auto Increment
+</button>
+
+<div>
+    Second increment button:
+    <button class="btn btn-primary"
+            @onclick="@(() => _secondCount += _secondIncrement)">
+        Second Increment
+    </button>
+</div>
+
+<div style="width: 400px; height: 400px; background: yellow"
+     @onmousemove="OuterMouseMove">
+    @outerPos
+
+    <div style="width: 300px; height: 300px; background: green; margin: 50px"
+         @onmousemove="InnerMouseMove"
+         @onmousemove:stopPropagation="true">
+        @innerPos
+    </div>
+</div>
+
+<p>
+    <h1>Date Format</h1>
+    <input @bind="Today" @bind:format="yyyy-MM-dd"/>
+    <button class="btn btn-primary" @onclick="IncrementDate">
+        Next Day
+    </button>
+</p>
+
+@code {
+
+    private void AutoIncrement()
+    {
+        var timer = new Timer(
+            _ =>
+            {
+                IncrementCount();
+                StateHasChanged();
+            },
+            null,
+            TimeSpan.FromSeconds(1),
+            TimeSpan.FromSeconds(1));
+    }
+
+
+    private DateTime Today { get; set; } = DateTime.Now;
+
+    private void IncrementDate()
+    {
+        Today = Today.AddDays(1);
+    }
+
+    private int _currentCount;
+    private string _backgroundColor = "red-background";
+    private int _increment = 1;
+    private int _secondCount;
+    private int _secondIncrement = 1;
+
+    private void IncrementCount()
+    {
+        Console.WriteLine("++");
+        _currentCount += _increment;
+        _backgroundColor = _currentCount % 2 == 0 ?
+            "red-background" :
+            "yellow-background";
+    }
+
+    private void KeyHandler(KeyboardEventArgs e)
+    {
+        Console.WriteLine(e.Code);
+        if (e.Key == "+")
+        {
+            _increment++;
+        }
+        if (e.Key == "-")
+        {
+            _increment--;
+        }
+    }
+
+    private string outerPos = "Nothing yet";
+
+    private void OuterMouseMove(MouseEventArgs e)
+    {
+        outerPos = $"Mouse last at {e.ClientX}x{e.ClientY}";
+    }
+
+    private string innerPos = "Nothing yet";
+
+    private void InnerMouseMove(MouseEventArgs e)
+    {
+        innerPos = $"Mouse last at {e.ClientX}x{e.ClientY}";
+    }
+
+}

@@ -82,7 +82,7 @@ namespace Oz.Algorithms.Strings
             return !(stringWrapperLeft == stringWrapperRight);
         }
         
-        public override bool Equals(object? obj)
+        public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj))
             {

@@ -1,0 +1,26 @@
+﻿@using Oz.Algorithms.Rod
+<h3>Find Primes</h3>
+
+<div class="row">
+    <div class="col">
+        <input type="number" @bind="@_maxNumber" />
+        <button @onclick="@FindPrimes">Find Primes</button>
+        <div class="content">
+            @_primesString
+        </div>
+    </div>
+</div>
+
+@code {
+    private long _maxNumber = 1L;
+    private string _primesString = string.Empty;
+
+    private async Task FindPrimes()
+    {
+        var _primes = await Task.Factory.StartNew(() => _maxNumber.FindPrimes()).ConfigureAwait(false);
+
+        _primesString = $"[{string.Join(", ", _primes)}]";
+    }
+    
+    
+}

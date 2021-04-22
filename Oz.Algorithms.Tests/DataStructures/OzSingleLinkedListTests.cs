@@ -7,6 +7,40 @@ namespace Oz.Algorithms.Tests.DataStructures
 {
     public class OzSingleLinkedListTests
     {
+        private OzSingleLinkedList<char> CreateListWithLoop()
+        {
+            var list = new OzSingleLinkedList<char>();
+            list.InsertLast('a');
+            list.InsertLast('b');
+            list.InsertLast('c');
+            list.InsertLast('d');
+            list.Search(c => c == 'd').Next = list.HeadNode;
+            return list;
+        }
+        
+        [Fact]
+        public void Should_Correctly_Count_In_List_With_Loop()
+        {
+            var list = CreateListWithLoop();
+            list.Count.Should().Be(4);
+        }
+
+        [Fact]
+        public void Should_Correctly_Find_Circle()
+        {
+            var list = CreateListWithLoop();
+            list.GetStartCircleNode().Data.Should().Be('a');
+        }
+
+        [Fact]
+        public void Should_Correctly_Find_Circle_On_Two_Elem_List()
+        {
+            var list = new OzSingleLinkedList<char>();
+            list.InsertLastRange(new char[]{'a', 'b'});
+            list.Search(c => c == 'b').Next = list.Search(c => c == 'a');
+            list.GetStartCircleNode().Data.Should().Be('a');
+            list.Count.Should().Be(2);
+        }
 
         [Fact]
         public void Should_Correctly_Initialize_List()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 using Oz.Algorithms.Matrices;
 
 namespace Oz.Algorithms
@@ -36,6 +37,14 @@ namespace Oz.Algorithms
         {
             return MathF.Abs(first - second) < eps;
         }
+
+        public static bool Approximately(double first, double second, double eps = Eps)
+        {
+            return Math.Abs(first - second) < eps;
+        }
+
+        public static bool ApproximatelyZero(float number) => Approximately(number, 0.0F);
+        public static bool ApproximatelyZero(double number) => Approximately(number, 0.0);
 
         public static bool IsPowerOf2(int value)
         {
