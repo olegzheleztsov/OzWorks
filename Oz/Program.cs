@@ -28,7 +28,7 @@ namespace Oz
         public static void Main(string[] args)
         {
             var solutions = new TreeSolutions();
-            solutions.TestSymmetric();
+            solutions.TestBuildSubtree();
         }
 
         private static void LowerTriangularMatrixTest()

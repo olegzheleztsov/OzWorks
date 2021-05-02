@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Security.AccessControl;
 using static System.Console;
 using static System.String;
 
@@ -410,6 +411,79 @@ namespace Oz.LeetCode
 
             bool IsLeaf(TreeNode root)
                 => root.left == null && root.right == null;
+        }
+
+        public void TestBuildSubtree()
+        {
+            var inorder = new[]
+            {
+                9, 3, 15, 20, 7
+            };
+            var postorder = new[]
+            {
+                9, 15, 7, 20, 3
+            };
+            var tree = BuildTree(inorder, postorder);
+            WriteLine(Join(", ", InorderTraversal(tree)));
+            WriteLine(Join(", ", PostorderTraversal(tree)));
+
+            var levelOrdering = LevelOrder(tree);
+            foreach (var lvl in levelOrdering)
+            {
+                WriteLine(Join(", ", lvl));
+            }
+        }
+        
+        
+        
+        public TreeNode BuildTree(int[] inorder, int[] postorder)
+        {
+            if (inorder?.Length == 0 || postorder?.Length == 0)
+            {
+                return null;
+            }
+            
+            return BuildSubtree(inorder, postorder, 0, inorder.Length - 1);
+            
+            static TreeNode BuildSubtree(IReadOnlyList<int> inorderArray, IReadOnlyList<int> postorderArray, int inorderIndexStart, int inorderIndexEnd)
+            {
+                if (inorderIndexStart > inorderIndexEnd)
+                {
+                    return null;
+                }
+                int? inorderRoot = null, inorderRootIndex = null;
+                bool found = false;
+                for (var i = postorderArray.Count - 1; i >= 0; i--)
+                {
+                    for (var j = inorderIndexStart; j <= inorderIndexEnd; j++)
+                    {
+                        if (inorderArray[j] == postorderArray[i])
+                        {
+                            inorderRoot = inorderArray[j];
+                            inorderRootIndex = j;
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (found)
+                    {
+                        break;
+                    }
+                }
+
+                if (inorderRoot != null)
+                {
+                    var newRoot = new TreeNode(inorderRoot.Value)
+                    {
+                        left = BuildSubtree(inorderArray, postorderArray, inorderIndexStart, inorderRootIndex.Value - 1),
+                        right = BuildSubtree(inorderArray, postorderArray, inorderRootIndex.Value + 1, inorderIndexEnd)
+                    };
+                    return newRoot;
+                }
+
+                return null;
+            }
         }
     }
 }
