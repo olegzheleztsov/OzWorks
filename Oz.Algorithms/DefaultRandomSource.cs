@@ -1,15 +1,28 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Numerics;
 using System.Security.Cryptography;
-using Oz.Algorithms.Matrices;
+
+#endregion
 
 namespace Oz.Algorithms
 {
     public class DefaultRandomSource : IRandomSource
     {
-        private static readonly RNGCryptoServiceProvider Provider = new RNGCryptoServiceProvider();
+        private static readonly RNGCryptoServiceProvider Provider = new();
 
         [ThreadStatic] private static Random _random;
+
+        public float RandomFloat => (float) RandomDouble;
+
+        public int RandomValue(int minValue, int maxValue)
+        {
+            var instance = GetRandomInstance();
+            return instance.Next(minValue, maxValue);
+        }
+
+        public double RandomDouble => GetRandomInstance().NextDouble();
 
         private static Random GetRandomInstance()
         {
@@ -21,13 +34,7 @@ namespace Oz.Algorithms
                 _random = instance = new Random(BitConverter.ToInt32(buffer, 0));
             }
 
-            return _random;
-        }
-
-        public int RandomValue(int minValue, int maxValue)
-        {
-            var instance = GetRandomInstance();
-            return instance.Next(minValue, maxValue);
+            return _random!;
         }
 
         public BigInteger RandomBigInteger(BigInteger minValue, BigInteger maxValue)
@@ -70,9 +77,5 @@ namespace Oz.Algorithms
 
             return value;
         }
-
-        public double RandomDouble => GetRandomInstance().NextDouble();
-
-        public float RandomFloat => (float) RandomDouble;
     }
 }

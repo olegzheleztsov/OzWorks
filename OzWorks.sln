@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePages.Tests", "Simple
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzhShowcase", "OzhShowcase\OzhShowcase.csproj", "{9308E1C4-9C84-411C-AEB7-B35ADA558728}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolIDE", "ToolIDE\ToolIDE.csproj", "{BE707966-BE72-45A3-A5CE-101FBABE67FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{9308E1C4-9C84-411C-AEB7-B35ADA558728}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9308E1C4-9C84-411C-AEB7-B35ADA558728}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9308E1C4-9C84-411C-AEB7-B35ADA558728}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE707966-BE72-45A3-A5CE-101FBABE67FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE707966-BE72-45A3-A5CE-101FBABE67FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE707966-BE72-45A3-A5CE-101FBABE67FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE707966-BE72-45A3-A5CE-101FBABE67FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

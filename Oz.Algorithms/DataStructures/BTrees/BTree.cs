@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using Oz.Algorithms.DataStructures.Trees;
 
 namespace Oz.Algorithms.DataStructures.BTrees
 {
@@ -55,7 +54,7 @@ namespace Oz.Algorithms.DataStructures.BTrees
 
         public void Insert(int key)
         {
-            var r = Root;
+            var r = Root ?? throw new NullReferenceException(nameof(Root));
             if (r.KeyCount == 2 * _treeDegree - 1)
             {
                 var s = _allocate(_treeDegree);
@@ -64,17 +63,22 @@ namespace Oz.Algorithms.DataStructures.BTrees
                 s.KeyCount = 0;
                 s.Children[0] = r;
                 SplitChild(s, 0);
-                InsertNonfull(s, key);
+                InsertNonFull(s, key);
             }
             else
             {
-                InsertNonfull(r, key);
+                InsertNonFull(r, key);
             }
         }
 
-        private void InsertNonfull(BTreeNode<T> x, int k)
+        private void InsertNonFull(BTreeNode<T> x, int k)
         {
-            int i = x.KeyCount - 1;
+            if (x == null)
+            {
+                throw new NullReferenceException(nameof(x));
+            }
+            
+            var i = x.KeyCount - 1;
             if (x.IsLeaf)
             {
                 x.KeyCount++;
@@ -96,7 +100,9 @@ namespace Oz.Algorithms.DataStructures.BTrees
 
                 i++;
                 x.Children[i] = _diskRead(this, x, i);
-                if (x.Children[i].KeyCount == 2 * _treeDegree - 1)
+
+                var childI = x.Children[i] ?? throw new NullReferenceException(nameof(x.Children));
+                if (childI.KeyCount == 2 * _treeDegree - 1)
                 {
                     SplitChild(x, i);
                     if (k > x.Keys[i])
@@ -104,14 +110,14 @@ namespace Oz.Algorithms.DataStructures.BTrees
                         i++;
                     }
                 }
-                InsertNonfull(x.Children[i], k);
+                InsertNonFull(x.Children[i], k);
             }
         }
 
         public void SplitChild(BTreeNode<T> x, int index)
         {
             var z = _allocate(_treeDegree);
-            var y = x.Children[index];
+            var y = x.Children[index] ?? throw new NullReferenceException(nameof(x.Children));
             z.IsLeaf = y.IsLeaf;
             z.KeyCount = _treeDegree - 1;
             for (var j = 0; j < _treeDegree - 1; j++)
@@ -169,14 +175,11 @@ namespace Oz.Algorithms.DataStructures.BTrees
         private void Preorder(Action<BTreeNode<T>> visitor, BTreeNode<T> parent)
         {
             visitor?.Invoke(parent);
-            if (parent != null)
+            foreach (var child in parent.Children)
             {
-                foreach (var child in parent.Children)
+                if (child != null)
                 {
-                    if (child != null)
-                    {
-                        Preorder(visitor, child);
-                    }
+                    Preorder(visitor, child);
                 }
             }
         }

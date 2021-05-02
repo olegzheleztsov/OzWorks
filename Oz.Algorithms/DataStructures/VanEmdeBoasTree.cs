@@ -1,10 +1,16 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Diagnostics;
+
+#endregion
 
 namespace Oz.Algorithms.DataStructures
 {
     public class VanEmdeBoasTree
     {
+        private readonly VanEmdeBoasNode _root;
+
         public VanEmdeBoasTree(int size)
         {
             if (!Util.IsPowerOf2(size))
@@ -14,32 +20,49 @@ namespace Oz.Algorithms.DataStructures
 
             _root = new VanEmdeBoasNode(size);
         }
-        
-        
-
-        private readonly VanEmdeBoasNode _root;
 
         public override string ToString()
         {
-            return _root == null ? string.Empty : _root.ToString();
+            return _root.ToString();
         }
 
 
-        public int? Minimum() => _NodeMinimum(_root);
+        public int? Minimum()
+        {
+            return _NodeMinimum(_root);
+        }
 
-        public int? Maximum() => _NodeMaximum(_root);
+        public int? Maximum()
+        {
+            return _NodeMaximum(_root);
+        }
 
-        public bool IsMember(int key) => _IsMember(_root, key);
+        public bool IsMember(int key)
+        {
+            return _IsMember(_root, key);
+        }
 
-        public int? Successor(int key) => _Successor(_root, key);
+        public int? Successor(int key)
+        {
+            return _Successor(_root, key);
+        }
 
-        public int? Predecessor(int key) => _Predecessor(_root, key);
+        public int? Predecessor(int key)
+        {
+            return _Predecessor(_root, key);
+        }
 
-        public void Insert(int key) => _Insert(_root, key);
+        public void Insert(int key)
+        {
+            _Insert(_root, key);
+        }
 
-        public void Delete(int key) => _Delete(_root, key);
-        
-        
+        public void Delete(int key)
+        {
+            _Delete(_root, key);
+        }
+
+
         private static int? _NodeMinimum(VanEmdeBoasNode node)
         {
             return node.Minimum;
@@ -200,7 +223,8 @@ namespace Oz.Algorithms.DataStructures
             {
                 node.Minimum = null;
                 node.Maximum = null;
-            } else if (node.Size == 2)
+            }
+            else if (node.Size == 2)
             {
                 node.Minimum = key == 0 ? 1 : 0;
 
@@ -211,12 +235,16 @@ namespace Oz.Algorithms.DataStructures
                 if (key == node.Minimum)
                 {
                     var firstCluster = _NodeMinimum(node.Summary);
-                    
+
                     Debug.Assert(firstCluster != null, nameof(firstCluster) + " != null");
                     // ReSharper disable once PossibleInvalidOperationException
-                    key = node.Index(firstCluster.Value, _NodeMinimum(node.Cluster[firstCluster.Value]).Value);
+                    var nodeMinimum = _NodeMinimum(node.Cluster[firstCluster.Value]) ??
+                                      throw new InvalidOperationException(
+                                          $"{nameof(_NodeMinimum)} with param: {firstCluster.Value}");
+                    key = node.Index(firstCluster.Value, nodeMinimum);
                     node.Minimum = key;
                 }
+
                 _Delete(node.Cluster[node.High(key)], node.Low(key));
                 if (_NodeMinimum(node.Cluster[node.High(key)]) == null)
                 {
@@ -227,11 +255,15 @@ namespace Oz.Algorithms.DataStructures
                         if (summaryMax == null)
                         {
                             node.Maximum = node.Minimum;
-                        } else
+                        }
+                        else
                         {
+                            var nodeMaximum = _NodeMaximum(node.Cluster[summaryMax.Value])
+                                              ?? throw new InvalidOperationException(
+                                                  $"{nameof(_NodeMaximum)} with param: {summaryMax.Value}");
                             node.Maximum = node.Index(summaryMax.Value,
                                 // ReSharper disable once PossibleInvalidOperationException
-                                _NodeMaximum(node.Cluster[summaryMax.Value]).Value);
+                                nodeMaximum);
                         }
                     }
                 }
@@ -240,7 +272,10 @@ namespace Oz.Algorithms.DataStructures
                     if (key == node.Maximum)
                     {
                         // ReSharper disable once PossibleInvalidOperationException
-                        node.Maximum = node.Index(node.High(key), _NodeMaximum(node.Cluster[node.High(key)]).Value);
+                        var nodeMaximum = _NodeMaximum(node.Cluster[node.High(key)])
+                                          ?? throw new InvalidOperationException(
+                                              $"{nameof(_NodeMaximum)} with param: {node.High(key)}");
+                        node.Maximum = node.Index(node.High(key), nodeMaximum);
                     }
                 }
             }

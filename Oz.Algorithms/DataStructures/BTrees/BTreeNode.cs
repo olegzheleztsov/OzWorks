@@ -43,7 +43,7 @@ namespace Oz.Algorithms.DataStructures.BTrees
         private void CopyChildren(int value)
         {
             var oldChildren = Children;
-            var newChildren = new BTreeNode<T>[value + 1];
+            BTreeNode<T>[] newChildren = new BTreeNode<T>[value + 1];
 
             for (var i = 0; i < (value + 1); i++)
             {

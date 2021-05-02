@@ -13,6 +13,7 @@
             Data = data;
         }
 
-        public static Activity<T> EmptyActivity => new Activity<T>(0, 0, default);
+        public static Activity<T> EmptyActivity(T data) 
+            => new Activity<T>(0, 0, data);
     }
 }

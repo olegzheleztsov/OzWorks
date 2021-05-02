@@ -8,11 +8,11 @@ namespace Oz.Algorithms.Numerics
     public static class ArrayExtensions
     {
         /// <summary>
-        ///     Returns new shuffled array from the source array
+        ///     Returns new shuffled enumerable from the source enumerable
         /// </summary>
         /// <param name="array">Array that be shuffled</param>
         /// <typeparam name="T">Array type</typeparam>
-        /// <returns>New shuffled array</returns>
+        /// <returns>New shuffled enumerable</returns>
         public static T[] Shuffled<T>(this T[] array)
         {
             var shuffler = new ShuffledArray<T>(array, new DefaultRandomSource());
@@ -20,7 +20,7 @@ namespace Oz.Algorithms.Numerics
         }
 
         /// <summary>
-        ///     Shuffle array in place
+        ///     Shuffle enumerable in place
         /// </summary>
         /// <param name="array">Array to be shuffled</param>
         /// <typeparam name="T">Array type</typeparam>
@@ -278,6 +278,46 @@ namespace Oz.Algorithms.Numerics
 
             var midNext = length / 2;
             return (array[midNext - 1] + array[midNext]) / 2.0;
+        }
+
+        /// <summary>
+        /// Find most frequent elements in the collection
+        /// </summary>
+        /// <param name="enumerable">Collection of elements</param>
+        /// <typeparam name="T">Type of collection element</typeparam>
+        /// <returns>Most frequent elements in collection</returns>
+        public static IEnumerable<T> FindModes<T>(this IEnumerable<T> enumerable) where T : notnull
+        {
+            var counts = new Dictionary<T, int>();
+
+            var bestCount = 0;
+            foreach (var item in enumerable)
+            {
+                if (counts.ContainsKey(item))
+                {
+                    counts[item]++;
+                }
+                else
+                {
+                    counts.Add(item, 1);
+                }
+
+                if (counts[item] > bestCount)
+                {
+                    bestCount = counts[item];
+                }
+            }
+
+            var result = new List<T>();
+            foreach (var (item, count) in counts)
+            {
+                if (count == bestCount)
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
         }
     }
 }

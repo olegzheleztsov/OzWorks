@@ -6,7 +6,7 @@ namespace Oz.Algorithms.Activities
     {
         protected override List<Activity<T>> PrepareActivities(List<Activity<T>> activities)
         {
-            activities.Insert(0, Activity<T>.EmptyActivity);
+            activities.Insert(0, Activity<T>.EmptyActivity(default!));
             return activities;
         }
 

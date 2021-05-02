@@ -1,11 +1,12 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Oz.Algorithms.DataStructures
 {
-    public class OzStack<T> : IEnumerable<T>
+    public class OzStack<T> : IStack<T>
     {
         private readonly T[] _array;
         private int _top;

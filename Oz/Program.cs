@@ -1,79 +1,149 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using BenchmarkDotNet.Running;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Oz.Algorithms;
+using Oz.Algorithms.Arrays;
 using Oz.Algorithms.DataStructures;
+using Oz.Algorithms.Numerics;
 using Oz.Algorithms.Rod;
-using static System.Console;
+using Oz.Algorithms.Rod.Sorting;
 using Oz.LeetCode;
+using Oz.Memory;
 using Oz.Rob;
-using System.Threading.Tasks;
+using static System.Console;
+using static System.String;
+
+#endregion
 
 namespace Oz
 {
     public static class Program
     {
-        public static async Task Main(string[] args)
+
+        public static void Main(string[] args)
         {
-            var task = Task.Factory.StartNew(async () =>
+            var solutions = new TreeSolutions();
+            solutions.TestSymmetric();
+        }
+
+        private static void LowerTriangularMatrixTest()
+        {
+            var matrix = new LowerTriangularArray<int>(5);
+
+            for (var row = 0; row < 5; row++)
             {
-                await Task.Delay(1000);
-                WriteLine("Hello");
-            });
-            await task.ConfigureAwait(true);
-            WriteLine("Hello");
+                for (var col = 0; col <= row; col++)
+                {
+                    matrix[row, col] = row + col;
+                }
+            }
+
+            WriteLine(matrix.ToString());
+
+            try
+            {
+                WriteLine(matrix[0, 3]);
+            }
+            catch (IndexOutOfRangeException exception)
+            {
+                WriteLine(exception.Message);
+            }
+
+            var upperMatrix = new UpperTriangularArray<int>(5);
+
+            for (int row = 0; row < 5; row++)
+            {
+                for (int col = row; col < 5; col++)
+                {
+                    upperMatrix[row, col] = row + col;
+                }
+            }
+            
+            WriteLine(upperMatrix);
+
+            try
+            {
+                WriteLine(upperMatrix[3, 0]);
+            }
+            catch (IndexOutOfRangeException exception)
+            {
+                WriteLine(exception.Message);
+            }
+
+            int counter = 0;
+            var luMatrix = new LeftUpperTriangularArray<int>(5);
+            for (int row = 0; row < 5; row++)
+            {
+                for (int col = 0; col < (5 - row); col++)
+                {
+                    luMatrix[row, col] = row + col;
+                }
+            }
+            WriteLine(luMatrix);
+            luMatrix.PrintArray();
+            try
+            {
+                WriteLine(luMatrix[2, 3]);
+            }
+            catch (IndexOutOfRangeException exception)
+            {
+                WriteLine(exception.Message);
+            }
         }
 
         private static void TestSorting()
         {
             var list1 = new OzSingleLinkedList<int>();
             var source = new DefaultRandomSource();
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 list1.InsertLast(source.RandomValue(1, 101));
             }
-            Console.WriteLine(list1);
+
+            WriteLine(list1);
             list1.InsertionSort(Comparisions.StandardComparision);
-            Console.WriteLine($"Insertion sort: {list1}");
-            
+            WriteLine($"Insertion sort: {list1}");
+
             list1.Clear();
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 list1.InsertLast(source.RandomValue(1, 101));
             }
-            Console.WriteLine(list1);
+
+            WriteLine(list1);
             list1.SelectionSort(Comparisions.StandardComparision);
-            Console.WriteLine($"Selection sort: {list1}");
+            WriteLine($"Selection sort: {list1}");
         }
 
         private static void TestSorted()
         {
             var list = new OzSingleLinkedList<int>();
-            list.InsertLastRange(new int[] {1, 2, 3, 4, 5});
+            list.InsertLastRange(new[] {1, 2, 3, 4, 5});
             WriteLine($"{list} Sorted?: {list.IsSorted(Comparisions.StandardComparision)}");
-            
+
             list.Clear();
-            list.InsertLastRange(new int[]{1, 2, 3, 5, 4});
+            list.InsertLastRange(new[] {1, 2, 3, 5, 4});
             WriteLine($"{list} Sorted?: {list.IsSorted(Comparisions.StandardComparision)}");
 
             var dList = new OzDoubleLinkedList<int>();
-            dList.InsertLastRange(new [] {1, 2, 3, 4, 5});
+            dList.InsertLastRange(new[] {1, 2, 3, 4, 5});
             WriteLine($"dl: {dList} Sorted?: {dList.IsSorted(Comparisions.StandardComparision)}");
-            
+
             dList.Clear();
             dList.InsertLastRange(new[] {1, 2, 3, 5, 4});
             WriteLine($"dl: {dList} Sorted?: {dList.IsSorted(Comparisions.StandardComparision)}");
-
         }
 
         private static void TestInsertSorted()
         {
             var list = new OzDoubleLinkedList<int>();
             var randomSource = new DefaultRandomSource();
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
                 var number = randomSource.RandomValue(1, 101);
                 WriteLine($"Will insert: {number}");
@@ -85,17 +155,19 @@ namespace Oz
         private static void TestInsertFirstLastForDLL()
         {
             var list1 = new OzDoubleLinkedList<int>();
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 list1.InsertLast(i);
             }
+
             WriteLine(list1);
 
             var list2 = new OzDoubleLinkedList<int>();
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 list2.InsertFirst(i);
             }
+
             WriteLine(list2);
             WriteLine();
 
@@ -119,13 +191,13 @@ namespace Oz
             var list = new OzSingleLinkedList<int>();
             var randomSource = new DefaultRandomSource();
 
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 list.InsertFirst(randomSource.RandomValue(1, 101));
             }
-            
-            Console.WriteLine($"Max value: {list.Max().Data}");
-            Console.WriteLine(list);
+
+            WriteLine($"Max value: {list.Max().Data}");
+            WriteLine(list);
         }
 
 
@@ -147,26 +219,25 @@ namespace Oz
 
             foreach (var value in list)
             {
-                Console.WriteLine(value);
+                WriteLine(value);
             }
 
             var circleNode = list.GetStartCircleNode();
-            Console.WriteLine(circleNode?.Data);
+            WriteLine(circleNode?.Data);
         }
-        
-        
+
 
         private static void TestFindPrime()
         {
             var prime = Numerics.FindPrime(10, 1000);
-            Console.WriteLine(prime);
+            WriteLine(prime);
         }
 
         private static void TestRandomBigInteger()
         {
             var defaultRandomSource = new DefaultRandomSource();
             var frequencies = new Dictionary<BigInteger, int>();
-            
+
             for (var i = 0; i < 10000; i++)
             {
                 var rndNumber = defaultRandomSource.RandomBigInteger(5, 10);
@@ -179,7 +250,7 @@ namespace Oz
                     frequencies[rndNumber] = 1;
                 }
             }
-            
+
             WriteLine(JsonConvert.SerializeObject(frequencies.OrderBy(pair => pair.Key)));
         }
     }

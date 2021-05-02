@@ -321,6 +321,24 @@ namespace Oz.Algorithms.DataStructures
             return null;
         }
 
+        public IListNode<T> GetAtIndex(int index)
+        {
+            if (index >= Count)
+            {
+                throw new IndexOutOfRangeException(nameof(index));
+            }
+
+            var pointer = HeadNode;
+            var currentIndex = 0;
+            while (currentIndex < index)
+            {
+                pointer = pointer.Next;
+                currentIndex++;
+            }
+
+            return pointer;
+        }
+
         public override string ToString()
         {
             return $"[{string.Join(", ", this)}]";
