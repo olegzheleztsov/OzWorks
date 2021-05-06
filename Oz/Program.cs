@@ -33,7 +33,8 @@ namespace Oz
 
         public static void Main(string[] args)
         {
-            TestBinSearchRecursive();
+            var lowestCommonAncestor = new LowestCommonAncestorFinder();
+            lowestCommonAncestor.TestLowestCommonAncestor();
         }
 
         private static void TestBinSearchRecursive()
