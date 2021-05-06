@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.AccessControl;
+using Oz.LeetCode.Trees;
 using static System.Console;
 using static System.String;
 
@@ -147,7 +148,7 @@ namespace Oz.LeetCode
             return result;
         }
 
-        private IEnumerable<int> InorderTraversal(TreeNode root)
+        public IEnumerable<int> InorderTraversal(TreeNode root)
         {
             var result = new List<int>();
             if (root == null)
@@ -202,7 +203,7 @@ namespace Oz.LeetCode
             return result;
         }
 
-        private static IEnumerable<int> PreorderTraversal(TreeNode root)
+        public static IEnumerable<int> PreorderTraversal(TreeNode root)
         {
             var result = new List<int>();
             PreorderTraversalImpl(root, result);
@@ -289,21 +290,7 @@ namespace Oz.LeetCode
             }
         }
 
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
-        public class TreeNode
-        {
-            public TreeNode left;
-            public TreeNode right;
-            public int val;
 
-            public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
-            {
-                this.val = val;
-                this.left = left;
-                this.right = right;
-            }
-        }
         
         public int MaxDepth(TreeNode root) {
             if (root == null)

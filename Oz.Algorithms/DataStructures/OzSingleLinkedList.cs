@@ -19,6 +19,31 @@ namespace Oz.Algorithms.DataStructures
         /// </summary>
         public T HeadValue => HeadNode != null ? HeadNode.Data : default;
 
+        public bool HasCircle
+            => GetStartCircleNode() != null;
+
+
+        /// <summary>
+        ///     Enumerates list elements
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<T> GetEnumerator()
+        {
+            var current = HeadNode;
+            while (current != TailNode)
+            {
+                yield return current.Data;
+                current = current.Next;
+            }
+
+            yield return current.Data;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
         /// <summary>
         ///     Is list empty?
         /// </summary>
@@ -50,31 +75,6 @@ namespace Oz.Algorithms.DataStructures
 
                 return count;
             }
-        }
-
-        public bool HasCircle
-            => GetStartCircleNode() != null;
-
-
-        /// <summary>
-        ///     Enumerates list elements
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            var current = HeadNode;
-            while (current != TailNode)
-            {
-                yield return current.Data;
-                current = current.Next;
-            }
-
-            yield return current.Data;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
 
         public IListNode<T> HeadNode { get; protected set; }
@@ -391,17 +391,17 @@ namespace Oz.Algorithms.DataStructures
             var oldSentinel = new OzSingleLinkedListNode<T> {Next = HeadNode};
 
             var newSentinel = new OzSingleLinkedListNode<T> {Next = null};
-            
-            oldSentinel = (OzSingleLinkedListNode<T>)oldSentinel.Next;
+
+            oldSentinel = (OzSingleLinkedListNode<T>) oldSentinel.Next;
 
             while (oldSentinel != null)
             {
                 var nextCell = oldSentinel;
-                oldSentinel = (OzSingleLinkedListNode<T>)oldSentinel.Next;
+                oldSentinel = (OzSingleLinkedListNode<T>) oldSentinel.Next;
                 var nodeAfterMe = newSentinel;
                 while (nodeAfterMe.Next != null && comparison(nodeAfterMe.Next.Data, nextCell.Data) < 0)
                 {
-                    nodeAfterMe = (OzSingleLinkedListNode<T>)nodeAfterMe.Next;
+                    nodeAfterMe = (OzSingleLinkedListNode<T>) nodeAfterMe.Next;
                 }
 
                 nextCell.Next = nodeAfterMe.Next;
@@ -421,7 +421,7 @@ namespace Oz.Algorithms.DataStructures
                     pointer = pointer.Next;
                 }
 
-                TailNode = pointer;   
+                TailNode = pointer;
             }
 
             newSentinel.Next = null;
@@ -443,7 +443,7 @@ namespace Oz.Algorithms.DataStructures
                 {
                     if (comparison(nodeAfterMe.Next.Data, bestValue) > 0)
                     {
-                        nodeBestAfterMe = (OzSingleLinkedListNode<T>)nodeAfterMe;
+                        nodeBestAfterMe = (OzSingleLinkedListNode<T>) nodeAfterMe;
                         bestValue = nodeAfterMe.Next.Data;
                     }
 
@@ -456,7 +456,7 @@ namespace Oz.Algorithms.DataStructures
                 nodeBest.Next = newSentinel.Next;
                 newSentinel.Next = nodeBest;
             }
-            
+
             HeadNode = newSentinel.Next;
             var pointer = HeadNode;
             if (pointer == null)
@@ -470,10 +470,11 @@ namespace Oz.Algorithms.DataStructures
                     pointer = pointer.Next;
                 }
 
-                TailNode = pointer;   
+                TailNode = pointer;
             }
 
             newSentinel.Next = null;
         }
+        
     }
 }

@@ -5,6 +5,7 @@
         <TargetFramework>net5.0</TargetFramework>
         <UserSecretsId>156ed481-32f7-4080-bd9f-4e1c4532d01c</UserSecretsId>
         <LangVersion>9</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>

@@ -2,8 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Oz.Algorithms;
@@ -11,8 +15,10 @@ using Oz.Algorithms.Arrays;
 using Oz.Algorithms.DataStructures;
 using Oz.Algorithms.Numerics;
 using Oz.Algorithms.Rod;
+using Oz.Algorithms.Rod.Search;
 using Oz.Algorithms.Rod.Sorting;
 using Oz.LeetCode;
+using Oz.LeetCode.Trees;
 using Oz.Memory;
 using Oz.Rob;
 using static System.Console;
@@ -27,8 +33,198 @@ namespace Oz
 
         public static void Main(string[] args)
         {
-            var solutions = new TreeSolutions();
-            solutions.TestBuildSubtree();
+            TestBinSearchRecursive();
+        }
+
+        private static void TestBinSearchRecursive()
+        {
+            int[] arr = {1, 2, 3, 4};
+            WriteLine($"index of 2: {arr.BinSearchRecursive(2, Comparisions.StandardComparision)}");
+            WriteLine($"index of 4: {arr.BinSearchRecursive(4, Comparisions.StandardComparision)}");
+            WriteLine($"index of 10: {arr.BinSearchRecursive(10, Comparisions.StandardComparision)}");
+        }
+
+        private static void TestBinSearch()
+        {
+            int[] arr = {1, 2, 3, 4};
+            WriteLine($"index of 2: {arr.BinSearch(2, Comparisions.StandardComparision)}");
+            WriteLine($"index of 4: {arr.BinSearch(4, Comparisions.StandardComparision)}");
+            WriteLine($"index of 10: {arr.BinSearch(10, Comparisions.StandardComparision)}");
+        }
+
+        private static void TestLinkedListSearch()
+        {
+            var list = new OzSingleLinkedList<int>();
+            list.InsertLastRange(new int[]{1, 2, 3});
+            WriteLine($"index of 2: {list.FindSortedIndex(2, Comparisions.StandardComparision)}");
+            WriteLine($"index of 3: {list.FindSortedIndex(3, Comparisions.StandardComparision)}");
+            WriteLine($"index of 4: {list.FindSortedIndex(4, Comparisions.StandardComparision)}");
+        }
+
+        private static void TestLinearSearch()
+        {
+            int[] arr = {33, 4, 6, 7, 10};
+            int? indexOf4 = arr.LinearSearch(4, Comparisions.StandardComparision);
+            WriteLine($"Found index: {indexOf4}");
+
+            int? indexOf6 = arr.LinearSearchRecursive(6, Comparisions.StandardComparision);
+            WriteLine($"Found index: {indexOf6}");
+
+            int? indexOf10 = arr.LinearSearchRecursive(10, Comparisions.StandardComparision);
+            WriteLine($"Found index: {indexOf10}");
+        }
+
+        static async IAsyncEnumerable<int> RangeAsync(int start, int count,
+            [EnumeratorCancellation]CancellationToken cancellationToken = default)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                await Task.Delay(i);
+                yield return start + i;
+            }
+        }
+
+        public static void WorkWithSpans()
+        {
+            var array = new byte[100];
+            var arraySpan = new Span<byte>(array);
+            InitializeSpan(arraySpan);
+            WriteLine($"The sum is {ComputeSum(arraySpan):N0}");
+
+            var native = Marshal.AllocHGlobal(100);
+            Span<byte> nativeSpan;
+            unsafe
+            {
+                nativeSpan = new Span<byte>(native.ToPointer(), 100);
+            }
+            InitializeSpan(nativeSpan);
+            WriteLine($"The sum is {ComputeSum(nativeSpan):N0}");
+            
+            Marshal.FreeHGlobal(native);
+
+            Span<byte> stackSpan = stackalloc byte[100];
+            InitializeSpan(stackSpan);
+            WriteLine($"The sum is {ComputeSum(stackSpan):N0}");
+
+            void InitializeSpan(Span<byte> span)
+            {
+                byte value = 0;
+                for (int ctr = 0; ctr < span.Length; ctr++)
+                {
+                    span[ctr] = value++;
+                }
+            }
+
+            int ComputeSum(Span<byte> span)
+            {
+                int sum = 0;
+                foreach (var value in span)
+                {
+                    sum += value;
+                }
+
+                return sum;
+            }
+        }
+
+        private static void TestQuicksortOnStacks()
+        {
+            var arrayGenerator = new ArrayGenerator(1000000);
+            var array = arrayGenerator.Generate(1000000);
+
+            Stopwatch stopwatch = new Stopwatch();
+            WriteLine("Start sorting on stacks");
+            stopwatch.Start();
+            array.QuicksortOnStacks(ArrayElementData.Comparison);
+            stopwatch.Stop();
+            WriteLine($"End on stacks, elapsed {stopwatch.Elapsed.TotalSeconds} secs");
+            WriteLine(Join(", ", array.Take(100)));
+
+            array = arrayGenerator.Generate(1000000);
+            WriteLine("Start sorting on queues");
+            stopwatch.Restart();
+            array.QuicksortOnQueues(ArrayElementData.Comparison);
+            stopwatch.Stop();
+            WriteLine($"End on queues, elapsed: {stopwatch.Elapsed.TotalSeconds} secs");
+            WriteLine(Join(", ", array.Take(100)));
+
+            array = arrayGenerator.Generate(1000000);
+            WriteLine("Start sorting in place");
+            stopwatch.Restart();
+            array.Quicksort(ArrayElementData.Comparison);
+            stopwatch.Stop();
+            WriteLine($"End in place sorting, elapsed: {stopwatch.Elapsed.TotalSeconds} secs");
+            WriteLine(Join(", ", array.Take(100)));
+
+            arrayGenerator = new ArrayGenerator(1000);
+            var intArray = arrayGenerator.Generate(1000000).Select(d => d.Value).ToArray();
+            WriteLine("Start counting sort");
+            int maxVal = intArray.Max();
+            stopwatch.Restart();
+            intArray.CountingSort(maxVal);
+            stopwatch.Stop();
+            WriteLine($"End count sort, elapsed: {stopwatch.Elapsed.TotalSeconds} secs");
+            WriteLine(Join(", ", intArray.Take(100)));
+        }
+
+        private static void TestMergesort()
+        {
+            int[] arr = { };
+            arr.Mergesort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+
+            arr = new int[] {1};
+            arr.Mergesort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+
+            arr = new int[] {2, 1};
+            arr.Mergesort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+
+            var source = new DefaultRandomSource();
+            arr = Enumerable.Range(0, 10).Select(v => source.RandomValue(1, 20)).ToArray();
+            arr.Mergesort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+        }
+
+        private static void TestQuicksort()
+        {
+            int[] arr = { };
+            arr.Quicksort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+
+            arr = new int[] {1};
+            arr.Quicksort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+
+            arr = new int[] {2, 1};
+            arr.Quicksort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+
+            var source = new DefaultRandomSource();
+            arr = Enumerable.Range(0, 10).Select(v => source.RandomValue(1, 20)).ToArray();
+            arr.Quicksort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+        }
+
+        private static void TestHeapSort()
+        {
+            int[] arr = { };
+            arr.HeapSort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+
+            arr = new int[] {1};
+            arr.HeapSort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+
+            arr = new int[] {2, 1};
+            arr.HeapSort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
+
+            var source = new DefaultRandomSource();
+            arr = Enumerable.Range(0, 10).Select(v => source.RandomValue(1, 20)).ToArray();
+            arr.HeapSort(Comparisions.StandardComparision);
+            WriteLine(Join(", ", arr));
         }
 
         private static void LowerTriangularMatrixTest()
