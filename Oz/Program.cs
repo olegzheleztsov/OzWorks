@@ -17,7 +17,11 @@ using Oz.Algorithms.Numerics;
 using Oz.Algorithms.Rod;
 using Oz.Algorithms.Rod.Search;
 using Oz.Algorithms.Rod.Sorting;
+using Oz.Algorithms.Rod.Trees;
 using Oz.LeetCode;
+using Oz.LeetCode.QueueStacks;
+using Oz.LeetCode.Recursion;
+using Oz.LeetCode.Stacks;
 using Oz.LeetCode.Trees;
 using Oz.Memory;
 using Oz.Rob;
@@ -33,8 +37,75 @@ namespace Oz
 
         public static void Main(string[] args)
         {
-            var lowestCommonAncestor = new LowestCommonAncestorFinder();
-            lowestCommonAncestor.TestLowestCommonAncestor();
+            DeleteNodesSample();
+        }
+        
+        
+
+        private static void DeleteNodesSample()
+        {
+            BinaryNode<int> n60 = new BinaryNode<int>(60);
+            BinaryNode<int> n35 = new BinaryNode<int>(35);
+            var n76 = new BinaryNode<int>(76);
+            var n17 = new BinaryNode<int>(17);
+            var n42 = new BinaryNode<int>(42);
+            var n68 = new BinaryNode<int>(68);
+            var n11 = new BinaryNode<int>(11);
+            var n24 = new BinaryNode<int>(24);
+            var n63 = new BinaryNode<int>(63);
+            var n69 = new BinaryNode<int>(69);
+            var n23 = new BinaryNode<int>(23);
+
+            n60.LeftChild = n35;
+            n60.RightChild = n76;
+            n35.LeftChild = n17;
+            n35.RightChild = n42;
+            n76.LeftChild = n68;
+            n17.LeftChild = n11;
+            n17.RightChild = n24;
+            n68.LeftChild = n63;
+            n68.RightChild = n69;
+            n24.LeftChild = n23;
+
+            var new35 = n60.FindSortedTreeNode(17, Comparisions.StandardComparision);
+            var deletedNode = n60.DeleteSortedTreeNode(new35, Comparisions.StandardComparision);
+            n60.TraverseDepthFirst(n =>
+            {
+                Console.Write(n.Data + " ");
+            });
+        }
+
+        private static void ZeroOneMatrixTest()
+        {
+            var mat = new int[][]
+            {
+                new[]{1,0,1,1,0,0,1,0,0,1},
+                new[]{0,1,1,0,1,0,1,0,1,1},
+                new[]{0,0,1,0,1,0,0,1,0,0},
+                new[]{1,0,1,0,1,1,1,1,1,1},
+                new[]{0,1,0,1,1,0,0,0,0,1},
+                new[]{0,0,1,0,1,1,1,0,1,0},
+                new[]{0,1,0,1,0,1,0,0,1,1},
+                new[]{1,0,0,0,1,1,1,1,0,1},
+                new[]{1,1,1,1,1,1,1,0,1,0},
+                new[]{1,1,1,1,0,1,0,0,1,1}
+            };
+            var zeroOneSolution = new ZeroOneMatrixSolution();
+            zeroOneSolution.UpdateMatrix(mat);
+            WriteLine(mat.Str());
+        }
+
+        private static void FloodFillTest()
+        {
+            var array = new int[][]
+            {
+                new[] {1, 1, 1},
+                new[] {1, 1, 0},
+                new[] {1, 0, 1}
+            };
+            var solution = new FloodFillSolution();
+            var result = solution.FloodFill(array, 1, 1, 2);
+            WriteLine(result.Str());
         }
 
         private static void TestBinSearchRecursive()

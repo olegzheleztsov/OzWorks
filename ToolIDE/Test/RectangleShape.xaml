@@ -1,0 +1,20 @@
+﻿<Window x:Class="ToolIDE.Test.RectangleShape"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ToolIDE.Test"
+        mc:Ignorable="d"
+        Title="RectangleShape" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="RadiusX = 0, RadiusY = 0:" Margin="10 10 10 5"></TextBlock>
+            <Rectangle Width="150" Height="70" Fill="LightGray" Stroke="Black"></Rectangle>
+            <TextBlock Text="RadiusX = 20, RadiusY = 10:" Margin="10 10 10 5"></TextBlock>
+            <Rectangle Width="150" Height="70" RadiusX="20" RadiusY="10"
+                       Fill="LightGray" Stroke="Black"></Rectangle>
+            <TextBlock Text="RadiusX = 75, RadiusY = 35:" Margin="10 10 10 5"></TextBlock>
+            <Rectangle Width="150" Height="70" RadiusX="75" RadiusY="35" Fill="LightGray" Stroke="Black"></Rectangle>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataTemplate x:Key="bloggerTemplate">
+        <Grid Background="#c0ffffff">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Model.Name}" FontWeight="Bold"
+                       FontSize="16"></TextBlock>
+            <TextBlock Grid.Row="1" FontSize="14">
+                <Hyperlink Command="{Binding SendEmailCommand}" 
+                           CommandParameter="{Binding Model.Email}">
+                    <Run Text="{Binding Model.Email}"></Run>
+                </Hyperlink>
+            </TextBlock>
+            <Image Grid.Column="1" Grid.RowSpan="2" Source="{Binding Picture}"
+                   Width="48" Height="48" Stretch="Uniform" Margin="4"></Image>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

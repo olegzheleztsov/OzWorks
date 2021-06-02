@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Collections.Generic;
+using System.Numerics;
 using FluentAssertions;
 using Oz.Algorithms.Numerics;
 using Xunit;
@@ -19,7 +20,7 @@ namespace Oz.Algorithms.Tests.Numerics
         [InlineData(-5, 3, -2)]
         [InlineData(5, -3, -2)]
         [InlineData(-5, -3, 1)]
-        public void Should_Correctly_Find_BigInteger_Floor(BigInteger firstNumber, BigInteger secondNumber, BigInteger result)
+        public void Should_Correctly_Find_BigInteger_Floor(int firstNumber, int secondNumber, int result)
         {
             BigIntegerMath.FloorFromDivision(firstNumber, secondNumber).Should().Be(result);
         }

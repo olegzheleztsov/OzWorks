@@ -12,7 +12,7 @@ namespace Oz.Algorithms.Tests.Numerics
         [InlineData(32, 5, 1)]
         [InlineData(2, 1, 1)]
         [InlineData(100, 2, 25)]
-        public void Should_Correctly_Split_Integer(BigInteger number, BigInteger power, BigInteger mult)
+        public void Should_Correctly_Split_Integer(int number, int power, int mult)
         {
             var result = MillerRabinPseudorandom.SplitEvenInteger(number);
             result.Power.Should().Be(power);

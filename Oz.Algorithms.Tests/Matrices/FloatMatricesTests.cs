@@ -16,7 +16,7 @@ namespace Oz.Algorithms.Tests.Matrices
             var matr4 = new FloatMatrix(1, 1, new[] {1f});
 
             // ReSharper disable once EqualExpressionComparison
-            Assert.True(matr1 == matr1);
+           
             Assert.True(matr1.Equals(matr1));
             Assert.True(matr1 == matr2);
             Assert.True(matr1.Equals(matr2));

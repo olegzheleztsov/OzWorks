@@ -36,7 +36,10 @@ namespace Oz.Algorithms.DataStructures
                 current = current.Next;
             }
 
-            yield return current.Data;
+            if (current != null)
+            {
+                yield return current.Data;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

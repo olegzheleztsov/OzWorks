@@ -1,0 +1,16 @@
+﻿<Window x:Class="ToolIDE.Test.CustomAttached"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ToolIDE.Test"
+        mc:Ignorable="d"
+        Title="CustomAttached" Height="450" Width="800">
+    <Canvas>
+        <Ellipse Fill="Red" Width="100" Height="60" local:RotationManager.Angle="45" />
+        <Rectangle Fill="Blue" Width="80" Height="80" Canvas.Left="100" Canvas.Top="100"
+                   local:RotationManager.Angle="30" />
+        <Button Content="Hello" Canvas.Left="130" Canvas.Top="30" FontSize="20" 
+                local:RotationManager.Angle="90"/>
+    </Canvas>
+</Window>

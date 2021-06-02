@@ -1,0 +1,15 @@
+﻿<Window x:Class="ToolIDE.Test.TestRandom"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ToolIDE.Test"
+        mc:Ignorable="d"
+        Title="TestRandom" Height="450" Width="800">
+        <StackPanel>
+                <TextBlock FontSize="{local:Random 10, 100}" Text="Hello" x:Name="text1"></TextBlock>
+                <TextBlock Text="{Binding FontSize, ElementName=text1}"></TextBlock>
+                <TextBlock Text="{local:Random 1000}"></TextBlock>
+                <TextBlock Text="{local:Random 1000, UseFractions=True}"></TextBlock>
+        </StackPanel>
+</Window>

@@ -1,0 +1,5 @@
+﻿<Books>
+    <Book Name="Windows Internals" Author="Mark Russinovich" />
+    <Book Name="Essential COM" Author="Don Box" />
+    <Book Name="Programming Windows with MFC" Author="Jeff Prosise" />
+</Books>

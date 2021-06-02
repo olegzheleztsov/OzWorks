@@ -181,5 +181,23 @@ namespace Oz.Algorithms.Rod
 
             return primes;
         }
+
+        public static int Factorial(this int number)
+            => number switch
+            {
+                < 0 => throw new ArgumentException("Number should be greater or equals to zero"),
+                0 => 1,
+                1 => 1,
+                _ => number * (number - 1).Factorial()
+            };
+
+        public static int Fibonacci(this int number)
+            => number switch
+            {
+                < 0 => throw new ArgumentException("Number should be greater or equals to zero"),
+                0 => 0,
+                1 => 1,
+                _ => (number - 1).Fibonacci() + (number - 2).Fibonacci()
+            };
     }
 }

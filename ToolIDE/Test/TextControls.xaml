@@ -1,0 +1,33 @@
+﻿<Window x:Class="ToolIDE.Test.TextControls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ToolIDE.Test"
+        mc:Ignorable="d"
+        Title="TextControls" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock FontSize="16" Text="User comment details"
+                   Margin="4" Grid.ColumnSpan="2" HorizontalAlignment="Center"></TextBlock>
+        <Label Content="_Name:" Grid.Row="1" Target="_name"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="_name" Margin="2"></TextBox>
+        
+        <Label Content="_Comment:" Grid.Row="2" Target="_comment"></Label>
+        <TextBox AcceptsReturn="True" Grid.Row="2" Grid.Column="1" x:Name="_comment" Margin="2"></TextBox>
+        
+        <Button HorizontalAlignment="Center" Margin="4"
+                Grid.Row="3" Grid.ColumnSpan="2" FontSize="16"
+                Content="Submit Comment" Click="ButtonBase_OnClick"></Button>
+    </Grid>
+</Window>
