@@ -19,7 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ClassLibraryResources\ClassLibraryResources.csproj" />
       <ProjectReference Include="..\Oz.Algorithms\Oz.Algorithms.csproj" />
     </ItemGroup>
 

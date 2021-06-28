@@ -1,21 +1,26 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace Oz.LeetCode.Recursion
 {
     public class ClimbStairsSolver
     {
-        public int ClimbStairs(int n)
+        public static int ClimbStairs(int n)
         {
             var cache = new Dictionary<int, int>();
             return ClimbStairsImpl(n, cache);
         }
-        
-        public int ClimbStairsImpl(int n, Dictionary<int, int> cache) {
+
+        private static int ClimbStairsImpl(int n, IDictionary<int, int> cache)
+        {
             if (cache.ContainsKey(n))
             {
                 return cache[n];
             }
-            
+
             switch (n)
             {
                 case 1:
@@ -24,7 +29,7 @@ namespace Oz.LeetCode.Recursion
                     return 2;
             }
 
-            int result = ClimbStairsImpl(n - 1, cache) + ClimbStairsImpl(n - 2, cache);
+            var result = ClimbStairsImpl(n - 1, cache) + ClimbStairsImpl(n - 2, cache);
             cache[n] = result;
             return result;
         }

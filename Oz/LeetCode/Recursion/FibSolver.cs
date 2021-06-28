@@ -1,16 +1,20 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace Oz.LeetCode.Recursion
 {
     public class FibSolver
     {
-        public int Fib(int n)
+        public static int Fib(int n)
         {
             var cache = new Dictionary<int, int>();
             return FibInner(n, cache);
         }
 
-        private int FibInner(int n, Dictionary<int, int> cache)
+        private static int FibInner(int n, IDictionary<int, int> cache)
         {
             if (cache.ContainsKey(n))
             {

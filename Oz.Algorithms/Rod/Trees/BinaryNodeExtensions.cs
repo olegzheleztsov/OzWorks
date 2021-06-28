@@ -5,6 +5,34 @@ namespace Oz.Algorithms.Rod.Trees
 {
     public static class BinaryNodeExtensions
     {
+
+        public static T FindNode<T, TU>(this IBinaryNode<T, TU> root, TU value, Comparison<TU> comparison) where T : IBinaryNode<T, TU>
+        {
+            if (comparison(root.Data, value) == 0)
+            {
+                return (T)root;
+            }
+
+            if (root.LeftChild != null)
+            {
+                var leftSearchResult = root.LeftChild.FindNode(value, comparison);
+                if (leftSearchResult != null)
+                {
+                    return leftSearchResult;
+                }
+            }
+
+            if (root.RightChild != null)
+            {
+                var rightSearchResult = root.RightChild.FindNode(value, comparison);
+                if (rightSearchResult != null)
+                {
+                    return rightSearchResult;
+                }
+            }
+
+            return default;
+        }
         public static void TraversePreorder<T>(this BinaryNode<T> node, Action<BinaryNode<T>> visitor)
         {
             visitor?.Invoke(node);

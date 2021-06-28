@@ -16,7 +16,7 @@ namespace Oz.LeetCode.Recursion
             var previousNumbers = GetRow(rowIndex - 1);
             var currentNumbers = new List<int>(previousNumbers.Count + 1) {1};
 
-            for (int i = 1; i < previousNumbers.Count; i++)
+            for (var i = 1; i < previousNumbers.Count; i++)
             {
                 currentNumbers.Add(previousNumbers[i - 1] + previousNumbers[i]);
             }

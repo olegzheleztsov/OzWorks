@@ -2,13 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ToolIDE"
-             StartupUri="Test/TabAndFocus.xaml">
+             StartupUri="Test/Chapter03/SampleWindow.xaml">
     <Application.Resources>
          <ResourceDictionary>
              <ResourceDictionary.MergedDictionaries>
                  <ResourceDictionary Source="Brushes.xaml"></ResourceDictionary>
-                 <ResourceDictionary Source="MvvmSamples/Views/BlogView.xaml"></ResourceDictionary>
-                 <ResourceDictionary Source="MvvmSamples/Views/BloggerView.xaml"></ResourceDictionary>
+                 <ResourceDictionary Source="Styles/Expander.xaml"></ResourceDictionary>
              </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
     </Application.Resources>

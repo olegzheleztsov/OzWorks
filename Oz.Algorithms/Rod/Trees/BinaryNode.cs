@@ -1,6 +1,6 @@
 ﻿namespace Oz.Algorithms.Rod.Trees
 {
-    public class BinaryNode<T>
+    public class BinaryNode<T> : IBinaryNode<BinaryNode<T>, T>
     {
         public BinaryNode(T data)
             => Data = data;

@@ -1,10 +1,15 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace Oz.LeetCode.Recursion
 {
     public class ReverseStringSolver
     {
-        public void ReverseString(char[] s) {
+        private static void ReverseString(char[] s)
+        {
             if (s == null || s.Length <= 1)
             {
                 return;
@@ -18,12 +23,12 @@ namespace Oz.LeetCode.Recursion
                 return;
             }
 
-            int forwardIndex = 0;
-            int backwardIndex = s.Length - 1;
+            var forwardIndex = 0;
+            var backwardIndex = s.Length - 1;
             ReverseStringRecursion(s, forwardIndex, backwardIndex);
         }
 
-        private void ReverseStringRecursion(char[] s, int forwardIndex, int backwardIndex)
+        private static void ReverseStringRecursion(char[] s, int forwardIndex, int backwardIndex)
         {
             if (forwardIndex >= backwardIndex)
             {
@@ -38,9 +43,8 @@ namespace Oz.LeetCode.Recursion
 
         public static void Test1()
         {
-            var str = new char[] {'h', 'e', 'l', 'l', 'o'};
-            var solver = new ReverseStringSolver();
-            solver.ReverseString(str);
+            var str = new[] {'h', 'e', 'l', 'l', 'o'};
+            ReverseString(str);
             Console.WriteLine(string.Join(' ', str));
         }
     }
