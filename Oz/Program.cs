@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Oz.Algorithms.DataStructures;
 using Oz.LeetCode.Easy;
 using Oz.LeetCode.Recursion;
+using Oz.Rob;
 
 #endregion
 
@@ -14,15 +15,8 @@ namespace Oz
     {
         public static void Main(string[] args)
         {
-            int[] prices = {7, 1, 5, 3, 6, 4};
-            var solution = new EasyTasks();
-            Console.WriteLine(solution.MaxProfit(prices));
-
-            prices = new[] {1, 2, 3, 4, 5};
-            Console.WriteLine(solution.MaxProfit(prices));
-
-            prices = new[] {7, 6, 4, 3, 1};
-            Console.WriteLine(solution.MaxProfit(prices));
+            DecisionTreeSample sample = new DecisionTreeSample();
+            sample.CompareExhaustiveAndBranchAndBound(40);
         }
 
         private static void MaxPriorityQueueSample()
