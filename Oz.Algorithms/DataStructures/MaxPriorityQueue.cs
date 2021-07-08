@@ -8,8 +8,7 @@ namespace Oz.Algorithms.DataStructures
 
         public MaxPriorityQueue()
         {
-            _heap = new Heap<PriorityNode<T>>(new PriorityNode<T>[] { }, node => node.Priority,
-                Comparisions.StandardComparision);
+            _heap = new Heap<PriorityNode<T>>(new PriorityNode<T>[] { }, node => node.Priority, (a, b) => a.CompareTo(b));
         }
 
         public T Maximum()
@@ -29,6 +28,43 @@ namespace Oz.Algorithms.DataStructures
             _heap.HeapSize--;
             _heap.MaxHeapify(0);
             return maxValue.Data;
+        }
+
+        public void RemoveElement(T value, Comparison<T> comparison)
+        {
+            if (_heap.HeapSize < 1)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            for (int i = 0; i < _heap.HeapSize; i++)
+            {
+                if (comparison(_heap[i].Data, value) == 0)
+                {
+                    _heap[i] = _heap[_heap.HeapSize - 1];
+                    _heap.HeapSize--;
+                    _heap.MaxHeapify(Math.Min(i, _heap.HeapSize - 1));
+                    return;
+                }
+            }
+        }
+
+        public bool ContainsElement(T value, Comparison<T> comparison)
+        {
+            if (_heap.HeapSize < 1)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < _heap.HeapSize; i++)
+            {
+                if (comparison(_heap[i].Data, value) == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public int Length => _heap.HeapSize;

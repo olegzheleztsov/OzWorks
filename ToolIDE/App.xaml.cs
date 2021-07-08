@@ -11,5 +11,11 @@ namespace ToolIDE
 	/// </summary>
 	public partial class App : Application
     {
+	    protected override void OnStartup(StartupEventArgs e)
+	    {
+		    var wnd = new CodeOnlyWindow("file.xaml");
+		    wnd.ShowDialog();
+		    base.OnStartup(e);
+	    }
     }
 }

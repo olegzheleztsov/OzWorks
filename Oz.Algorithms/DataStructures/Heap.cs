@@ -251,7 +251,7 @@ namespace Oz.Algorithms.DataStructures
 
         public static Heap<T> MinHeap(T[] data, Func<T, int> keySelector)
         {
-            var heap = new Heap<T>(data, keySelector, Comparisions.StandardComparision);
+            var heap = new Heap<T>(data, keySelector, (a, b) => a.CompareTo(b));
             for (var i = (int) Math.Floor(heap.HeapSize / 2.0); i >= 0; i--)
             {
                 heap.MinHeapify(i);
