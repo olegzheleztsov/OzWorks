@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30709.132
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31512.422
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oz.API", "Oz.API\Oz.API.csproj", "{D7590355-F117-4A9A-AFDE-584DA27963ED}"
 EndProject
@@ -15,13 +15,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oz", "Oz\Oz.csproj", "{4F6E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinksShare", "LinksShare\LinksShare.csproj", "{E71C0651-9230-41C6-BE99-CD857920DD22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePages", "SimplePages\SimplePages.csproj", "{AC983F8D-6D9A-46D9-A15C-89936D1B0809}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplePages", "SimplePages\SimplePages.csproj", "{AC983F8D-6D9A-46D9-A15C-89936D1B0809}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePages.Tests", "SimplePages.Tests\SimplePages.Tests.csproj", "{39D27559-C854-4F70-9CF0-5878EA78DF7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplePages.Tests", "SimplePages.Tests\SimplePages.Tests.csproj", "{39D27559-C854-4F70-9CF0-5878EA78DF7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzhShowcase", "OzhShowcase\OzhShowcase.csproj", "{9308E1C4-9C84-411C-AEB7-B35ADA558728}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OzhShowcase", "OzhShowcase\OzhShowcase.csproj", "{9308E1C4-9C84-411C-AEB7-B35ADA558728}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolIDE", "ToolIDE\ToolIDE.csproj", "{BE707966-BE72-45A3-A5CE-101FBABE67FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolIDE", "ToolIDE\ToolIDE.csproj", "{BE707966-BE72-45A3-A5CE-101FBABE67FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{802B8AB5-7902-4B86-B035-475F649F91C8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clscs", "clscs\clscs.csproj", "{C4FA35FA-07B9-4DA7-B7D3-2F03739D4B9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clrcs_frm", "clrcs_frm\clrcs_frm.csproj", "{A6783347-5B15-439C-9C4D-7160D874A5A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{57F5F433-6590-46BC-8813-FEC386D25CE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz.Tests", "Oz.Tests\Oz.Tests.csproj", "{B0CDD8D3-0404-4818-A6DD-69047612C208}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,11 +82,26 @@ Global
 		{BE707966-BE72-45A3-A5CE-101FBABE67FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE707966-BE72-45A3-A5CE-101FBABE67FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE707966-BE72-45A3-A5CE-101FBABE67FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4FA35FA-07B9-4DA7-B7D3-2F03739D4B9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4FA35FA-07B9-4DA7-B7D3-2F03739D4B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4FA35FA-07B9-4DA7-B7D3-2F03739D4B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4FA35FA-07B9-4DA7-B7D3-2F03739D4B9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6783347-5B15-439C-9C4D-7160D874A5A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6783347-5B15-439C-9C4D-7160D874A5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6783347-5B15-439C-9C4D-7160D874A5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6783347-5B15-439C-9C4D-7160D874A5A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0CDD8D3-0404-4818-A6DD-69047612C208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0CDD8D3-0404-4818-A6DD-69047612C208}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0CDD8D3-0404-4818-A6DD-69047612C208}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0CDD8D3-0404-4818-A6DD-69047612C208}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E1098D0-A438-4027-A6C9-28A062520A75}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B0CDD8D3-0404-4818-A6DD-69047612C208} = {57F5F433-6590-46BC-8813-FEC386D25CE4}
 	EndGlobalSection
 EndGlobal

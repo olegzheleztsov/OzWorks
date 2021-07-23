@@ -5,26 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToolIDE"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <!-- <Grid> -->
-    <!--     <Button FontSize="20"> -->
-    <!--         <local:Book Name="Windows Internal" Author="Mark Rusinovich" Price="40" YearPublished="2009"></local:Book> -->
-    <!--     </Button> -->
-    <!-- </Grid> -->
-    
-    <!-- <StackPanel> -->
-    <!--     <local:SimpleControl x:Name="_simple"></local:SimpleControl> -->
-    <!--     <TextBlock Text="{Binding YearPublished, ElementName=_simple}" FontSize="30"></TextBlock> -->
-    <!--     <Button Content="Change Value" FontSize="20" Click="ButtonBase_OnClick"></Button> -->
-    <!-- </StackPanel> -->
-    
+        Title="Tool IDE" Height="450" Width="800">
     <Grid>
-        <Canvas>
-            <RepeatButton Content="Move" Grid.Row="1" Click="ButtonBase_OnClick"></RepeatButton>
-            <Rectangle x:Name="_rect" Width="50" Height="50"
-                       Fill="Red" Stroke="Black" StrokeThickness="5" 
-                       Canvas.Left="30"
-                       Canvas.Top="40"></Rectangle>
-        </Canvas>
     </Grid>
 </Window>

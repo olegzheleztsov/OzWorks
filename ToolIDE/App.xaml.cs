@@ -1,5 +1,11 @@
 ﻿#region
 
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 
 #endregion
@@ -11,11 +17,6 @@ namespace ToolIDE
 	/// </summary>
 	public partial class App : Application
     {
-	    protected override void OnStartup(StartupEventArgs e)
-	    {
-		    var wnd = new CodeOnlyWindow("file.xaml");
-		    wnd.ShowDialog();
-		    base.OnStartup(e);
-	    }
+
     }
 }
