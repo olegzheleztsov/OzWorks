@@ -235,5 +235,93 @@ namespace Oz.LeetCode.TopQuestions
 
             return prefix;
         }
+
+        public int LengthOfLongestSubstring(string s)
+        {
+            if(string.IsNullOrEmpty(s))
+            {
+                return 0;
+            }
+
+            int count = 0, firstIndex = 0, lastIndex = 0;
+
+            var substring = new HashSet<char>();
+
+            while(lastIndex < s.Length)
+            {
+                if (substring.Contains(s[lastIndex]))
+                {
+                    substring.Remove(s[firstIndex]);
+                    firstIndex++;
+                } else
+                {
+                    substring.Add(s[lastIndex]);
+                    lastIndex++;
+                    count = Math.Max(count, lastIndex - firstIndex);
+                }
+            }
+            return count;
+        }
+
+        public double FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+            if(nums1.Length == 0 && nums2.Length == 0 )
+            {
+                return 0;
+            }
+
+            int[] mergedArray;
+
+            if (nums1.Length == 0)
+            {
+                mergedArray = nums2;
+            }
+            else if (nums2.Length == 0)
+            {
+                mergedArray = nums1;
+            }
+            else
+            {
+                mergedArray = new int[nums1.Length + nums2.Length];
+                int firstIndex = 0;
+                int secondIndex = 0;
+                int index = 0;
+                while (firstIndex < nums1.Length && secondIndex < nums2.Length)
+                {
+                    if (nums1[firstIndex] <= nums2[secondIndex])
+                    {
+                        mergedArray[index] = nums1[firstIndex];
+                        index++;
+                        firstIndex++;
+                    }
+                    else
+                    {
+                        mergedArray[index] = nums2[secondIndex];
+                        index++;
+                        secondIndex++;
+                    }
+                }
+                while (firstIndex < nums1.Length)
+                {
+                    mergedArray[index] = nums1[firstIndex];
+                    index++;
+                    firstIndex++;
+                }
+                while (secondIndex < nums2.Length)
+                {
+                    mergedArray[index] = nums2[secondIndex];
+                    index++;
+                    secondIndex++;
+                }
+            }
+
+            if(mergedArray.Length % 2 == 1)
+            {
+                return mergedArray[mergedArray.Length / 2];
+            } else
+            {
+                return (mergedArray[mergedArray.Length / 2 - 1] + mergedArray[mergedArray.Length / 2]) / 2.0;
+            }
+        }
     }
 }
