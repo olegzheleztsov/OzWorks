@@ -6,7 +6,7 @@ using Oz.Rob;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
+using static System.Console;
 #endregion
 
 namespace Oz
@@ -15,8 +15,9 @@ namespace Oz
     {
         public static void Main(string[] args)
         {
-            TopQuestionSolutions solutions = new TopQuestionSolutions();
-            Console.WriteLine(TopQuestionSolutions.IsPalindrome("A man, a plan, a canal: Panama"));
+            var solutions = new TopQuestionSolutions();
+            WriteLine(solutions.Multiply("2", "3"));
+            WriteLine(solutions.Multiply("123", "456"));
         }
 
         private static void TimerCallback(object o)

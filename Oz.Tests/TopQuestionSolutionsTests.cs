@@ -75,5 +75,42 @@ namespace Oz.Tests
             nums2 = Array.Empty<int>();
             solutions.FindMedianSortedArrays(nums1, nums2).Should().BeApproximately(2.0, 0.01);
         }
+
+        [Theory]
+        [InlineData("hello", "ll", 2)]
+        [InlineData("aaaaa", "bba", -1)]
+        [InlineData("", "", 0)]
+        [InlineData("a", "a", 0)]
+        public void Should_Correctly_Find_Substring(string haystack, string needle, int index)
+        {
+            var solutions = new TopQuestionSolutions();
+            var actualResult = solutions.StrStr(haystack, needle);
+            actualResult.Should().Be(index);
+        }
+
+        [Fact]
+        public void Should_Search_Insert_Correctly()
+        {
+            var solutions = new TopQuestionSolutions();
+            int[] nums = { 1, 3, 5, 6 };
+            int target = 5;
+            solutions.SearchInsert(nums, target).Should().Be(2);
+
+            nums = new[] { 1, 3, 5, 6 };
+            target = 2;
+            solutions.SearchInsert(nums, target).Should().Be(1);
+
+            nums = new[] { 1, 3, 5, 6 };
+            target = 7;
+            solutions.SearchInsert(nums, target).Should().Be(4);
+
+            nums = new[] { 1, 3, 5, 6 };
+            target = 0;
+            solutions.SearchInsert(nums, target).Should().Be(0);
+
+            nums = new[] { 1 };
+            target = 0;
+            solutions.SearchInsert(nums, target).Should().Be(0);
+        }
     }
 }
