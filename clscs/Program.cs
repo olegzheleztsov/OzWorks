@@ -1,13 +1,34 @@
 ﻿using System;
+using System.Security.AccessControl;
+using System.Threading;
 using static System.Console;
 
 namespace clscs
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args) =>
+            BasicThreadSample();
+            
+            
+
+        private static void BasicThreadSample()
         {
-            ConditionalWeakTableDemo();
+            WriteLine($"Starting dedicated thread to do an asynchronous operation");
+            var dedicatedThread = new Thread(ComputeBoundOp);
+            dedicatedThread.Start(5);
+            
+            WriteLine("Main thread: doing other work here...");
+            Thread.Sleep(10000);
+            dedicatedThread.Join();
+            WriteLine("Hit <Enter> to end this program...");
+            ReadLine();
+
+            static void ComputeBoundOp(object state)
+            {
+                WriteLine($"In {nameof(ComputeBoundOp)}: state={state}");
+                Thread.Sleep(1000);
+            }
         }
 
         private static void ConditionalWeakTableDemo()
@@ -40,8 +61,8 @@ namespace clscs
 
             fixed(byte* pbytes = bytes)
             {
-                Console.WriteLine($"The byte[] did{(originalMemoryAddress == (IntPtr)pbytes ? " not " : null)} move during the GC");
-                Console.WriteLine($"Original address: {originalMemoryAddress}, current address: {(IntPtr)pbytes}");
+                WriteLine($"The byte[] did{(originalMemoryAddress == (IntPtr)pbytes ? " not " : null)} move during the GC");
+                WriteLine($"Original address: {originalMemoryAddress}, current address: {(IntPtr)pbytes}");
             }
         }
     }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Remoting;
+using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.AccessControl;
 using System.Threading;
 using static System.Console;
 using static System.Environment;
@@ -13,7 +15,46 @@ namespace clrcs_frm
     internal class Program
     {
         public static void Main(string[] args) =>
-            SingletonSerializationTest();
+            SeveralCts();
+
+        private static void SeveralCts()
+        {
+            var cts1 = new CancellationTokenSource();
+            cts1.Token.Register(() => Console.WriteLine("cts1 canceled"));
+
+            var cts2 = new CancellationTokenSource();
+            cts2.Token.Register(() => Console.WriteLine("cts2 cancelled"));
+
+            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cts1.Token, cts2.Token);
+            linkedCts.Token.Register(() => Console.WriteLine("linkedCts canceled"));
+            
+            cts2.Cancel();
+            Console.WriteLine($"cts1 canceled={cts1.IsCancellationRequested}, cts2 canceeled={cts2.IsCancellationRequested}, linkedCts={linkedCts.IsCancellationRequested}");
+        }
+        private static void RegisterCancellation()
+        {
+            var cts = new CancellationTokenSource();
+            cts.Token.Register(() => Console.WriteLine("Canceled 1"));
+            cts.Token.Register(() => Console.WriteLine("Canceled 2"));
+            cts.Cancel();
+        }
+        private static void CallContextFlow()
+        {
+            CallContext.LogicalSetData("Name", "Jeffrey");
+
+            ThreadPool.QueueUserWorkItem(state =>
+            {
+                Console.WriteLine($"Name={CallContext.LogicalGetData("Name")}");
+            });
+
+            ExecutionContext.SuppressFlow();
+            ThreadPool.QueueUserWorkItem(state =>
+            {
+                Console.WriteLine($"Name={CallContext.LogicalGetData("Name")}");
+            });
+            ExecutionContext.RestoreFlow();
+            Console.ReadLine();
+        }
 
         private static void SingletonSerializationTest()
         {
