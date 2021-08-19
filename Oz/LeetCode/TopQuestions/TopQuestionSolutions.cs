@@ -1,13 +1,348 @@
 ﻿// Copyright (c) Zheleztsov Oleh. All Rights Reserved.
 
+using Oz.LeetCode.Trees;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Oz.LeetCode.TopQuestions
 {
     public class TopQuestionSolutions
     {
+        
+            
+        public string ConvertToTitle(int columnNumber)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            while (columnNumber > 0)
+            {
+                int num = columnNumber % 26;
+                if(num == 0) {
+                    stringBuilder.Insert(0, 'Z');
+                } else {
+                    char c = (char)(num - 1 + 'A');
+                    stringBuilder.Insert(0, c);
+                }
+
+                if (num == 0)
+                {
+                    num = 26;
+                }
+                columnNumber -= num;
+                columnNumber /= 26;
+            }
+
+            return stringBuilder.ToString();
+        }
+        
+        
+        public int[] TwoSum(int[] numbers, int target)
+        {
+            int left = 0;
+            int right = numbers.Length - 1;
+            int sum = numbers[left] + numbers[right];
+            while (true)
+            {
+                if (sum == target)
+                {
+                    break;
+                } else if (sum < target)
+                {
+                    left++;
+                }
+                else
+                {
+                    right--;
+                }
+
+                sum = numbers[left] + numbers[right];
+            }
+
+            return new[] { left + 1, right + 1 };
+        }
+        
+        public enum Direction
+        {
+            Right,
+            Down,
+            Left,
+            Up
+        }
+
+        public bool IsBalanced(TreeNode root)
+        {
+            if (root == null)
+            {
+                return true;
+            }
+
+            if (root.left == null && root.right == null)
+            {
+                return true;
+            }
+
+            if (root.left == null && root.right != null)
+            {
+                return Height(root.right) <= 1;
+            }
+
+            if (root.left != null && root.right == null)
+            {
+                return Height(root.left) <= 1;
+            }
+
+            return Math.Abs(Height(root.left) - Height(root.right)) <= 1 &&
+                   IsBalanced(root.left) && IsBalanced(root.right);
+        }
+
+        private int Height(TreeNode node)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+
+            if (node.left == null && node.right == null)
+            {
+                return 1;
+            }
+
+            return 1 + Math.Max(Height(node.left), Height(node.right));
+        }
+
+
+        public int MinDepth(TreeNode root)
+        {
+            if (root == null)
+            {
+                return 0;
+            }
+
+            if (root.left == null && root.right == null)
+            {
+                return 1;
+            }
+
+            if (root.left != null && root.right == null)
+            {
+                return 1 + MinDepth(root.left);
+            }
+
+            if (root.left == null && root.right != null)
+            {
+                return 1 + MinDepth(root.right);
+            }
+
+            return 1 + Math.Min(MinDepth(root.left), MinDepth(root.right));
+        }
+
+        public int MySqrt(int x)
+        {
+            if (x == 1)
+            {
+                return 1;
+            }
+
+            var lower = 0;
+            var upper = x;
+
+            while (lower < upper && lower != upper - 1)
+            {
+                var test = (lower + upper) / 2;
+                checked
+                {
+                    try
+                    {
+                        if (test * test == x)
+                        {
+                            return test;
+                        }
+
+                        if (test * test > x)
+                        {
+                            upper = test;
+                        }
+                        else
+                        {
+                            lower = test;
+                        }
+                    }
+                    catch (OverflowException)
+                    {
+                        upper = test;
+                    }
+                }
+            }
+
+            return lower;
+        }
+
+        public string AddBinary(string a, string b)
+        {
+            string longNumber;
+            string shortNumber;
+            if (a.Length == b.Length)
+            {
+                longNumber = a;
+                shortNumber = b;
+            }
+            else
+            {
+                longNumber = a.Length > b.Length ? a : b;
+                shortNumber = a.Length < b.Length ? a : b;
+            }
+
+            var result = new List<int>();
+            var memory = 0;
+            var longIndex = longNumber.Length - 1;
+            var shortIndex = shortNumber.Length - 1;
+
+            while (shortIndex >= 0 || longIndex >= 0)
+            {
+                if (shortIndex >= 0)
+                {
+                    var n1 = shortNumber[shortIndex] - '0';
+                    var n2 = longNumber[longIndex] - '0';
+                    var current = n1 + n2 + memory;
+
+                    memory = 0;
+                    while (current >= 2)
+                    {
+                        current -= 2;
+                        memory++;
+                    }
+
+                    result.Insert(0, current == 0 ? 0 : 1);
+                    shortIndex--;
+                    longIndex--;
+                }
+                else
+                {
+                    var current = longNumber[longIndex] - '0' + memory;
+                    if (current == 0)
+                    {
+                        result.Insert(0, 0);
+                        memory = 0;
+                    }
+                    else if (current == 1)
+                    {
+                        result.Insert(0, 1);
+                        memory = 0;
+                    }
+                    else
+                    {
+                        result.Insert(0, 0);
+                        memory = 1;
+                    }
+
+                    longIndex--;
+                }
+            }
+
+            if (memory > 0)
+            {
+                result.Insert(0, 1);
+                memory = 0;
+            }
+
+            return string.Join(string.Empty, result);
+        }
+
+        public int[][] GenerateMatrix(int n)
+        {
+            var result = new int[n][];
+            for (var i = 0; i < result.Length; i++)
+            {
+                result[i] = new int[n];
+            }
+
+            var direction = Direction.Right;
+
+            int minRow = 0, maxRow = n - 1;
+            int minCol = 0, maxCol = n - 1;
+
+            int r = minRow, c = minCol;
+
+            var num = 1;
+            while (num <= n * n)
+            {
+                switch (direction)
+                {
+                    case Direction.Right:
+                    {
+                        for (c = minCol; c <= maxCol; c++)
+                        {
+                            result[minRow][c] = num;
+                            num++;
+                        }
+
+                        minRow++;
+                        direction = Direction.Down;
+                    }
+                        break;
+                    case Direction.Down:
+                    {
+                        for (r = minRow; r <= maxRow; r++)
+                        {
+                            result[r][maxCol] = num;
+                            num++;
+                        }
+
+                        maxCol--;
+                        direction = Direction.Left;
+                    }
+                        break;
+                    case Direction.Left:
+                    {
+                        for (c = maxCol; c >= minCol; c--)
+                        {
+                            result[maxRow][c] = num;
+                            num++;
+                        }
+
+                        maxRow--;
+                        direction = Direction.Up;
+                    }
+                        break;
+                    case Direction.Up:
+                    {
+                        for (r = maxRow; r >= minRow; r--)
+                        {
+                            result[r][minCol] = num;
+                            num++;
+                        }
+
+                        minCol++;
+                        direction = Direction.Right;
+                    }
+                        break;
+                }
+            }
+
+            return result;
+        }
+
+
+        public int LengthOfLastWord(string s)
+        {
+            var length = 0;
+
+            var index = s.Length - 1;
+            while (index >= 0 && s[index] == ' ')
+            {
+                index--;
+            }
+
+            while (index >= 0 && s[index] != ' ')
+            {
+                length++;
+                index--;
+            }
+
+            return length;
+        }
+
         public int Reverse(int x)
         {
             var result = 0;
@@ -238,7 +573,7 @@ namespace Oz.LeetCode.TopQuestions
 
         public int LengthOfLongestSubstring(string s)
         {
-            if(string.IsNullOrEmpty(s))
+            if (string.IsNullOrEmpty(s))
             {
                 return 0;
             }
@@ -247,25 +582,27 @@ namespace Oz.LeetCode.TopQuestions
 
             var substring = new HashSet<char>();
 
-            while(lastIndex < s.Length)
+            while (lastIndex < s.Length)
             {
                 if (substring.Contains(s[lastIndex]))
                 {
                     substring.Remove(s[firstIndex]);
                     firstIndex++;
-                } else
+                }
+                else
                 {
                     substring.Add(s[lastIndex]);
                     lastIndex++;
                     count = Math.Max(count, lastIndex - firstIndex);
                 }
             }
+
             return count;
         }
 
         public double FindMedianSortedArrays(int[] nums1, int[] nums2)
         {
-            if(nums1.Length == 0 && nums2.Length == 0 )
+            if (nums1.Length == 0 && nums2.Length == 0)
             {
                 return 0;
             }
@@ -283,9 +620,9 @@ namespace Oz.LeetCode.TopQuestions
             else
             {
                 mergedArray = new int[nums1.Length + nums2.Length];
-                int firstIndex = 0;
-                int secondIndex = 0;
-                int index = 0;
+                var firstIndex = 0;
+                var secondIndex = 0;
+                var index = 0;
                 while (firstIndex < nums1.Length && secondIndex < nums2.Length)
                 {
                     if (nums1[firstIndex] <= nums2[secondIndex])
@@ -301,12 +638,14 @@ namespace Oz.LeetCode.TopQuestions
                         secondIndex++;
                     }
                 }
+
                 while (firstIndex < nums1.Length)
                 {
                     mergedArray[index] = nums1[firstIndex];
                     index++;
                     firstIndex++;
                 }
+
                 while (secondIndex < nums2.Length)
                 {
                     mergedArray[index] = nums2[secondIndex];
@@ -315,13 +654,12 @@ namespace Oz.LeetCode.TopQuestions
                 }
             }
 
-            if(mergedArray.Length % 2 == 1)
+            if (mergedArray.Length % 2 == 1)
             {
                 return mergedArray[mergedArray.Length / 2];
-            } else
-            {
-                return (mergedArray[mergedArray.Length / 2 - 1] + mergedArray[mergedArray.Length / 2]) / 2.0;
             }
+
+            return (mergedArray[(mergedArray.Length / 2) - 1] + mergedArray[mergedArray.Length / 2]) / 2.0;
         }
     }
 }

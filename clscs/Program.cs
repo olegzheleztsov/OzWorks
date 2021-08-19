@@ -8,7 +8,7 @@ namespace clscs
     class Program
     {
         static void Main(string[] args) =>
-            BasicThreadSample();
+            SyncCompare.Test();
             
             
 

@@ -12,5 +12,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-
+    <PropertyGroup>
+        <LangVersion>10.0</LangVersion>
+    </PropertyGroup>
 </Project>

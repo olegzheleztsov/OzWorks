@@ -32,7 +32,7 @@ namespace ToolIDE
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            Canvas.SetLeft(_rect, Canvas.GetLeft(_rect) + 5);
+            //Canvas.SetLeft(_rect, Canvas.GetLeft(_rect) + 5);
         }
     }
 }

@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net5.0-windows</TargetFramework>
+        <TargetFramework>net6.0-windows7.0</TargetFramework>
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
@@ -33,5 +33,7 @@
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
       <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
     </ItemGroup>
-
+    <PropertyGroup>
+        <LangVersion>10.0</LangVersion>
+    </PropertyGroup>
 </Project>

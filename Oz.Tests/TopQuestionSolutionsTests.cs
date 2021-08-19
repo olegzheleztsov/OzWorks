@@ -75,5 +75,27 @@ namespace Oz.Tests
             nums2 = Array.Empty<int>();
             solutions.FindMedianSortedArrays(nums1, nums2).Should().BeApproximately(2.0, 0.01);
         }
+
+        [Fact]
+        public void Should_AddBinary_Work_Correctly()
+        {
+            var a = "11";
+            var b = "1";
+            var solution = new TopQuestionSolutions();
+            solution.AddBinary(a, b).Should().Be("100");
+
+            a = "1010";
+            b = "1011";
+            solution.AddBinary(a, b).Should().Be("10101");
+        }
+
+        [Fact]
+        public void Should_MySqrt_Works_Correctly()
+        {
+            var solution = new TopQuestionSolutions();
+            solution.MySqrt(4).Should().Be(2);
+
+            solution.MySqrt(8).Should().Be(2);
+        }
     }
 }
