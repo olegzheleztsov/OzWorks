@@ -22,9 +22,7 @@ namespace Oz.Algorithms.Sort
                     }
                 }
 
-                var temp = array[minIndex];
-                array[minIndex] = array[i];
-                array[i] = temp;
+                (array[minIndex], array[i]) = (array[i], array[minIndex]);
             }
         }
         
