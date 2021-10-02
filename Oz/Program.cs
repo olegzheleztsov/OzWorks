@@ -1,73 +1,38 @@
-﻿#region
-
-using Oz.Algorithms.DataStructures;
-using Oz.LeetCode.TopQuestions;
-using Oz.Rob;
+﻿using Oz.Algorithms.Uf;
+using Oz.Uf;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 
-#endregion
+RunComparingTest();
 
-namespace Oz
+void RunComparingTest()
 {
-    public static class Program
+    int size = 1000;
+    int sequenceLength = 30000;
+    PairGenerator pairGenerator = new PairGenerator(size);
+    var sequence = pairGenerator.GetSequence(sequenceLength);
+
+    var uf1 = new QuickUnionUnionFind();
+    var uf2 = new QuickUnionWithPathCompressionUnionFind();
+    
+    uf1.Reinitialize(size);
+    uf2.Reinitialize(size);
+    
+    foreach (var (first, second) in sequence)
     {
-        public static void Main(string[] args)
+        uf1.Union(first, second);
+        uf2.Union(first, second);
+    }
+
+    for (int i = 0; i < 10000; i++)
+    {
+        int first = Random.Shared.Next(size);
+        int second = Random.Shared.Next(size);
+
+        var uf1Connected = uf1.IsConnected(first, second);
+        var uf2Connected = uf2.IsConnected(first, second);
+        if (uf1Connected != uf2Connected)
         {
-            TopQuestionSolutions solutions = new TopQuestionSolutions();
-            Console.WriteLine(TopQuestionSolutions.IsPalindrome("A man, a plan, a canal: Panama"));
-        }
-
-        private static void TimerCallback(object o)
-        {
-            Console.WriteLine($"In TimerCallback: {DateTime.Now}");
-            GC.Collect();
-        }
-
-        private static void MaxPriorityQueueSample()
-        {
-            var queue = new MaxPriorityQueue<int>();
-            queue.Insert(1, 1);
-            queue.Insert(2, 2);
-            queue.Insert(3, 3);
-
-            Console.WriteLine(queue.Maximum());
-            Console.WriteLine("-------------");
-
-            while (queue.Length > 0)
-            {
-                Console.WriteLine($"Extract max: {queue.ExtractMaximum()}");
-            }
-        }
-
-        private static void SpinWaitSample()
-        {
-            var someBoolean = false;
-            var numYields = 0;
-
-            var t1 = Task.Factory.StartNew(() =>
-            {
-                var sw = new SpinWait();
-                while (!someBoolean)
-                {
-                    if (sw.NextSpinWillYield)
-                    {
-                        numYields++;
-                    }
-
-                    sw.SpinOnce();
-                }
-
-                Console.WriteLine($"SpinWait called {sw.Count} times, yielded {numYields} times");
-            });
-
-            var t2 = Task.Factory.StartNew(() =>
-            {
-                Thread.Sleep(100);
-                someBoolean = true;
-            });
-            Task.WaitAll(t1, t2);
+            Console.WriteLine($"We have inconsistency for pair: {(first, second)}");
         }
     }
 }

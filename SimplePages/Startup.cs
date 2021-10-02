@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using SimplePages.Config;
 using SimplePages.Models.AdventureWorks;
+using SimplePages.Persistence;
+using SimplePages.Persistence.Contexts;
 using SimplePages.Profiles;
 using SimplePages.Services;
 using SimplePages.Services.Interfaces;
@@ -35,7 +37,7 @@ namespace SimplePages
             services.Configure<GymSettings>(Configuration.GetSection(nameof(GymSettings)));
             services.AddSingleton<IGymSettings>(sp => sp.GetRequiredService<IOptions<GymSettings>>().Value);
             
-            services.AddDbContext<AdventureWorksDbContext>(options =>
+            services.AddDbContext<AdventureWorksObsoleteDbContext>(options =>
             {
                 var connectionString =
                     "Data Source=DESKTOP-0C3QBAG;Integrated Security=True;Initial Catalog=AdventureWorks2019;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
@@ -45,19 +47,28 @@ namespace SimplePages
                 }).EnableSensitiveDataLogging().LogTo(Console.WriteLine);
             });
 
-            services.AddScoped<IGymService, GymService>();
-            
-            services.AddScoped<IZooService, ZooService>();
-            services.AddRazorPages(options =>
+            services.AddDbContext<AdventureWorksContext>(options =>
             {
-                options.Conventions.AddPageRoute("/gym/trainings", "/gym");
+                options.UseSqlServer(Persistence.Config.ConnectionString, conf =>
+                {
+                    conf.UseHierarchyId();
+                });
+                options.EnableSensitiveDataLogging().LogTo(Console.WriteLine);
             });
+
+            services.AddDbContext<CustomDbContext>(options => options.UseInMemoryDatabase("name"));
+            
+            
+            services.AddScoped<IGymService, GymService>();
+            services.AddScoped<IZooService, ZooService>();
             services.AddScoped<IExerciseNames, ExerciseNames>();
             services.AddScoped<IViewHelperService, ViewHelperService>();
             services.AddScoped(provider => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new GymProfile(provider.GetService<IExerciseNames>()));
             }).CreateMapper());
+            
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
