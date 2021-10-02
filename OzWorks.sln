@@ -28,13 +28,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clscs", "clscs\clscs.csproj", "{C4FA35FA-07B9-4DA7-B7D3-2F03739D4B9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clscs", "clscs\clscs.csproj", "{C4FA35FA-07B9-4DA7-B7D3-2F03739D4B9F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clrcs_frm", "clrcs_frm\clrcs_frm.csproj", "{A6783347-5B15-439C-9C4D-7160D874A5A8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{57F5F433-6590-46BC-8813-FEC386D25CE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oz.Tests", "Oz.Tests\Oz.Tests.csproj", "{B0CDD8D3-0404-4818-A6DD-69047612C208}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oz.Tests", "Oz.Tests\Oz.Tests.csproj", "{B0CDD8D3-0404-4818-A6DD-69047612C208}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,10 +98,10 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9E1098D0-A438-4027-A6C9-28A062520A75}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B0CDD8D3-0404-4818-A6DD-69047612C208} = {57F5F433-6590-46BC-8813-FEC386D25CE4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E1098D0-A438-4027-A6C9-28A062520A75}
 	EndGlobalSection
 EndGlobal

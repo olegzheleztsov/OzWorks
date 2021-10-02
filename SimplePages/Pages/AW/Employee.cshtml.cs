@@ -9,9 +9,9 @@ namespace SimplePages.Pages.AW
 {
     public class Employee : PageModel
     {
-        private readonly AdventureWorksDbContext _context;
+        private readonly AdventureWorksObsoleteDbContext _context;
 
-        public Employee(AdventureWorksDbContext context)
+        public Employee(AdventureWorksObsoleteDbContext context)
         {
             _context = context;
         }

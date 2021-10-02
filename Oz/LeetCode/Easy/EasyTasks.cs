@@ -2,57 +2,66 @@
 {
     public class EasyTasks
     {
+        /// <summary>
+        ///     https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+        /// </summary>
+        /// <param name="prices"></param>
+        /// <returns></returns>
         public int MaxProfit(int[] prices)
         {
-            int buyPointer = 0;
-            int sellPointer = 1;
-            int diff = 0;
-
-            while (buyPointer < prices.Length)
+            var minPrice = int.MaxValue;
+            var maxProfit = 0;
+            foreach (var price in prices)
             {
-                while (buyPointer < prices.Length - 1 && prices[buyPointer+1] < prices[buyPointer])
+                if (price < minPrice)
                 {
-                    buyPointer++;
+                    minPrice = price;
                 }
-
-                sellPointer = buyPointer;
-                while (sellPointer < prices.Length - 1 && prices[sellPointer] < prices[sellPointer + 1])
+                else if (price - minPrice > maxProfit)
                 {
-                    sellPointer++;
+                    maxProfit = price - minPrice;
                 }
+            }
 
-                if (buyPointer < sellPointer)
-                {
-                    diff += prices[sellPointer] - prices[buyPointer];
-                }
-
-                buyPointer = sellPointer + 1;
-            } 
-
-            return diff;
+            return maxProfit;
         }
         
+        /// <summary>
+        /// https://leetcode.com/problems/single-number/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int SingleNumber(int[] nums)
+        {
+            var singleNumber = 0;
+            foreach (var num in nums) {
+                singleNumber ^= num;
+            }
+            return singleNumber;
+        }
+        
+
         public void Rotate(int[] nums, int k)
         {
             k = k % nums.Length;
-            int[] temp = new int[k];
+            var temp = new int[k];
 
-            for (int i = nums.Length - k; i < nums.Length; i++)
+            for (var i = nums.Length - k; i < nums.Length; i++)
             {
                 temp[i - nums.Length + k] = nums[i];
             }
 
-            int last = nums.Length - 1;
-            int first = nums.Length - k - 1;
+            var last = nums.Length - 1;
+            var first = nums.Length - k - 1;
 
-            for (int i = 0; i < nums.Length - k; i++)
+            for (var i = 0; i < nums.Length - k; i++)
             {
                 nums[last] = nums[first];
                 last--;
                 first--;
             }
 
-            for (int i = 0; i < k; i++)
+            for (var i = 0; i < k; i++)
             {
                 nums[i] = temp[i];
             }

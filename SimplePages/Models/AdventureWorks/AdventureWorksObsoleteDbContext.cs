@@ -3,9 +3,9 @@ using SimplePages.Models.AdventureWorks.HumanResources;
 
 namespace SimplePages.Models.AdventureWorks
 {
-    public class AdventureWorksDbContext : DbContext
+    public class AdventureWorksObsoleteDbContext : DbContext
     {
-        public AdventureWorksDbContext(DbContextOptions<AdventureWorksDbContext> options)
+        public AdventureWorksObsoleteDbContext(DbContextOptions<AdventureWorksObsoleteDbContext> options)
             : base(options) {}
         
         public DbSet<Employee> Employees { get; set; }
