@@ -1,13 +1,40 @@
-﻿using Oz.Algorithms.Uf;
+﻿using Oz.Algorithms.Sort.V2;
+using Oz.Algorithms.Uf;
+using Oz.LeetCode;
+using Oz.Sedgewick;
 using Oz.Uf;
 using System;
+using System.Diagnostics;
 
-RunComparingTest();
+new Ex_2_1_17().PrintNumber(10);
+
+static double Time<T>(string algo, T[] array) where T : IComparable<T>
+{
+    var timer = new Stopwatch();
+    if (algo.Equals("insertion"))
+    {
+        Insertion.Sort(array);
+    }
+
+    if (algo.Equals("selection"))
+    {
+        Selection.Sort(array);
+    }
+
+    if (algo.Equals("shell"))
+    {
+        Shell.Sort(array);
+    }
+
+    timer.Stop();
+    var elapsed = timer.Elapsed;
+    return elapsed.TotalSeconds;
+}
 
 void RunComparingTest()
 {
-    var size = 1000;
-    var sequenceLength = 30000;
+    const int size = 1000;
+    const int sequenceLength = 30000;
     var pairGenerator = new PairGenerator(size);
     var sequence = pairGenerator.GetSequence(sequenceLength);
 
