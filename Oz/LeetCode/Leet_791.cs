@@ -7,7 +7,7 @@ namespace Oz.LeetCode;
 public class Leet_791
 {
     /// <summary>
-    /// https://leetcode.com/problems/custom-sort-string/
+    ///     https://leetcode.com/problems/custom-sort-string/
     /// </summary>
     public string CustomSortString(string order, string s)
     {
@@ -15,7 +15,7 @@ public class Leet_791
         {
             return s;
         }
-        
+
         var orderArray = order.ToCharArray();
         var sArray = s.ToCharArray();
         var orderDict = new Dictionary<char, int>();
@@ -26,11 +26,9 @@ public class Leet_791
 
         for (var i = 0; i < sArray.Length; i++)
         {
-            for (var j = i; j > 0 && Key(sArray[j], orderDict) < Key(sArray[j-1], orderDict); j--)
+            for (var j = i; j > 0 && Key(sArray[j], orderDict) < Key(sArray[j - 1], orderDict); j--)
             {
-                var temp = sArray[j];
-                sArray[j] = sArray[j - 1];
-                sArray[j - 1] = temp;
+                (sArray[j], sArray[j - 1]) = (sArray[j - 1], sArray[j]);
             }
         }
 
@@ -39,7 +37,7 @@ public class Leet_791
 
     private int Key(char c, Dictionary<char, int> orderDictionary)
     {
-        if (orderDictionary.TryGetValue(c, out int key))
+        if (orderDictionary.TryGetValue(c, out var key))
         {
             return key;
         }

@@ -4,9 +4,9 @@ using System;
 
 namespace Oz.Algorithms.Sort.V2;
 
-public class Selection
+public static class Selection
 {
-    public static void Sort<T>(T[] array) where T : IComparable<T>
+    public static void Sort<T>(T[] array, Action<T[]> arrayExchangeAction = null) where T : IComparable<T>
     {
         for (var i = 0; i < array.Length; i++)
         {
@@ -20,6 +20,7 @@ public class Selection
             }
 
             (array[i], array[minIndex]) = (array[minIndex], array[i]);
+            arrayExchangeAction?.Invoke(array);
         }
     }
 }

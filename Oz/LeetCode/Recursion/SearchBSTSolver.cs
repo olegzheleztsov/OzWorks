@@ -1,39 +1,28 @@
-﻿namespace Oz.LeetCode.Recursion
+﻿namespace Oz.LeetCode.Recursion;
+
+public abstract class SearchBstSolver
 {
-    public class SearchBSTSolver
+    public TreeNode SearchBst(TreeNode root, int val)
     {
-        public class TreeNode
+        if (root == null)
         {
-            public TreeNode left;
-            public TreeNode right;
-            public int val;
-
-            public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
-            {
-                this.val = val;
-                this.left = left;
-                this.right = right;
-            }
+            return null;
         }
-        
-        public TreeNode SearchBST(TreeNode root, int val) {
-            if (root == null)
-            {
-                return null;
-            }
 
-            if (root.val == val)
-            {
-                return root;
-            }
+        return root.Val == val ? root : SearchBst(val < root.Val ? root.Left : root.Right, val);
+    }
 
-            if (val < root.val)
-            {
-                return SearchBST(root.left, val);
-            }
+    public abstract class TreeNode
+    {
+        public readonly TreeNode Left;
+        public readonly TreeNode Right;
+        public readonly int Val;
 
-            return SearchBST(root.right, val);
+        protected TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+        {
+            this.Val = val;
+            this.Left = left;
+            this.Right = right;
         }
-        
     }
 }

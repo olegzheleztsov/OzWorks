@@ -1,26 +1,24 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿namespace Oz.LeetCode.Recursion;
 
-namespace Oz.LeetCode.Recursion
+public class SwapPairsSolution
 {
-    public class SwapPairsSolution
+    public ListNode SwapPairs(ListNode head)
     {
-        public ListNode SwapPairs(ListNode head) {
-            if (head == null)
-            {
-                return null;
-            }
+        if (head == null)
+        {
+            return null;
+        }
 
-            if (head.next == null)
-            {
-                return head;
-            }
-
-            var after2Node = head.next.next;
-            var temp = head;
-            head = head.next;
-            head.next = temp;
-            temp.next = SwapPairs(after2Node);
+        if (head.Next == null)
+        {
             return head;
         }
+
+        var after2Node = head.Next.Next;
+        var temp = head;
+        head = head.Next;
+        head.Next = temp;
+        temp.Next = SwapPairs(after2Node);
+        return head;
     }
 }

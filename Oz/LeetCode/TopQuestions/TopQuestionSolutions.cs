@@ -10,15 +10,6 @@ namespace Oz.LeetCode.TopQuestions;
 
 public class TopQuestionSolutions
 {
-    private enum Direction
-    {
-        Right,
-        Down,
-        Left,
-        Up
-    }
-
-
     public string ConvertToTitle(int columnNumber)
     {
         var stringBuilder = new StringBuilder();
@@ -664,5 +655,13 @@ public class TopQuestionSolutions
         }
 
         return (mergedArray[(mergedArray.Length / 2) - 1] + mergedArray[mergedArray.Length / 2]) / 2.0;
+    }
+
+    private enum Direction
+    {
+        Right,
+        Down,
+        Left,
+        Up
     }
 }

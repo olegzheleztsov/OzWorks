@@ -14,5 +14,7 @@
         /// <param name="maxValue">On 1 bigger than max random value</param>
         /// <returns>Random value in range [minValue, maxValue - 1]</returns>
         int RandomValue(int minValue, int maxValue);
+
+        int[] RandomArray(int length, int min, int max);
     }
 }

@@ -1,39 +1,47 @@
 ﻿using System.Collections.Generic;
 
-namespace Oz.LeetCode.QueueStacks
+namespace Oz.LeetCode.QueueStacks;
+
+public class DecodeStringSolver
 {
-    public class DecodeStringSolver
+    private enum TokenType
     {
-        public string DecodeString(string s)
+        Str,
+        Num
+    }
+
+    public string DecodeString(string s)
+    {
+        var numTimes = new Stack<int>();
+        var prefixes = new Stack<string>();
+
+        var accum = string.Empty;
+        var tokenType = TokenType.Num;
+        var result = string.Empty;
+        var counter = 0;
+
+        foreach (var ch in s)
         {
-            var numTimes = new Stack<int>();
-            var prefixes = new Stack<string>();
-
-            string accum = string.Empty;
-            var tokenType = TokenType.Num;
-            string result = string.Empty;
-            int counter = 0;
-            
-            foreach (var ch in s)
+            if (char.IsNumber(ch))
             {
-                if (char.IsNumber(ch))
+                if (tokenType == TokenType.Str)
                 {
-                    if (tokenType == TokenType.Str)
+                    if (accum.Length > 0)
                     {
-                        if (accum.Length > 0)
-                        {
-                            prefixes.Push(accum);
-                        }
+                        prefixes.Push(accum);
+                    }
 
-                        accum = ch.ToString();
-                        tokenType = TokenType.Num;
-                    }
-                    else
-                    {
-                        accum += ch;
-                    }
-                }  
-                else switch (ch)
+                    accum = ch.ToString();
+                    tokenType = TokenType.Num;
+                }
+                else
+                {
+                    accum += ch;
+                }
+            }
+            else
+            {
+                switch (ch)
                 {
                     case '[':
                     {
@@ -44,6 +52,7 @@ namespace Oz.LeetCode.QueueStacks
                             accum = string.Empty;
                             tokenType = TokenType.Str;
                         }
+
                         break;
                     }
                     case ']':
@@ -53,6 +62,7 @@ namespace Oz.LeetCode.QueueStacks
                         {
                             prefixes.Push(accum);
                         }
+
                         accum = string.Empty;
                         if (counter == 0)
                         {
@@ -75,40 +85,35 @@ namespace Oz.LeetCode.QueueStacks
                         break;
                 }
             }
-            result += accum;
-            return result;
         }
 
-        private string Accumulate(Stack<int> numTimes, Stack<string> prefixes)
-        {
-            string cur = string.Empty;
-            
-            while (numTimes.Count > 0)
-            {
-                int times = numTimes.Pop();
-                string prefix = prefixes.Pop();
-                var tempTok = prefix + cur;
-                string res = string.Empty;
-                for (int i = 0; i < times; i++)
-                {
-                    res += tempTok;
-                }
+        result += accum;
+        return result;
+    }
 
-                cur = res;
+    private string Accumulate(Stack<int> numTimes, Stack<string> prefixes)
+    {
+        var cur = string.Empty;
+
+        while (numTimes.Count > 0)
+        {
+            var times = numTimes.Pop();
+            var prefix = prefixes.Pop();
+            var tempTok = prefix + cur;
+            var res = string.Empty;
+            for (var i = 0; i < times; i++)
+            {
+                res += tempTok;
             }
 
-            while (prefixes.Count > 0)
-            {
-                cur = prefixes.Pop() + cur;
-            }
+            cur = res;
+        }
 
-            return cur;
-        }
-        
-        public enum TokenType
+        while (prefixes.Count > 0)
         {
-            Str,
-            Num
+            cur = prefixes.Pop() + cur;
         }
+
+        return cur;
     }
 }

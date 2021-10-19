@@ -1,14 +1,13 @@
-﻿namespace Oz.LeetCode
-{
-    public class ListNode
-    {
-        public readonly int val;
-        public ListNode next;
+﻿namespace Oz.LeetCode;
 
-        public ListNode(int val = 0, ListNode next = null)
-        {
-            this.val = val;
-            this.next = next;
-        }
+public class ListNode
+{
+    public readonly int Val;
+    public ListNode Next;
+
+    public ListNode(int val = 0, ListNode next = null)
+    {
+        this.Val = val;
+        this.Next = next;
     }
 }

@@ -131,10 +131,12 @@ public class Questions
 
     public int MaxWidthOfVerticalArea(int[][] points)
     {
-        int Comparison(int[] a, int[] b) =>
-            a[0].CompareTo(b[0]);
+        int Comparison(int[] a, int[] b)
+        {
+            return a[0].CompareTo(b[0]);
+        }
 
-        Array.Sort(points, (Comparison<int[]>) Comparison);
+        Array.Sort(points, (Comparison<int[]>)Comparison);
 
         var distance = 0;
 
@@ -874,19 +876,19 @@ public class Questions
         }
 
         var prev = head;
-        var next = head.next;
+        var next = head.Next;
 
         while (next != null)
         {
-            if (prev.val == next.val)
+            if (prev.Val == next.Val)
             {
-                prev.next = next.next;
-                next = next.next;
+                prev.Next = next.Next;
+                next = next.Next;
             }
             else
             {
                 prev = next;
-                next = next.next;
+                next = next.Next;
             }
         }
 
@@ -898,8 +900,8 @@ public class Questions
         var pointer = head;
         while (pointer != null)
         {
-            Write($"{pointer.val} - ");
-            pointer = pointer.next;
+            Write($"{pointer.Val} - ");
+            pointer = pointer.Next;
         }
 
         WriteLine();

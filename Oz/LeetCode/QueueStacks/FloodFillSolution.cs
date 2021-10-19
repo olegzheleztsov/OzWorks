@@ -35,14 +35,10 @@
             return image;
         }
 
-        private static bool IsIndexValid(int[][] image, int r, int c)
-        {
-            return r >= 0 && r < image.Length && c >= 0 && c < image[0].Length;
-        }
+        private static bool IsIndexValid(int[][] image, int r, int c) =>
+            r >= 0 && r < image.Length && c >= 0 && c < image[0].Length;
 
-        private static bool IsColorSame(int[][] image, int r, int c, int testColor)
-        {
-            return image[r][c] == testColor;
-        }
+        private static bool IsColorSame(int[][] image, int r, int c, int testColor) =>
+            image[r][c] == testColor;
     }
 }

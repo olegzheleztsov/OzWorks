@@ -1,7 +1,5 @@
-﻿namespace Oz.Graph
+﻿namespace Oz.Graph;
+
+public class CityGraphGenerator
 {
-    public class CityGraphGenerator
-    {
-        
-    }
 }

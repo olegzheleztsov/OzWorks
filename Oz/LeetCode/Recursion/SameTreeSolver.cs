@@ -1,84 +1,83 @@
-﻿using System.Collections.Generic;
-using Oz.LeetCode.Trees;
+﻿using Oz.LeetCode.Trees;
+using System.Collections.Generic;
 
-namespace Oz.LeetCode.Recursion
+namespace Oz.LeetCode.Recursion;
+
+public class SameTreeSolver
 {
-    public class SameTreeSolver
+    public bool IsSameTree(TreeNode p, TreeNode q)
     {
-        public bool IsSameTree(TreeNode p, TreeNode q)
+        if (p == null && q == null)
         {
-            if (p == null && q == null)
-            {
-                return true;
-            }
+            return true;
+        }
+
+        if (!Check(p, q))
+        {
+            return false;
+        }
+
+        var pQueue = new Queue<TreeNode>();
+        var qQueue = new Queue<TreeNode>();
+        pQueue.Enqueue(p);
+        qQueue.Enqueue(q);
+
+        while (pQueue.Count > 0)
+        {
+            p = pQueue.Dequeue();
+            q = qQueue.Dequeue();
 
             if (!Check(p, q))
             {
                 return false;
             }
 
-            Queue<TreeNode> pQueue = new Queue<TreeNode>();
-            Queue<TreeNode> qQueue = new Queue<TreeNode>();
-            pQueue.Enqueue(p);
-            qQueue.Enqueue(q);
-
-            while (pQueue.Count > 0)
+            if (p != null)
             {
-                p = pQueue.Dequeue();
-                q = qQueue.Dequeue();
-
-                if (!Check(p, q))
+                if (!Check(p.left, q.left))
                 {
                     return false;
                 }
 
-                if (p != null)
+                if (p.left != null)
                 {
-                    if (!Check(p.left, q.left))
-                    {
-                        return false;
-                    }
+                    pQueue.Enqueue(p.left);
+                    qQueue.Enqueue(q.left);
+                }
 
-                    if (p.left != null)
-                    {
-                        pQueue.Enqueue(p.left);
-                        qQueue.Enqueue(q.left);
-                    }
+                if (!Check(p.right, q.right))
+                {
+                    return false;
+                }
 
-                    if (!Check(p.right, q.right))
-                    {
-                        return false;
-                    }
-
-                    if (p.right != null)
-                    {
-                        pQueue.Enqueue(p.right);
-                        qQueue.Enqueue(q.right);
-                    }
+                if (p.right != null)
+                {
+                    pQueue.Enqueue(p.right);
+                    qQueue.Enqueue(q.right);
                 }
             }
-
-            return true;
         }
 
-        private bool Check(TreeNode p, TreeNode q)
+        return true;
+    }
+
+    private bool Check(TreeNode p, TreeNode q)
+    {
+        if (p == null && q == null)
         {
-            if (p == null && q == null)
-            {
-                return true;
-            }
-
-            if (p == null || q == null)
-            {
-                return false;
-            }
-
-            if (p.val != q.val)
-            {
-                return false;
-            }
-
             return true;
         }
+
+        if (p == null || q == null)
+        {
+            return false;
+        }
+
+        if (p.val != q.val)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

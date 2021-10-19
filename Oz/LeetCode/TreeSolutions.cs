@@ -1,476 +1,481 @@
 ﻿#region
 
+using Oz.LeetCode.Trees;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Security.AccessControl;
-using Oz.LeetCode.Trees;
 using static System.Console;
 using static System.String;
 
 #endregion
 
-namespace Oz.LeetCode
+namespace Oz.LeetCode;
+
+public class TreeSolutions
 {
-    public class TreeSolutions
+    public static void TestPreorder()
     {
-        public static void TestPreorder()
+        var root = CreatePreorderTestTree();
+        var res1 = PreorderTraversal(root);
+        WriteLine(Join(", ", res1));
+
+        var res2 = PreorderTraversalStack(root);
+        WriteLine(Join(" ,", res2));
+    }
+
+    public void TestInorder()
+    {
+        var root = CreatePreorderTestTree();
+        var res1 = InorderTraversal(root);
+        WriteLine(Join(", ", res1));
+
+        var res2 = InorderTraversalStack(root);
+        WriteLine(Join(" ,", res2));
+    }
+
+    public static void TestPostOrder()
+    {
+        var root = CreatePreorderTestTree();
+        WriteLine(Join(", ", PostorderTraversal(root)));
+        WriteLine(Join(", ", PostorderTraversalStack(root)));
+    }
+
+    private static TreeNode CreatePreorderTestTree()
+    {
+        var n1 = new TreeNode(1);
+        var n2 = new TreeNode(2);
+        var n3 = new TreeNode(3);
+        var n4 = new TreeNode(4);
+        var n5 = new TreeNode(5);
+        var n6 = new TreeNode(6);
+        var n7 = new TreeNode(7);
+        n1.left = n2;
+        n1.right = n3;
+        n2.left = n4;
+        n2.right = n5;
+        n3.left = n6;
+        n5.right = n7;
+        return n1;
+    }
+
+    private static IEnumerable<int> PostorderTraversalStack(TreeNode root)
+    {
+        var result = new List<int>();
+        if (root == null)
         {
-            var root = CreatePreorderTestTree();
-            var res1 = PreorderTraversal(root);
-            WriteLine(Join(", ", res1));
-
-            var res2 = PreorderTraversalStack(root);
-            WriteLine(Join(" ,", res2));
-        }
-
-        public void TestInorder()
-        {
-            var root = CreatePreorderTestTree();
-            var res1 = InorderTraversal(root);
-            WriteLine(Join(", ", res1));
-
-            var res2 = InorderTraversalStack(root);
-            WriteLine(Join(" ,", res2));
-        }
-
-        public static void TestPostOrder()
-        {
-            var root = CreatePreorderTestTree();
-            WriteLine(Join(", ", PostorderTraversal(root)));
-            WriteLine(Join(", ", PostorderTraversalStack(root)));
-        }
-
-        private static TreeNode CreatePreorderTestTree()
-        {
-            var n1 = new TreeNode(1);
-            var n2 = new TreeNode(2);
-            var n3 = new TreeNode(3);
-            var n4 = new TreeNode(4);
-            var n5 = new TreeNode(5);
-            var n6 = new TreeNode(6);
-            var n7 = new TreeNode(7);
-            n1.left = n2;
-            n1.right = n3;
-            n2.left = n4;
-            n2.right = n5;
-            n3.left = n6;
-            n5.right = n7;
-            return n1;
-        }
-
-        private static IEnumerable<int> PostorderTraversalStack(TreeNode root)
-        {
-            var result = new List<int>();
-            if (root == null)
-            {
-                return result;
-            }
-
-            var stack = new Stack<TreeNode>();
-            stack.Push(root);
-            while (stack.Any())
-            {
-                var node = stack.Pop();
-                if (node.left != null)
-                {
-                    stack.Push(node.left);
-                }
-
-                if (node.right != null)
-                {
-                    stack.Push(node.right);
-                }
-
-                result.Add(node.val);
-            }
-
-            result.Reverse();
             return result;
         }
 
-        private static IEnumerable<int> PostorderTraversal(TreeNode root)
+        var stack = new Stack<TreeNode>();
+        stack.Push(root);
+        while (stack.Any())
         {
-            var result = new List<int>();
-            if (root == null)
+            var node = stack.Pop();
+            if (node.left != null)
             {
-                return result;
+                stack.Push(node.left);
             }
 
-            PostorderTraversalImplementation(root, result);
-            return result;
-
-            static void PostorderTraversalImplementation(TreeNode node, ICollection<int> result)
+            if (node.right != null)
             {
-                if (node.left != null)
-                {
-                    PostorderTraversalImplementation(node.left, result);
-                }
-
-                if (node.right != null)
-                {
-                    PostorderTraversalImplementation(node.right, result);
-                }
-
-                result.Add(node.val);
+                stack.Push(node.right);
             }
+
+            result.Add(node.val);
         }
 
-        private IEnumerable<int> InorderTraversalStack(TreeNode root)
+        result.Reverse();
+        return result;
+    }
+
+    private static IEnumerable<int> PostorderTraversal(TreeNode root)
+    {
+        var result = new List<int>();
+        if (root == null)
         {
-            var result = new List<int>();
-            if (root == null)
+            return result;
+        }
+
+        PostorderTraversalImplementation(root, result);
+        return result;
+
+        static void PostorderTraversalImplementation(TreeNode node, ICollection<int> result)
+        {
+            if (node.left != null)
             {
-                return result;
+                PostorderTraversalImplementation(node.left, result);
             }
 
-            var stack = new Stack<TreeNode>();
-            var cur = root;
+            if (node.right != null)
+            {
+                PostorderTraversalImplementation(node.right, result);
+            }
+
+            result.Add(node.val);
+        }
+    }
+
+    private IEnumerable<int> InorderTraversalStack(TreeNode root)
+    {
+        var result = new List<int>();
+        if (root == null)
+        {
+            return result;
+        }
+
+        var stack = new Stack<TreeNode>();
+        var cur = root;
+        while (cur != null)
+        {
+            stack.Push(cur);
+            cur = cur.left;
+        }
+
+        while (stack.Count > 0)
+        {
+            var poppedElement = stack.Pop();
+            result.Add(poppedElement.val);
+            cur = poppedElement.right;
             while (cur != null)
             {
                 stack.Push(cur);
                 cur = cur.left;
             }
+        }
 
-            while (stack.Count > 0)
-            {
-                var poppedElement = stack.Pop();
-                result.Add(poppedElement.val);
-                cur = poppedElement.right;
-                while (cur != null)
-                {
-                    stack.Push(cur);
-                    cur = cur.left;
-                }
-            }
+        return result;
+    }
 
+    public IEnumerable<int> InorderTraversal(TreeNode root)
+    {
+        var result = new List<int>();
+        if (root == null)
+        {
             return result;
         }
 
-        public IEnumerable<int> InorderTraversal(TreeNode root)
+        InorderTraversalImplementation(root, result);
+        return result;
+
+        static void InorderTraversalImplementation(TreeNode node, ICollection<int> result)
         {
-            var result = new List<int>();
-            if (root == null)
+            if (node.left != null)
             {
-                return result;
+                InorderTraversalImplementation(node.left, result);
             }
 
-            InorderTraversalImplementation(root, result);
-            return result;
-
-            static void InorderTraversalImplementation(TreeNode node, ICollection<int> result)
+            result.Add(node.val);
+            if (node.right != null)
             {
+                InorderTraversalImplementation(node.right, result);
+            }
+        }
+    }
+
+    private static IEnumerable<int> PreorderTraversalStack(TreeNode root)
+    {
+        var stack = new Stack<TreeNode>();
+        var result = new List<int>();
+        if (root == null)
+        {
+            return result;
+        }
+
+        stack.Push(root);
+
+        while (stack.Count > 0)
+        {
+            var poppedElement = stack.Pop();
+            result.Add(poppedElement.val);
+            if (poppedElement.right != null)
+            {
+                stack.Push(poppedElement.right);
+            }
+
+            if (poppedElement.left != null)
+            {
+                stack.Push(poppedElement.left);
+            }
+        }
+
+        return result;
+    }
+
+    public static IEnumerable<int> PreorderTraversal(TreeNode root)
+    {
+        var result = new List<int>();
+        PreorderTraversalImpl(root, result);
+        return result;
+
+        static void PreorderTraversalImpl(TreeNode node, ICollection<int> list)
+        {
+            if (node != null)
+            {
+                list.Add(node.val);
                 if (node.left != null)
                 {
-                    InorderTraversalImplementation(node.left, result);
+                    PreorderTraversalImpl(node.left, list);
                 }
 
-                result.Add(node.val);
                 if (node.right != null)
                 {
-                    InorderTraversalImplementation(node.right, result);
+                    PreorderTraversalImpl(node.right, list);
                 }
             }
         }
+    }
 
-        private static IEnumerable<int> PreorderTraversalStack(TreeNode root)
+    private static IEnumerable<IList<int>> LevelOrder(TreeNode root)
+    {
+        if (root == null)
         {
-            var stack = new Stack<TreeNode>();
-            var result = new List<int>();
-            if (root == null)
-            {
-                return result;
-            }
+            return new List<IList<int>>();
+        }
 
-            stack.Push(root);
-
-            while (stack.Count > 0)
+        var queue = new Queue<TreeNode>();
+        queue.Enqueue(root);
+        var queueCount = 1;
+        var result = new List<IList<int>>();
+        while (queue.Any())
+        {
+            var newQueueCount = 0;
+            var levelList = new List<int>();
+            for (var i = 0; i < queueCount; i++)
             {
-                var poppedElement = stack.Pop();
-                result.Add(poppedElement.val);
-                if (poppedElement.right != null)
+                var element = queue.Dequeue();
+                levelList.Add(element.val);
+                if (element.left != null)
                 {
-                    stack.Push(poppedElement.right);
+                    queue.Enqueue(element.left);
+                    newQueueCount++;
                 }
 
-                if (poppedElement.left != null)
+                if (element.right != null)
                 {
-                    stack.Push(poppedElement.left);
+                    queue.Enqueue(element.right);
+                    newQueueCount++;
                 }
             }
 
-            return result;
+            queueCount = newQueueCount;
+            result.Add(levelList);
         }
 
-        public static IEnumerable<int> PreorderTraversal(TreeNode root)
+        return result;
+    }
+
+    private TreeNode CreateLevelOrderTestTree()
+    {
+        var n3 = new TreeNode(3);
+        var n9 = new TreeNode(9);
+        var n20 = new TreeNode(20);
+        var n15 = new TreeNode(15);
+        var n7 = new TreeNode(7);
+        n3.left = n9;
+        n3.right = n20;
+        n20.left = n15;
+        n20.right = n7;
+        return n3;
+    }
+
+    public void TreeLevelOrderTest()
+    {
+        var tree = CreateLevelOrderTestTree();
+        var result = LevelOrder(tree);
+        foreach (var level in result)
         {
-            var result = new List<int>();
-            PreorderTraversalImpl(root, result);
-            return result;
-
-            static void PreorderTraversalImpl(TreeNode node, ICollection<int> list)
-            {
-                if (node != null)
-                {
-                    list.Add(node.val);
-                    if (node.left != null)
-                    {
-                        PreorderTraversalImpl(node.left, list);
-                    }
-
-                    if (node.right != null)
-                    {
-                        PreorderTraversalImpl(node.right, list);
-                    }
-                }
-            }
+            WriteLine(Join(", ", level));
         }
+    }
 
-        private static IEnumerable<IList<int>> LevelOrder(TreeNode root)
+
+    public int MaxDepth(TreeNode root)
+    {
+        if (root == null)
         {
-            if (root == null)
-            {
-                return new List<IList<int>>();
-            }
-
-            var queue = new Queue<TreeNode>();
-            queue.Enqueue(root);
-            var queueCount = 1;
-            var result = new List<IList<int>>();
-            while (queue.Any())
-            {
-                var newQueueCount = 0;
-                var levelList = new List<int>();
-                for (var i = 0; i < queueCount; i++)
-                {
-                    var element = queue.Dequeue();
-                    levelList.Add(element.val);
-                    if (element.left != null)
-                    {
-                        queue.Enqueue(element.left);
-                        newQueueCount++;
-                    }
-
-                    if (element.right != null)
-                    {
-                        queue.Enqueue(element.right);
-                        newQueueCount++;
-                    }
-                }
-
-                queueCount = newQueueCount;
-                result.Add(levelList);
-            }
-
-            return result;
+            return 0;
         }
 
-        private TreeNode CreateLevelOrderTestTree()
+        if (root.left == null && root.right == null)
         {
-            var n3 = new TreeNode(3);
-            var n9 = new TreeNode(9);
-            var n20 = new TreeNode(20);
-            var n15 = new TreeNode(15);
-            var n7 = new TreeNode(7);
-            n3.left = n9;
-            n3.right = n20;
-            n20.left = n15;
-            n20.right = n7;
-            return n3;
+            return 1;
         }
 
-        public void TreeLevelOrderTest()
+        var leftDepth = 0;
+        if (root.left != null)
         {
-            var tree = CreateLevelOrderTestTree();
-            var result = LevelOrder(tree);
-            foreach (var level in result)
-            {
-                WriteLine(Join(", ", level));
-            }
+            leftDepth = MaxDepth(root.left);
         }
 
-
-        
-        public int MaxDepth(TreeNode root) {
-            if (root == null)
-            {
-                return 0;
-            }
-
-            if (root.left == null && root.right == null)
-            {
-                return 1;
-            }
-
-            var leftDepth = 0;
-            if (root.left != null)
-            {
-                leftDepth = MaxDepth(root.left);
-            }
-
-            var rightDepth = 0;
-            if (root.right != null)
-            {
-                rightDepth = MaxDepth(root.right);
-            }
-
-            return Math.Max(leftDepth, rightDepth) + 1;
-        }
-
-        public void TestSymmetric()
+        var rightDepth = 0;
+        if (root.right != null)
         {
-            var tr = CreateSymmetric();
-            WriteLine(IsSymmetric(tr));
-
-            tr = CreateNonSymmetric();
-            WriteLine(IsSymmetric(tr));
+            rightDepth = MaxDepth(root.right);
         }
 
-        private TreeNode CreateNonSymmetric()
-        {
-            var n1 = new TreeNode(1);
-            var n21 = new TreeNode(2);
-            var n22 = new TreeNode(2);
-            var n31 = new TreeNode(3);
-            var n32 = new TreeNode(3);
-            n1.left = n21;
-            n1.right = n22;
-            n21.right = n31;
-            n22.right = n32;
-            return n1;
-        }
+        return Math.Max(leftDepth, rightDepth) + 1;
+    }
 
-        private TreeNode CreateSymmetric()
-        {
-            var n1 = new TreeNode(1);
-            var n21 = new TreeNode(2);
-            var n31 = new TreeNode(3);
-            var n41 = new TreeNode(4);
-            var n22 = new TreeNode(2);
-            var n32 = new TreeNode(3);
-            var n42 = new TreeNode(4);
+    public void TestSymmetric()
+    {
+        var tr = CreateSymmetric();
+        WriteLine(IsSymmetric(tr));
 
-            n1.left = n21;
-            n1.right = n22;
-            n21.left = n31;
-            n21.right = n41;
-            n22.left = n42;
-            n22.right = n32;
-            return n1;
-        }
-        
-        public bool IsSymmetric(TreeNode root)
+        tr = CreateNonSymmetric();
+        WriteLine(IsSymmetric(tr));
+    }
+
+    private TreeNode CreateNonSymmetric()
+    {
+        var n1 = new TreeNode(1);
+        var n21 = new TreeNode(2);
+        var n22 = new TreeNode(2);
+        var n31 = new TreeNode(3);
+        var n32 = new TreeNode(3);
+        n1.left = n21;
+        n1.right = n22;
+        n21.right = n31;
+        n22.right = n32;
+        return n1;
+    }
+
+    private TreeNode CreateSymmetric()
+    {
+        var n1 = new TreeNode(1);
+        var n21 = new TreeNode(2);
+        var n31 = new TreeNode(3);
+        var n41 = new TreeNode(4);
+        var n22 = new TreeNode(2);
+        var n32 = new TreeNode(3);
+        var n42 = new TreeNode(4);
+
+        n1.left = n21;
+        n1.right = n22;
+        n21.left = n31;
+        n21.right = n41;
+        n22.left = n42;
+        n22.right = n32;
+        return n1;
+    }
+
+    private bool IsSymmetric(TreeNode root)
+    {
+        return root == null || IsSame(root.left, root.right);
+
+        bool IsSame(TreeNode n1, TreeNode n2)
         {
-            return root == null || IsSame(root.left, root.right);
-            
-            bool IsSame(TreeNode n1, TreeNode n2)
-            {
-                if (n1 == null && n2 != null || n1 != null && n2 == null || n1 != null && n2 != null && n1.val != n2.val)
-                    return false;
-        
-                return n1 == null && n2 == null || IsSame(n1.left, n2.right) && IsSame(n1.right, n2.left);
-            }
-        }
-        
-        public bool HasPathSum(TreeNode root, int targetSum)
-        {
-            if (root == null)
+            if ((n1 == null && n2 != null) || (n1 != null && n2 == null) ||
+                (n1 != null && n1.val != n2.val))
             {
                 return false;
             }
-            
-            return SumCheck(root, 0, targetSum);
-            bool SumCheck(TreeNode node, int prevSum, int targetSum)
-            {
-                if (node == null)
-                {
-                    return false;
-                }
-                if (IsLeaf(node))
-                {
-                    return prevSum + node.val == targetSum;
-                }
 
-                return SumCheck(node.left, prevSum + node.val, targetSum)
-                       || SumCheck(node.right, prevSum + node.val, targetSum);
-            }
+            return (n1 == null) || (IsSame(n1.left, n2.right) && IsSame(n1.right, n2.left));
+        }
+    }
 
-            bool IsLeaf(TreeNode root)
-                => root.left == null && root.right == null;
+    public bool HasPathSum(TreeNode root, int targetSum)
+    {
+        if (root == null)
+        {
+            return false;
         }
 
-        public void TestBuildSubtree()
-        {
-            var inorder = new[]
-            {
-                9, 3, 15, 20, 7
-            };
-            var postorder = new[]
-            {
-                9, 15, 7, 20, 3
-            };
-            var tree = BuildTree(inorder, postorder);
-            WriteLine(Join(", ", InorderTraversal(tree)));
-            WriteLine(Join(", ", PostorderTraversal(tree)));
+        return SumCheck(root, 0, targetSum);
 
-            var levelOrdering = LevelOrder(tree);
-            foreach (var lvl in levelOrdering)
-            {
-                WriteLine(Join(", ", lvl));
-            }
-        }
-        
-        
-        
-        public TreeNode BuildTree(int[] inorder, int[] postorder)
+        bool SumCheck(TreeNode node, int prevSum, int targetSumValue)
         {
-            if (inorder?.Length == 0 || postorder?.Length == 0)
+            if (node == null)
+            {
+                return false;
+            }
+
+            if (IsLeaf(node))
+            {
+                return prevSum + node.val == targetSumValue;
+            }
+
+            return SumCheck(node.left, prevSum + node.val, targetSumValue)
+                   || SumCheck(node.right, prevSum + node.val, targetSumValue);
+        }
+
+        bool IsLeaf(TreeNode rootNode)
+        {
+            return rootNode.left == null && rootNode.right == null;
+        }
+    }
+
+    public void TestBuildSubtree()
+    {
+        var inorder = new[] {9, 3, 15, 20, 7};
+        var postorder = new[] {9, 15, 7, 20, 3};
+        var tree = BuildTree(inorder, postorder);
+        WriteLine(Join(", ", InorderTraversal(tree)));
+        WriteLine(Join(", ", PostorderTraversal(tree)));
+
+        var levelOrdering = LevelOrder(tree);
+        foreach (var lvl in levelOrdering)
+        {
+            WriteLine(Join(", ", lvl));
+        }
+    }
+
+
+    private TreeNode BuildTree(int[] inorder, int[] postorder)
+    {
+        if (inorder?.Length == 0 || postorder?.Length == 0)
+        {
+            return null;
+        }
+
+        if (inorder != null)
+        {
+            return BuildSubtree(inorder, postorder, 0, inorder.Length - 1);
+        }
+
+        return null;
+
+        static TreeNode BuildSubtree(IReadOnlyList<int> inorderArray, IReadOnlyList<int> postorderArray,
+            int inorderIndexStart, int inorderIndexEnd)
+        {
+            if (inorderIndexStart > inorderIndexEnd)
             {
                 return null;
             }
-            
-            return BuildSubtree(inorder, postorder, 0, inorder.Length - 1);
-            
-            static TreeNode BuildSubtree(IReadOnlyList<int> inorderArray, IReadOnlyList<int> postorderArray, int inorderIndexStart, int inorderIndexEnd)
-            {
-                if (inorderIndexStart > inorderIndexEnd)
-                {
-                    return null;
-                }
-                int? inorderRoot = null, inorderRootIndex = null;
-                bool found = false;
-                for (var i = postorderArray.Count - 1; i >= 0; i--)
-                {
-                    for (var j = inorderIndexStart; j <= inorderIndexEnd; j++)
-                    {
-                        if (inorderArray[j] == postorderArray[i])
-                        {
-                            inorderRoot = inorderArray[j];
-                            inorderRootIndex = j;
-                            found = true;
-                            break;
-                        }
-                    }
 
-                    if (found)
+            int? inorderRoot = null, inorderRootIndex = null;
+            var found = false;
+            for (var i = postorderArray.Count - 1; i >= 0; i--)
+            {
+                for (var j = inorderIndexStart; j <= inorderIndexEnd; j++)
+                {
+                    if (inorderArray[j] == postorderArray[i])
                     {
+                        inorderRoot = inorderArray[j];
+                        inorderRootIndex = j;
+                        found = true;
                         break;
                     }
                 }
 
-                if (inorderRoot != null)
+                if (found)
                 {
-                    var newRoot = new TreeNode(inorderRoot.Value)
-                    {
-                        left = BuildSubtree(inorderArray, postorderArray, inorderIndexStart, inorderRootIndex.Value - 1),
-                        right = BuildSubtree(inorderArray, postorderArray, inorderRootIndex.Value + 1, inorderIndexEnd)
-                    };
-                    return newRoot;
+                    break;
                 }
-
-                return null;
             }
+
+            if (inorderRoot != null)
+            {
+                var newRoot = new TreeNode(inorderRoot.Value)
+                {
+                    left =
+                        BuildSubtree(inorderArray, postorderArray, inorderIndexStart, inorderRootIndex.Value - 1),
+                    right = BuildSubtree(inorderArray, postorderArray, inorderRootIndex.Value + 1, inorderIndexEnd)
+                };
+                return newRoot;
+            }
+
+            return null;
         }
     }
 }

@@ -4,153 +4,152 @@ using System;
 
 #endregion
 
-namespace Oz.LeetCode
+namespace Oz.LeetCode;
+
+public class LinkedListCyclePointerSolver
 {
-    public class LinkedListCyclePointerSolver
+    private bool HasCycle(ListNode head)
     {
-        public bool HasCycle(ListNode head)
+        if (head == null)
         {
-            if (head == null)
+            return false;
+        }
+
+        var fastPointer = head;
+        var slowPointer = head;
+
+        do
+        {
+            slowPointer = slowPointer.Next;
+            if (slowPointer == null)
             {
                 return false;
             }
-            
-            var fastPointer = head;
-            var slowPointer = head;
 
-            do
+            fastPointer = fastPointer.Next;
+            if (fastPointer == null)
             {
-                slowPointer = slowPointer.next;
-                if (slowPointer == null)
-                {
-                    return false;
-                }
+                return false;
+            }
 
-                fastPointer = fastPointer.next;
-                if (fastPointer == null)
-                {
-                    return false;
-                }
+            fastPointer = fastPointer.Next;
+            if (fastPointer == null)
+            {
+                return false;
+            }
+        } while (slowPointer != fastPointer);
 
-                fastPointer = fastPointer.next;
-                if (fastPointer == null)
-                {
-                    return false;
-                }
-            } while (slowPointer != fastPointer);
+        return true;
+    }
 
-            return true;
+    public ListNode DetectCycle(ListNode head)
+    {
+        if (head == null)
+        {
+            return null;
         }
-        
-        public ListNode DetectCycle(ListNode head) {
-            if (head == null)
+
+        var fastPointer = head;
+        var slowPointer = head;
+
+        do
+        {
+            slowPointer = slowPointer.Next;
+            if (slowPointer == null)
             {
                 return null;
             }
-            
-            var fastPointer = head;
-            var slowPointer = head;
 
-            do
+            fastPointer = fastPointer.Next;
+            if (fastPointer == null)
             {
-                slowPointer = slowPointer.next;
-                if (slowPointer == null)
-                {
-                    return null;
-                }
-
-                fastPointer = fastPointer.next;
-                if (fastPointer == null)
-                {
-                    return null;
-                }
-
-                fastPointer = fastPointer.next;
-                if (fastPointer == null)
-                {
-                    return null;
-                }
-            } while (slowPointer != fastPointer);
-
-            var slowPointer2 = head;
-
-            while (slowPointer != slowPointer2)
-            {
-                slowPointer = slowPointer.next;
-                slowPointer2 = slowPointer2.next;
+                return null;
             }
 
-            return slowPointer;
-        }
+            fastPointer = fastPointer.Next;
+            if (fastPointer == null)
+            {
+                return null;
+            }
+        } while (slowPointer != fastPointer);
 
-        
+        var slowPointer2 = head;
 
-        public static void Test()
+        while (slowPointer != slowPointer2)
         {
-            TestInner1();
-            TestInner2();
-            TestInner3();
-            TestInner4();
-            TestInner5();
+            slowPointer = slowPointer.Next;
+            slowPointer2 = slowPointer2.Next;
         }
 
-        private static void TestInner5()
-        {
-            var n1 = new ListNode(1);
-            var n2 = new ListNode(2);
-            n1.next = n2;
-            n2.next = n1;
-            var solver = new LinkedListCyclePointerSolver();
-            Console.WriteLine(solver.DetectCycle(n1).val);
-        }
+        return slowPointer;
+    }
 
-        private static void TestInner4()
-        {
-            var n3 = new ListNode(3);
-            var n2 = new ListNode(2);
-            var n0 = new ListNode();
-            var n_4 = new ListNode(-4);
 
-            n3.next = n2;
-            n2.next = n0;
-            n0.next = n_4;
-            n_4.next = n2;
+    public static void Test()
+    {
+        TestInner1();
+        TestInner2();
+        TestInner3();
+        TestInner4();
+        TestInner5();
+    }
 
-            var solver = new LinkedListCyclePointerSolver();
-            Console.WriteLine(solver.DetectCycle(n3).val);
-        }
+    private static void TestInner5()
+    {
+        var n1 = new ListNode(1);
+        var n2 = new ListNode(2);
+        n1.Next = n2;
+        n2.Next = n1;
+        var solver = new LinkedListCyclePointerSolver();
+        Console.WriteLine(solver.DetectCycle(n1).Val);
+    }
 
-        private static void TestInner1()
-        {
-            var n3 = new ListNode(3);
-            var n2 = new ListNode(2);
-            var n0 = new ListNode();
-            var n_4 = new ListNode(-4);
+    private static void TestInner4()
+    {
+        var n3 = new ListNode(3);
+        var n2 = new ListNode(2);
+        var n0 = new ListNode();
+        var n4 = new ListNode(-4);
 
-            n3.next = n2;
-            n2.next = n0;
-            n0.next = n_4;
-            n_4.next = n2;
+        n3.Next = n2;
+        n2.Next = n0;
+        n0.Next = n4;
+        n4.Next = n2;
 
-            var solver = new LinkedListCyclePointerSolver();
-            Console.WriteLine(solver.HasCycle(n3));
-        }
+        var solver = new LinkedListCyclePointerSolver();
+        Console.WriteLine(solver.DetectCycle(n3).Val);
+    }
 
-        private static void TestInner2()
-        {
-            var n1 = new ListNode(1);
-            var n2 = new ListNode(2);
-            n1.next = n2;
-            n2.next = n1;
-            var solver = new LinkedListCyclePointerSolver();
-            Console.WriteLine(solver.HasCycle(n1));
-        }
+    private static void TestInner1()
+    {
+        var n3 = new ListNode(3);
+        var n2 = new ListNode(2);
+        var n0 = new ListNode();
+        var n4 = new ListNode(-4);
 
-        private static void TestInner3()
-        {
-            var n1 = new ListNode(1);
-            var solver = new LinkedListCyclePointerSolver();
-            Console.WriteLine(solver.HasCycle(n1));
-        }
+        n3.Next = n2;
+        n2.Next = n0;
+        n0.Next = n4;
+        n4.Next = n2;
+
+        var solver = new LinkedListCyclePointerSolver();
+        Console.WriteLine(solver.HasCycle(n3));
+    }
+
+    private static void TestInner2()
+    {
+        var n1 = new ListNode(1);
+        var n2 = new ListNode(2);
+        n1.Next = n2;
+        n2.Next = n1;
+        var solver = new LinkedListCyclePointerSolver();
+        Console.WriteLine(solver.HasCycle(n1));
+    }
+
+    private static void TestInner3()
+    {
+        var n1 = new ListNode(1);
+        var solver = new LinkedListCyclePointerSolver();
+        Console.WriteLine(solver.HasCycle(n1));
     }
 }

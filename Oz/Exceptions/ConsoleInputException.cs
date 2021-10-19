@@ -6,5 +6,7 @@ namespace Oz.Exceptions;
 
 public class ConsoleInputException : Exception
 {
-    public ConsoleInputException(string message): base(message){}
+    public ConsoleInputException(string message) : base(message)
+    {
+    }
 }

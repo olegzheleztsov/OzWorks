@@ -22,7 +22,7 @@ namespace Oz.Tests.DP
         [InlineData("bcc", "bbcd", "bbcbcac", false)]
         public void Should_Correctly_Find_InterleavingDP_Strings(string A, string B, string C, bool isInterleav)
         {
-            var answer = Exercises.IsInterleavingDP(A, B, C);
+            var answer = Exercises.IsInterleavingDp(A, B, C);
             answer.Should().Be(isInterleav);
         }
     }

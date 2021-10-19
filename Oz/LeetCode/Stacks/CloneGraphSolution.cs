@@ -4,76 +4,77 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace Oz.LeetCode.Stacks
+namespace Oz.LeetCode.Stacks;
+
+public class CloneGraphSolution
 {
-    public class CloneGraphSolution
+    public Node CloneGraph(Node node)
     {
-        public Node CloneGraph(Node node)
+        if (node == null)
         {
-            if (node == null)
-            {
-                return null;
-            }
+            return null;
+        }
 
-            var newRoot = new Node(node.val);
+        var newRoot = new Node(node.Value);
 
-            if (node.neighbors.Count == 0)
-            {
-                return newRoot;
-            }
-
-            HashSet<Node> cloned = new HashSet<Node>() {node};
-            Node[] newNodeArr = new Node[101];
-            newNodeArr[newRoot.val] = newRoot;
-            CloneGraphImplementation(node, newRoot, cloned, newNodeArr);
-
-            foreach (var n in cloned)
-            {
-                foreach (var ch in n.neighbors)
-                {
-                    newNodeArr[n.val].neighbors.Add(newNodeArr[ch.val]);
-                }
-            }
-            
+        if (node.NeighborValues.Count == 0)
+        {
             return newRoot;
         }
 
-        private void CloneGraphImplementation(Node current, Node currentCopy, HashSet<Node> cloned, Node[] newNodeArr)
+        var cloned = new HashSet<Node> {node};
+        var newNodeArr = new Node[101];
+        newNodeArr[newRoot.Value] = newRoot;
+        CloneGraphImplementation(node, cloned, newNodeArr);
+
+        foreach (var n in cloned)
         {
-            foreach (var neighbor in current.neighbors)
+            foreach (var ch in n.NeighborValues)
             {
-                if (!cloned.Contains(neighbor))
-                {
-                    cloned.Add(neighbor);
-                    var newCloneNode = new Node(neighbor.val);
-                    newNodeArr[newCloneNode.val] = newCloneNode;
-                    CloneGraphImplementation(neighbor, newCloneNode, cloned, newNodeArr);
-                }
+                newNodeArr[n.Value].NeighborValues.Add(newNodeArr[ch.Value]);
             }
         }
 
-        public class Node
+        return newRoot;
+    }
+
+    private void CloneGraphImplementation(Node current, HashSet<Node> cloned, Node[] newNodeArr)
+    {
+        foreach (var neighbor in current.NeighborValues)
         {
-            public IList<Node> neighbors;
-            public int val;
-
-            public Node()
+            if (cloned.Contains(neighbor))
             {
-                val = 0;
-                neighbors = new List<Node>();
+                continue;
             }
 
-            public Node(int _val)
-            {
-                val = _val;
-                neighbors = new List<Node>();
-            }
+            cloned.Add(neighbor);
+            var newCloneNode = new Node(neighbor.Value);
+            newNodeArr[newCloneNode.Value] = newCloneNode;
+            CloneGraphImplementation(neighbor, cloned, newNodeArr);
+        }
+    }
 
-            public Node(int _val, List<Node> _neighbors)
-            {
-                val = _val;
-                neighbors = _neighbors;
-            }
+    public class Node
+    {
+        public readonly IList<Node> NeighborValues;
+        public readonly int Value;
+
+        public Node()
+        {
+            Value = 0;
+            NeighborValues = new List<Node>();
+        }
+
+        public Node(int value)
+        {
+            Value = value;
+            NeighborValues = new List<Node>();
+        }
+
+        public Node(int value, IList<Node> neighborValues)
+        {
+            Value = value;
+            NeighborValues = neighborValues;
         }
     }
 }

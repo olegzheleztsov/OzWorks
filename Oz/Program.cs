@@ -1,12 +1,96 @@
-﻿using Oz.Algorithms.Sort.V2;
+﻿using Oz.Algorithms;
+using Oz.Algorithms.Numerics;
+using Oz.Algorithms.Sort.V2;
 using Oz.Algorithms.Uf;
-using Oz.LeetCode;
+using Oz.ConsoleUtils;
 using Oz.Sedgewick;
 using Oz.Uf;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
-new Ex_2_1_17().PrintNumber(10);
+TestNutsAndBolts();
+
+static void TestNutsAndBolts()
+{
+    var ex = new Ex2315();
+
+    var nuts = Enumerable.Range(1, 10).ToArray();
+    var bolts = Enumerable.Range(1, 10).ToArray();
+    ex.Match(nuts, bolts);
+    Console.WriteLine(nuts.GetStringRepresentation());
+    Console.WriteLine(bolts.GetStringRepresentation());
+}
+
+static void TestMergeFaster()
+{
+    var executor = new StopwatchExecutor();
+    var ex = new Ex_2_2_10<int>();
+    var ex11 = new Ex_2_2_11<int>();
+    var merge = new Merge<int>();
+
+    var rSource = new DefaultRandomSource();
+    var array = rSource.RandomArray(1000000, 1, 10);
+
+    executor.AggregateExecution("MergeFaster", 20, () =>
+    {
+        array.Shuffle();
+        ex.Sort(array);
+    });
+
+    executor.AggregateExecution("ClassicMerge", 20, () =>
+    {
+        array.Shuffle();
+        merge.Sort(array);
+    });
+    
+    executor.AggregateExecution("Improvements", 20, () =>
+    {
+        array.Shuffle();
+        ex11.Sort(array);
+    });
+}
+
+
+static void VisualizingSort()
+{
+    var ex = new Ex_2_1_17();
+    var array = Enumerable.Range(0, 30).ToArray().Shuffled();
+    ex.VisualizeSorting(array, SortKind.Insertion);
+
+    Console.Clear();
+    Console.Write("Enter command: ");
+    var command = Console.ReadLine();
+    while (command != "quit")
+    {
+        switch (command)
+        {
+            case "insertion":
+            {
+                array = array.Shuffled();
+                ex.VisualizeSorting(array, SortKind.Insertion);
+            }
+                break;
+            case "selection":
+            {
+                array = array.Shuffled();
+                ex.VisualizeSorting(array, SortKind.Selection);
+            }
+                break;
+            case "shell":
+            {
+                array = array.Shuffled();
+                ex.VisualizeSorting(array, SortKind.Shell);
+            }
+                break;
+        }
+
+        Console.Clear();
+        Console.Write("Enter command: ");
+        command = Console.ReadLine();
+    }
+}
+
 
 static double Time<T>(string algo, T[] array) where T : IComparable<T>
 {

@@ -3,97 +3,102 @@
 using System;
 using System.Linq;
 
-namespace Oz.Grokking
+namespace Oz.Grokking;
+
+public static class GAlgo
 {
-    public static class GAlgo
+    private static int[] Histogram(int[] array, int histLength)
     {
+        var hist = new int[histLength];
 
-        public static int[] Histogram(int[] array, int histLength)
+        for (var i = 0; i < hist.Length; i++)
         {
-            int[] hist = new int[histLength];
+            var count = array.Count(e => e == i);
+            hist[i] = count;
+        }
 
-            for(int i = 0; i < hist.Length; i++)
+        return hist;
+    }
+
+    public static void HistogramTest()
+    {
+        int[] array = {1, 2, 3, 4, 5, 3, 5, 3, 5, 2};
+        var hist = Histogram(array, 6);
+        Console.WriteLine(string.Join(" ", hist));
+        Console.WriteLine($"Hist sum: {hist.Sum()}, arr length: {array.Length}");
+    }
+
+    public static int Log2Approximation(int number)
+    {
+        var result = 0;
+        var num = 1;
+
+        while (num <= number)
+        {
+            num *= 2;
+            result++;
+        }
+
+        return result - 1;
+    }
+
+    private static void PrintTransposed(int[,] array)
+    {
+        var rowCount = array.GetUpperBound(0) + 1;
+        var columnCount = array.GetUpperBound(1) + 1;
+
+        for (var j = 0; j < columnCount; j++)
+        {
+            for (var i = 0; i < rowCount; i++)
             {
-                int count = array.Where(e => e == i).Count();
-                hist[i] = count;
+                Console.Write($"{array[i, j]}\t");
             }
-            return hist;
+
+            Console.WriteLine();
         }
+    }
 
-        public static void HistogramTest()
+    public static void PrintTransposedTest()
+    {
+        var array = new int[3, 5];
+        var counter = 1;
+        for (var i = 0; i < 3; i++)
         {
-            int[] array = { 1, 2, 3, 4, 5, 3, 5, 3, 5, 2 };
-            var hist = Histogram(array, 6);
-            Console.WriteLine(string.Join(" ", hist));
-            Console.WriteLine($"Hist sum: {hist.Sum()}, arr length: {array.Length}");
-        }
-
-        public static int Log2Approximation(int number)
-        {
-            int result = 0;
-            int num = 1;
-
-            while(num <= number)
+            for (var j = 0; j < 5; j++)
             {
-                num *= 2;
-                result++;
+                array[i, j] = counter++;
             }
-            return result - 1;
         }
 
-        public static void PrintTransposed(int[,] array)
+        PrintTransposed(array);
+    }
+
+
+    public static int? BinarySearch<T>(T[] array, T item, Comparison<T> comparison)
+    {
+        var low = 0;
+        var high = array.Length - 1;
+
+
+        while (low <= high)
         {
-            int rowCount = array.GetUpperBound(0) + 1;
-            int columnCount = array.GetUpperBound(1) + 1;
-
-            for(int j = 0; j < columnCount; j++)
+            var mid = (low + high) / 2;
+            var guess = array[mid];
+            if (comparison(guess, item) == 0)
             {
-                for(int i = 0; i < rowCount; i++)
-                {
-                    Console.Write($"{array[i, j]}\t");
-                }
-                Console.WriteLine();
+                return mid;
+            }
+
+            if (comparison(guess, item) > 0)
+            {
+                high = mid - 1;
+            }
+            else
+            {
+                low = mid + 1;
             }
         }
 
-        public static void PrintTransposedTest()
-        {
-            int[,] array = new int[3, 5];
-            int counter = 1;
-            for(int i = 0; i < 3; i++)
-            {
-                for(int j = 0; j < 5; j++ )
-                {
-                    array[i, j] = counter++;
-                }
-            }
-            PrintTransposed(array);
-        }
-
-
-        public static int? BinarySearch<T>(T[] array, T item, Comparison<T> comparison)
-        {
-            var low = 0;
-            var high = array.Length - 1;
-
-
-            while(low <= high)
-            {
-                var mid = (low + high) / 2;
-                var guess = array[mid];
-                if(comparison(guess, item) == 0)
-                {
-                    return mid;
-                }
-                if(comparison(guess, item) > 0)
-                {
-                    high = mid - 1;
-                } else
-                {
-                    low = mid + 1;
-                }
-            }
-            return null;
-        }
+        return null;
     }
 }
