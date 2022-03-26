@@ -370,7 +370,7 @@ public class TreeSolutions
                 return false;
             }
 
-            return (n1 == null) || (IsSame(n1.left, n2.right) && IsSame(n1.right, n2.left));
+            return n1 == null || (IsSame(n1.left, n2.right) && IsSame(n1.right, n2.left));
         }
     }
 

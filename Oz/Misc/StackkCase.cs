@@ -1,34 +1,33 @@
-﻿using System;
-using Oz.Algorithms.DataStructures;
+﻿using Oz.Algorithms.DataStructures;
+using System;
 
-namespace Oz
+namespace Oz;
+
+public class StackkCase
 {
-    public class StackkCase
+    public void Run()
     {
-        public void Run()
-        {
-            var stack = new OzStack<int>(10);
-            stack.Push(1);
-            stack.Push(2);
-            stack.Push(3);
-            Console.WriteLine(stack.ToString());
-            Console.WriteLine(stack.Pop());
-            Console.WriteLine(stack.Pop());
-            Console.WriteLine(stack.Pop());
-            Console.WriteLine(stack.ToString());
-            Console.WriteLine(stack.IsEmpty);
+        var stack = new OzStack<int>(10);
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+        Console.WriteLine(stack.ToString());
+        Console.WriteLine(stack.Pop());
+        Console.WriteLine(stack.Pop());
+        Console.WriteLine(stack.Pop());
+        Console.WriteLine(stack.ToString());
+        Console.WriteLine(stack.IsEmpty);
 
-            try
+        try
+        {
+            for (var i = 0; i < 20; i++)
             {
-                for (var i = 0; i < 20; i++)
-                {
-                    stack.Push(i);
-                }
+                stack.Push(i);
             }
-            catch (IndexOutOfRangeException exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            Console.WriteLine(exception.Message);
         }
     }
 }

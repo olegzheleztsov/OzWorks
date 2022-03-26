@@ -23,7 +23,7 @@ public class Ex_2_1_13
         List<DeckCard> cards = new();
         foreach (var suit in Enum.GetValues<Suit>())
         {
-            for (int i = 1; i <= 13; i++)
+            for (var i = 1; i <= 13; i++)
             {
                 cards.Add(new DeckCard(suit, i));
             }
@@ -43,6 +43,7 @@ public record DeckCard : IComparable<DeckCard>
 {
     public DeckCard(Suit suit, int rank) =>
         (Suit, Rank) = (suit, rank);
+
     public Suit Suit { get; }
     public int Rank { get; }
 

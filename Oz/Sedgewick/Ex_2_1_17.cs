@@ -2,13 +2,15 @@
 
 using Oz.Algorithms.Sort.V2;
 using System;
+using System.Text;
 using System.Threading.Tasks;
+
 namespace Oz.Sedgewick;
 
 public class Ex_2_1_17
 {
     public Ex_2_1_17() =>
-        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        Console.OutputEncoding = Encoding.UTF8;
 
     public void VisualizeSorting(int[] array, SortKind sortKind, int delayMilliseconds = 100)
     {
@@ -72,7 +74,7 @@ public class Ex_2_1_17
             Console.Write('□');
             yPos--;
         }
-        
+
         Console.SetCursorPosition(0, Console.WindowHeight - 1);
     }
 }

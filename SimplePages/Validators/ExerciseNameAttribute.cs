@@ -9,7 +9,7 @@ namespace SimplePages.Validators
 {
     public class ExerciseNameAttribute : ValidationAttribute
     {
-        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var exerciseViewModel = validationContext.ObjectInstance as PhysicalExerciseViewModel;
             if (exerciseViewModel == null)

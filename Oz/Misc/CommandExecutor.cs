@@ -1,54 +1,47 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
-namespace Oz
+namespace Oz;
+
+public class CommandExecutor
 {
-    public class CommandExecutor
+    private readonly Dictionary<string, Func<string[], object>> _argumentParsers =
+        new() {["pascal"] = PascalTriangle.ParseArguments};
+
+    private readonly Dictionary<string, IExecutor> _executors = new() {["pascal"] = new PascalTriangle()};
+
+
+    public async Task<bool> RunAsync(string[] args)
     {
-        private readonly Dictionary<string, Func<string[], object>> _argumentParsers =
-            new Dictionary<string, Func<string[], object>>
-            {
-                ["pascal"] = PascalTriangle.ParseArguments
-            };
-
-        private readonly Dictionary<string, IExecutor> _executors = new Dictionary<string, IExecutor>
+        if (args.Length > 0)
         {
-            ["pascal"] = new PascalTriangle()
-        };
-
-
-        public async Task<bool> RunAsync(string[] args)
-        {
-            if (args.Length > 0)
+            try
             {
-                try
+                var commandName = args[0].ToLower();
+                if (_executors.ContainsKey(commandName))
                 {
-                    var commandName = args[0].ToLower();
-                    if (_executors.ContainsKey(commandName))
-                    {
-                        await _executors[commandName].RunAsync(_argumentParsers[commandName](args[1..]))
-                            .ConfigureAwait(false);
-                        return await Task.FromResult(false);
-                    }
-
-                    if (commandName == "q" || commandName == "quit" || commandName == "exit")
-                    {
-                        return await Task.FromResult(true);
-                    }
+                    await _executors[commandName].RunAsync(_argumentParsers[commandName](args[1..]))
+                        .ConfigureAwait(false);
+                    return await Task.FromResult(false);
                 }
-                catch (Exception exception)
+
+                if (commandName == "q" || commandName == "quit" || commandName == "exit")
                 {
-                    Console.WriteLine(JsonConvert.SerializeObject(exception));
+                    return await Task.FromResult(true);
                 }
             }
-            else
+            catch (Exception exception)
             {
-                Console.WriteLine("Wrong command...");
+                Console.WriteLine(JsonConvert.SerializeObject(exception));
             }
-
-            return await Task.FromResult(false);
         }
+        else
+        {
+            Console.WriteLine("Wrong command...");
+        }
+
+        return await Task.FromResult(false);
     }
 }

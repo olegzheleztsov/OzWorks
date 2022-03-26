@@ -24,11 +24,11 @@ namespace Oz.Algorithms.Activities
             var sortedActivities = new List<Activity<T>>(activityArray);
 
             var result = new HashSet<Activity<T>>(new List<Activity<T>> {sortedActivities.Last()});
-            result.UnionWith(_SelectActivities(sortedActivities, sortedActivities.Count - 1));
+            result.UnionWith(SelectActivitiesInner(sortedActivities, sortedActivities.Count - 1));
             return result;
         }
 
-        private HashSet<Activity<T>> _SelectActivities(IReadOnlyList<Activity<T>> activities, int startIndex)
+        private IEnumerable<Activity<T>> SelectActivitiesInner(IReadOnlyList<Activity<T>> activities, int startIndex)
         {
             var m = startIndex - 1;
             while (m >= 0 && activities[m].EndTime > activities[startIndex].StartTime)
@@ -51,14 +51,11 @@ namespace Oz.Algorithms.Activities
                 }
             }
 
-            if (kMax >= 0)
             {
                 var result = new HashSet<Activity<T>>(new List<Activity<T>> {activities[kMax]});
-                result.UnionWith(_SelectActivities(activities, kMax));
+                result.UnionWith(SelectActivitiesInner(activities, kMax));
                 return result;
             }
-
-            return new HashSet<Activity<T>>();
         }
     }
 }

@@ -8,6 +8,7 @@ Intel Core i3-7100U CPU 2.40GHz (Kaby Lake), 1 CPU, 4 logical and 2 physical cor
 
 
 ```
+
 |               Method |     Mean |     Error |    StdDev |
 |--------------------- |---------:|----------:|----------:|
 | MoveToFrontBenchmark | 4.761 ms | 0.0309 ms | 0.0241 ms |

@@ -4,84 +4,81 @@ using Oz.Algorithms;
 using Oz.Algorithms.DataStructures;
 using System.Threading.Tasks;
 
-namespace Oz.Rob
+namespace Oz.Rob;
+
+[Config(typeof(Config))]
+public class SelfOrganizedListsBenchmark
 {
-    [Config(typeof(Config))]
-    public class SelfOrganizedListsBenchmark
+    private readonly CountDoubleLinkedList<int> _countDoubleLinkedList = new();
+
+    private readonly MoveToFrontSingleLinkedList<int> _moveToFrontSingleLinkedList = new();
+    private readonly DefaultRandomSource _randomSource = new();
+    private readonly SwapSingleLinkedList<int> _swapSingleLinkedList = new();
+
+    public SelfOrganizedListsBenchmark()
     {
-        private class Config : ManualConfig
+        for (var i = 1; i <= 100; i++)
         {
-            public Config()
+            var number = _randomSource.RandomValue(1, 101);
+            _moveToFrontSingleLinkedList.InsertLast(number);
+            _swapSingleLinkedList.InsertLast(number);
+            _countDoubleLinkedList.InsertFirst(new FrequencyData<int> {Data = number, Frequency = 1});
+        }
+    }
+
+    public async Task TaskConfigureAwait()
+    {
+        var t = Task.Factory.StartNew(() =>
+        {
+            for (var i = 0; i < 100; i++)
             {
-                WithOption(ConfigOptions.DisableOptimizationsValidator, true);
             }
-        }
-        
-        private readonly MoveToFrontSingleLinkedList<int> _moveToFrontSingleLinkedList = new();
-        private readonly SwapSingleLinkedList<int> _swapSingleLinkedList = new();
-        private readonly CountDoubleLinkedList<int> _countDoubleLinkedList = new();
-        private readonly DefaultRandomSource _randomSource = new();
+        });
+        await t.ConfigureAwait(false);
+    }
 
-        public async Task TaskConfigureAwait()
+    [Benchmark]
+    public ISelfOrganizedListNode MoveToFrontBenchmark()
+    {
+        ISelfOrganizedListNode node = null;
+        for (var i = 0; i < 10000; i++)
         {
-            Task t = Task.Factory.StartNew(() =>
-            {
-                for(int i = 0; i < 100; i++) 
-                {
-                }
-            });
-            await t.ConfigureAwait(false);
+            var number = _randomSource.RandomValue(1, 101);
+            node = _moveToFrontSingleLinkedList.Access(val => val == number);
         }
-        public SelfOrganizedListsBenchmark()
+
+        return node;
+    }
+
+    [Benchmark]
+    public ISelfOrganizedListNode SwapBenchmark()
+    {
+        ISelfOrganizedListNode node = null;
+        for (var i = 0; i < 10000; i++)
         {
-
-
-            for (var i = 1; i <= 100; i++)
-            {
-                var number = _randomSource.RandomValue(1, 101);
-                _moveToFrontSingleLinkedList.InsertLast(number);
-                _swapSingleLinkedList.InsertLast(number);
-                _countDoubleLinkedList.InsertFirst(new FrequencyData<int>() {Data = number, Frequency = 1});
-            }
+            var number = _randomSource.RandomValue(1, 101);
+            node = _swapSingleLinkedList.Access(val => val == number);
         }
 
-        [Benchmark]
-        public ISelfOrganizedListNode MoveToFrontBenchmark()
+        return node;
+    }
+
+    [Benchmark]
+    public ISelfOrganizedListNode CountBenchmark()
+    {
+        ISelfOrganizedListNode node = null;
+        for (var i = 0; i < 10000; i++)
         {
-            ISelfOrganizedListNode node = null;
-            for (var i = 0; i < 10000; i++)
-            {
-                var number = _randomSource.RandomValue(1, 101);
-                node = _moveToFrontSingleLinkedList.Access(val => val == number);
-            }
-
-            return node;
+            var number = _randomSource.RandomValue(1, 101);
+            node = _countDoubleLinkedList.Access(fData => fData.Data == number);
         }
 
-        [Benchmark]
-        public ISelfOrganizedListNode SwapBenchmark()
-        {
-            ISelfOrganizedListNode node = null;
-            for (var i = 0; i < 10000; i++)
-            {
-                var number = _randomSource.RandomValue(1, 101);
-                node = _swapSingleLinkedList.Access(val => val == number);
-            }
+        return node;
+    }
 
-            return node;
-        }
-
-        [Benchmark]
-        public ISelfOrganizedListNode CountBenchmark()
-        {
-            ISelfOrganizedListNode node = null;
-            for (var i = 0; i < 10000; i++)
-            {
-                var number = _randomSource.RandomValue(1, 101);
-                node = _countDoubleLinkedList.Access(fData => fData.Data == number);
-            }
-
-            return node;
-        }
+    private class Config : ManualConfig
+    {
+        public Config() =>
+            WithOption(ConfigOptions.DisableOptimizationsValidator, true);
     }
 }

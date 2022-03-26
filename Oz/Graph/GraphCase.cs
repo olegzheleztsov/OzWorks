@@ -66,16 +66,11 @@ public class GraphCase
 
         IEdge<BellmanFordNodeData<int>>[] bfEdges =
         {
-            new Edge<BellmanFordNodeData<int>>(0, 1, 3), 
-            new Edge<BellmanFordNodeData<int>>(0, 2, 8), 
-            new Edge<BellmanFordNodeData<int>>(0, 4, -4), 
-            new Edge<BellmanFordNodeData<int>>(1, 4, 7), 
-            new Edge<BellmanFordNodeData<int>>(1, 3, 1), 
-            new Edge<BellmanFordNodeData<int>>(2, 1, 4), 
-            new Edge<BellmanFordNodeData<int>>(3, 2, -5),
-            new Edge<BellmanFordNodeData<int>>(3, 0, 2), 
-            new Edge<BellmanFordNodeData<int>>(4, 3, 6), 
-            new Edge<BellmanFordNodeData<int>>(4, 5, 1)
+            new Edge<BellmanFordNodeData<int>>(0, 1, 3), new Edge<BellmanFordNodeData<int>>(0, 2, 8),
+            new Edge<BellmanFordNodeData<int>>(0, 4, -4), new Edge<BellmanFordNodeData<int>>(1, 4, 7),
+            new Edge<BellmanFordNodeData<int>>(1, 3, 1), new Edge<BellmanFordNodeData<int>>(2, 1, 4),
+            new Edge<BellmanFordNodeData<int>>(3, 2, -5), new Edge<BellmanFordNodeData<int>>(3, 0, 2),
+            new Edge<BellmanFordNodeData<int>>(4, 3, 6), new Edge<BellmanFordNodeData<int>>(4, 5, 1)
         };
 
         int BfWeightFunc(GraphVertex<BellmanFordNodeData<int>> v1, GraphVertex<BellmanFordNodeData<int>> v2)
@@ -110,16 +105,11 @@ public class GraphCase
     {
         IEdge<BellmanFordNodeData<char>>[] edges =
         {
-            new Edge<BellmanFordNodeData<char>>(0, 1), 
-            new Edge<BellmanFordNodeData<char>>(0, 2), 
-            new Edge<BellmanFordNodeData<char>>(1, 2), 
-            new Edge<BellmanFordNodeData<char>>(1, 3), 
-            new Edge<BellmanFordNodeData<char>>(2, 3), 
-            new Edge<BellmanFordNodeData<char>>(2, 4), 
-            new Edge<BellmanFordNodeData<char>>(2, 5), 
-            new Edge<BellmanFordNodeData<char>>(3, 4), 
-            new Edge<BellmanFordNodeData<char>>(3, 5),
-            new Edge<BellmanFordNodeData<char>>(4, 5)
+            new Edge<BellmanFordNodeData<char>>(0, 1), new Edge<BellmanFordNodeData<char>>(0, 2),
+            new Edge<BellmanFordNodeData<char>>(1, 2), new Edge<BellmanFordNodeData<char>>(1, 3),
+            new Edge<BellmanFordNodeData<char>>(2, 3), new Edge<BellmanFordNodeData<char>>(2, 4),
+            new Edge<BellmanFordNodeData<char>>(2, 5), new Edge<BellmanFordNodeData<char>>(3, 4),
+            new Edge<BellmanFordNodeData<char>>(3, 5), new Edge<BellmanFordNodeData<char>>(4, 5)
         };
 
         var weights = new (int FirstIndex, int SecondIndex, int Weight)[]

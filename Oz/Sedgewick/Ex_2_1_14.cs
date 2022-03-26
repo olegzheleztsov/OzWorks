@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Oz.Sedgewick;
 
 /// <summary>
-/// Wrong solution
+///     Wrong solution
 /// </summary>
 public class Ex_2_1_14
 {
@@ -21,11 +21,11 @@ public class Ex_2_1_14
             dequeue.EnqueueLeft(card);
         }
 
-        bool swapped = false;
+        var swapped = false;
         do
         {
             swapped = false;
-            for (int i = 0; i < cards.Length - 1; i++)
+            for (var i = 0; i < cards.Length - 1; i++)
             {
                 var right = dequeue.DequeueRight();
                 var left = dequeue.DequeueRight();
@@ -51,7 +51,7 @@ public class Ex_2_1_14
         List<DeckCard> cards = new();
         foreach (var suit in Enum.GetValues<Suit>())
         {
-            for (int i = 1; i <= 13; i++)
+            for (var i = 1; i <= 13; i++)
             {
                 cards.Add(new DeckCard(suit, i));
             }

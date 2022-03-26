@@ -4,10 +4,8 @@ namespace Oz.Algorithms.Activities
 {
     public class IterativeActivitySelector<T> : BaseActivitySelector<T>
     {
-        protected override List<Activity<T>> PrepareActivities(List<Activity<T>> activities)
-        {
-            return activities;
-        }
+        protected override List<Activity<T>> PrepareActivities(List<Activity<T>> activities) =>
+            activities;
 
         protected override HashSet<Activity<T>> _SelectActivities(IReadOnlyList<Activity<T>> activities, int startIndex, int numberOfActivities)
         {
@@ -15,11 +13,13 @@ namespace Oz.Algorithms.Activities
             var k = 0;
             for (var m = 1; m < activities.Count; m++)
             {
-                if (activities[m].StartTime >= activities[k].EndTime)
+                if (activities[m].StartTime < activities[k].EndTime)
                 {
-                    result.UnionWith(new HashSet<Activity<T>>(new[] {activities[m]}));
-                    k = m;
+                    continue;
                 }
+
+                result.UnionWith(new HashSet<Activity<T>>(new[] {activities[m]}));
+                k = m;
             }
 
             return result;

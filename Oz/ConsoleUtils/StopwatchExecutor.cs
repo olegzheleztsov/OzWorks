@@ -9,9 +9,9 @@ namespace Oz.ConsoleUtils;
 
 public class StopwatchExecutor
 {
+    private readonly List<double> _executionTimes = new();
     private readonly Stopwatch _stopwatch = new();
     private int _executionCount;
-    private readonly List<double> _executionTimes = new();
 
     private void Execute(string actionName, Action action)
     {

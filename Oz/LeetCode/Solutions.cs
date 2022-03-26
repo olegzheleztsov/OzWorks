@@ -434,8 +434,8 @@ public class Solutions
 
     public class ListNode
     {
-        public ListNode Next;
         public readonly int Val;
+        public ListNode Next;
 
         public ListNode(int x) =>
             Val = x;

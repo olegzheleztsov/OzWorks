@@ -26,6 +26,7 @@ public class ConsoleReader
         {
             throw new InputFinishedException("Empty input is not allowed");
         }
+
         if (int.TryParse(line, out var number))
         {
             return number;
@@ -42,6 +43,7 @@ public class ConsoleReader
         {
             throw new InputFinishedException("Empty input is not allowed");
         }
+
         var tokens = line.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
         if (tokens.Length < 2)
         {

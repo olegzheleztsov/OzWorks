@@ -7,7 +7,7 @@ public class ListNode
 
     public ListNode(int val = 0, ListNode next = null)
     {
-        this.Val = val;
-        this.Next = next;
+        Val = val;
+        Next = next;
     }
 }

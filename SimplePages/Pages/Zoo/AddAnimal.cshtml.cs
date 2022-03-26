@@ -10,11 +10,6 @@ namespace SimplePages.Pages.Zoo
         [BindProperty] 
         public AnimalSlot AnimalSlot { get; set; } = new AnimalSlot();
 
-        public async Task OnGet()
-        {
-            
-        }
-
         public async Task<ActionResult> OnPost()
         {
             if (ModelState.IsValid)

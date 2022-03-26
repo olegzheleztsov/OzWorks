@@ -20,9 +20,9 @@ public abstract class SearchBstSolver
 
         protected TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
         {
-            this.Val = val;
-            this.Left = left;
-            this.Right = right;
+            Val = val;
+            Left = left;
+            Right = right;
         }
     }
 }

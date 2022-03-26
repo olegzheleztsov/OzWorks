@@ -1,19 +1,17 @@
-﻿using System;
+﻿using Oz.Algorithms.Numerics;
+using System;
 using System.Linq;
-using Microsoft.VisualBasic;
-using Oz.Algorithms.Numerics;
 
-namespace Oz
+namespace Oz;
+
+public class RandomizedSelectCase
 {
-    public class RandomizedSelectCase
+    public void Run()
     {
-        public void Run()
-        {
-            int[] arr = new ShuffledArray<int>(Enumerable.Range(1, 10).ToArray());
-            int fifth = arr.RandomizedSelect(5, i => i);
-            int second = arr.RandomizedSelect(2, i => i);
-            Console.WriteLine(fifth);
-            Console.WriteLine(second);
-        }
+        int[] arr = new ShuffledArray<int>(Enumerable.Range(1, 10).ToArray());
+        var fifth = arr.RandomizedSelect(5, i => i);
+        var second = arr.RandomizedSelect(2, i => i);
+        Console.WriteLine(fifth);
+        Console.WriteLine(second);
     }
 }

@@ -68,7 +68,7 @@ public class SkylineSolver
             return 0;
         }
 
-        points.Sort((Comparison<Point>) Comparison);
+        points.Sort((Comparison<Point>)Comparison);
 
         var priorityQueue = new MaxPriorityQueue<int>();
         priorityQueue.Insert(0, 0);

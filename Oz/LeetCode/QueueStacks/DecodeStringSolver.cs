@@ -4,12 +4,6 @@ namespace Oz.LeetCode.QueueStacks;
 
 public class DecodeStringSolver
 {
-    private enum TokenType
-    {
-        Str,
-        Num
-    }
-
     public string DecodeString(string s)
     {
         var numTimes = new Stack<int>();
@@ -115,5 +109,11 @@ public class DecodeStringSolver
         }
 
         return cur;
+    }
+
+    private enum TokenType
+    {
+        Str,
+        Num
     }
 }

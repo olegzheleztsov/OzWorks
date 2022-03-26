@@ -41,20 +41,19 @@ public class Ex_2_2_10<T> where T : IComparable<T>
 
     private void MergeProc(T[] array, int lo, int mid, int hi)
     {
-        
-        int auxIndex = hi;
-        for (int arrIndex = mid + 1; arrIndex <= hi; arrIndex++)
+        var auxIndex = hi;
+        for (var arrIndex = mid + 1; arrIndex <= hi; arrIndex++)
         {
             _aux[auxIndex--] = array[arrIndex];
         }
 
-        for (int arrIndex = lo; arrIndex <= mid; arrIndex++)
+        for (var arrIndex = lo; arrIndex <= mid; arrIndex++)
         {
             _aux[arrIndex] = array[arrIndex];
         }
 
         int auxLeft = lo, auxRight = hi;
-        for (int i = lo; i <= hi; i++)
+        for (var i = lo; i <= hi; i++)
         {
             if (_aux[auxLeft].CompareTo(_aux[auxRight]) < 0)
             {

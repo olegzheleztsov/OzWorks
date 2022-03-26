@@ -1,7 +1,5 @@
-﻿namespace Oz
+﻿namespace Oz;
+
+public class InterviewCandidates
 {
-    public class InterviewCandidates
-    {
-        
-    }
 }

@@ -1,7 +1,6 @@
-﻿namespace Oz.Config
+﻿namespace Oz.Config;
+
+public class CitiesConfig
 {
-    public class CitiesConfig
-    {
-        public string WorldCitiesFilePath { get; set; }
-    }
+    public string WorldCitiesFilePath { get; set; }
 }

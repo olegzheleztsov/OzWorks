@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace Oz
+namespace Oz;
+
+public interface IExecutor
 {
-    public interface IExecutor
-    {
-        Task RunAsync(object arg);
-    }
+    Task RunAsync(object arg);
 }

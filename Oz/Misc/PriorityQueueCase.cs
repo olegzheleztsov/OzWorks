@@ -1,25 +1,22 @@
-﻿using System;
-using Oz.Algorithms.DataStructures;
+﻿using Oz.Algorithms.DataStructures;
+using System;
 
-namespace Oz
+namespace Oz;
+
+public class PriorityQueueCase
 {
-    public class PriorityQueueCase
+    public void Run()
     {
-        public void Run()
+        var maxPriorityQueue = new MaxPriorityQueue<Data>();
+        for (var i = 0; i < 33; i++)
         {
-            MaxPriorityQueue<Data> maxPriorityQueue = new MaxPriorityQueue<Data>();
-            for (int i = 0; i < 33; i++)
-            {
-                maxPriorityQueue.Insert(new Data(i * 10), i);
-            }
+            maxPriorityQueue.Insert(new Data(i * 10), i);
+        }
 
-            for (int i = 0; i < 33; i++)
-            {
-                var element = maxPriorityQueue.ExtractMaximum();
-                Console.WriteLine(element.ToString());
-            }
-            
+        for (var i = 0; i < 33; i++)
+        {
+            var element = maxPriorityQueue.ExtractMaximum();
+            Console.WriteLine(element.ToString());
         }
     }
-    
 }

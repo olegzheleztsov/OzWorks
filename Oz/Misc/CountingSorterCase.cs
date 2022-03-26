@@ -1,45 +1,37 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Oz.Algorithms;
 using Oz.Algorithms.Sort;
+using System;
 
-namespace Oz
+namespace Oz;
+
+public class CountingSorterCase
 {
-    public class CountingSorterCase
+    public void Run()
     {
-        public void Run()
-        {
-            var sorter = new CountingSorter<Data>();
-            var array = GenerateData();
-            sorter.Sort(array, data => data.Key, Comparisions.StandardComparision);
-            Console.WriteLine(JsonConvert.SerializeObject(array));
-        }
+        var sorter = new CountingSorter<Data>();
+        var array = GenerateData();
+        sorter.Sort(array, data => data.Key, Comparisions.StandardComparision);
+        Console.WriteLine(JsonConvert.SerializeObject(array));
+    }
 
-        private Data[] GenerateData()
+    private Data[] GenerateData()
+    {
+        Data[] array =
         {
-            Data[] array =
-            {
-                new Data {Key = 2, Value = 'a'},
-                new Data {Key = 5, Value = 'b'},
-                new Data {Key = 3, Value = 'c'},
-                new Data {Key = 0, Value = 'd'},
-                new Data {Key = 2, Value = 'e'},
-                new Data {Key = 3, Value = 'f'},
-                new Data {Key = 0, Value = 'g'},
-                new Data {Key = 3, Value = 'h'},
-            };
-            return array;
-        }
+            new() {Key = 2, Value = 'a'}, new() {Key = 5, Value = 'b'}, new() {Key = 3, Value = 'c'},
+            new() {Key = 0, Value = 'd'}, new() {Key = 2, Value = 'e'}, new() {Key = 3, Value = 'f'},
+            new() {Key = 0, Value = 'g'}, new() {Key = 3, Value = 'h'}
+        };
+        return array;
+    }
 
-        private class Data
-        {
-            public int Key { get; set; }
-            public char Value { get; set; }
+    private class Data
+    {
+        public int Key { get; set; }
+        public char Value { get; set; }
 
-            public override string ToString()
-            {
-                return JsonConvert.SerializeObject(this);
-            }
-        }
+        public override string ToString() =>
+            JsonConvert.SerializeObject(this);
     }
 }
