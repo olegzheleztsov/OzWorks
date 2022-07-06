@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareNetObjectsTest", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatchApiSample", "PatchApiSample\PatchApiSample.csproj", "{191B9F6F-7C9C-418F-9CC6-94DD1220685B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leetcode", "Leetcode\Leetcode.csproj", "{7C0DF8B6-6EDB-4003-915E-D75CF2BE6907}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,10 @@ Global
 		{191B9F6F-7C9C-418F-9CC6-94DD1220685B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{191B9F6F-7C9C-418F-9CC6-94DD1220685B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{191B9F6F-7C9C-418F-9CC6-94DD1220685B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C0DF8B6-6EDB-4003-915E-D75CF2BE6907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C0DF8B6-6EDB-4003-915E-D75CF2BE6907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C0DF8B6-6EDB-4003-915E-D75CF2BE6907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C0DF8B6-6EDB-4003-915E-D75CF2BE6907}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

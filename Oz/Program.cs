@@ -1,385 +1,884 @@
-﻿using Oz.Algorithms.Sedgewick.SearchTables;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Text;
 
-var s = new Stack<char>();
-s.Push('a');
-s.Push('b');
-var arr = s.ToArray();
-Console.WriteLine(string.Join(' ', arr));
+var leet1855 = new Leet1855();
+leet1855.Test();
 
-
-public class Leet844
+public class Leet187
 {
-    public bool BackspaceCompare(string s, string t)
+    public IList<string> FindRepeatedDnaSequences(string s)
     {
-        var s1 = GetBackspacedString(s);
-        var t1 = GetBackspacedString(t);
-        return s1 == t1;
-    }
+        HashSet<string> discoveredSeqs = new HashSet<string>();
 
-    private string GetBackspacedString(string s)
-    {
-        var stack = new Stack<char>();
-        foreach (var c in s)
+        HashSet<string> result = new HashSet<string>();
+        for (int i = 0; i < s.Length - 9; i++)
         {
-            if (c == '#')
+            string sub = s.Substring(i, 10);
+            if (discoveredSeqs.Contains(sub) && !result.Contains(sub))
             {
-                if (stack.Count > 0)
-                {
-                    stack.Pop();
-                }
+                result.Add(sub); 
             }
             else
             {
-                stack.Push(c);
+                discoveredSeqs.Add(sub);
             }
         }
 
-        var arr = stack.ToArray();
-        Array.Reverse(arr);
-        return new string(arr);
+        return result.ToList();
     }
 }
 
-public class Leet986
+public class Leet43
 {
-    public int[][] IntervalIntersection(int[][] firstList, int[][] secondList)
+    public string Multiply(string num1, string num2)
     {
-        var res = new List<int[]>();
-        var i = 0;
-        var j = 0;
+        if (num1 == null || num1 == string.Empty || num2 == null || num2 == string.Empty)
+            return string.Empty;
+            
+        if (num1 == "0" || num2 == "0")
+            return "0";
 
-        while (i < firstList.Length && j < secondList.Length)
+        char[,] temp = new char[num2.Length, num1.Length + num2.Length];
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < temp.GetLength(0); i++)
+        for (int j = 0; j < temp.GetLength(1); j++)
+            temp[i, j] = '0';
+
+        int x = 0,
+            y = 0,
+            offset = 0;
+
+        for (int i = num2.Length - 1; i > -1; i--)
         {
-            var first = firstList[i];
-            var second = secondList[j];
+            int k = 0;
+            y = temp.GetLength(1) - 1 - offset;
 
-            if (second[0] > first[1])
+            for (int j = num1.Length - 1; j > -1; j--)
             {
-                i++;
-                continue;
+                int l = (num2[i] - '0') * (num1[j] - '0');
+
+                l += k;
+                k = l / 10;
+                l %= 10;
+
+                temp[x, y--] = (char)(l + '0');
             }
 
-            if (second[1] < first[0])
+            if (k != 0)
+                temp[x, y] = (char)(k + '0');
+
+            x++;
+            offset++;
+        }
+
+        int p = 0;
+
+        for (int i = temp.GetLength(1) - 1; i > -1; i--)
+        {
+            int l = 0;
+
+            for (int j = 0; j < temp.GetLength(0); j++)
+                l += temp[j, i] - '0';
+
+            l += p;
+            p = l / 10;
+            l %= 10;
+
+            sb.Append(l.ToString());
+        }
+
+        int len = sb.Length - 1;
+
+        while (sb[len] == '0')
+        {
+            sb.Remove(len, 1);
+            len--;
+        }
+
+        return new string(sb.ToString().Reverse().ToArray());
+    }
+}
+public class Leet49
+{
+    public IList<IList<string>> GroupAnagrams(string[] strs)
+    {
+        List<IList<string>> results = new List<IList<string>>();
+        Dictionary<string, IList<string>> groups = new Dictionary<string, IList<string>>();
+
+        foreach (string s in strs)
+        {
+            var orderedStr = new string(s.OrderBy(c => c).ToArray());
+            if (groups.ContainsKey(orderedStr))
+            {
+                groups[orderedStr].Add(s);
+            }
+            else
+            {
+                groups.Add(orderedStr, new List<string>(){s});
+            }
+        }
+
+        return groups.Values.ToList();
+    }
+}
+public class Leet409
+{
+    public int LongestPalindrome(string s)
+    {
+
+        Dictionary<char, int> freq = new Dictionary<char, int>();
+        bool wasOdd = false;
+
+        foreach (char c in s)
+        {
+            if (freq.ContainsKey(c))
+            {
+                freq[c]++;
+            }
+            else
+            {
+                freq.Add(c, 1);
+            }
+        }
+
+        int len = 0;
+        foreach (var (c, cnt) in freq)
+        {
+            if (cnt % 2 != 0)
+            {
+                wasOdd = true;
+            }
+
+            if (cnt > 1)
+            {
+                len += (cnt % 2 == 0) ? cnt : (cnt - 1);
+            }
+        }
+
+        if (wasOdd)
+        {
+            len++;
+        }
+
+        return len;
+    }
+}
+public class Leet415
+{
+    public string AddStrings(string num1, string num2)
+    {
+        char[] num1Arr = num1.ToCharArray();
+        char[] num2Arr = num2.ToCharArray();
+
+        var (first, second) = num1Arr.Length > num2.Length ? (num1Arr, num2Arr) : (num2Arr, num1Arr);
+
+        int firstIndex = first.Length - 1;
+        int secondIndex = second.Length - 1;
+        StringBuilder result = new StringBuilder();
+
+        int memo = 0;
+        
+        while (secondIndex > -1 || firstIndex > -1)
+        {
+            int cur = Char2Num(secondIndex > -1 ? second[secondIndex] : '0') + Char2Num(first[firstIndex]) + memo;
+            memo = 0;
+            if (cur < 10)
+            {
+                result.Insert(0, cur.ToString());
+            }
+            else
+            {
+                memo = 1;
+                result.Insert(0, (cur % 10).ToString());
+            }
+
+            secondIndex--;
+            firstIndex--;
+        }
+        
+        if (memo > 0)
+        {
+            result.Insert(0, memo.ToString());
+        }
+
+        return result.ToString();
+
+        int Char2Num(char c) => (int)(c - '0');
+    }
+}
+
+public class Leet560
+{
+    public int SubarraySum(int[] nums, int k)
+    {
+        int rightSum = 0;
+        int result = 0;
+        var leftSumFreq = new Dictionary<int, int>() {[0] = 1};
+
+        foreach (var num in nums)
+        {
+            rightSum += num;
+            if (leftSumFreq.TryGetValue(rightSum - k, out var freq))
+            {
+                result += freq;
+            }
+
+            leftSumFreq[rightSum] = leftSumFreq.GetValueOrDefault(rightSum, 0) + 1;
+        }
+
+        return result;
+    }
+}
+
+
+public class Leet238
+{
+    public int[] ProductExceptSelf(int[] nums) 
+    {
+        if (nums == null || nums.Length == 0)
+        {
+            return null;
+        }
+
+        int[] result = new int[nums.Length];
+        int temp = 1;
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            result[i] = temp;
+            temp *= nums[i];
+        }
+
+        temp = 1;
+        for (int i = nums.Length - 1; i >= 0; i--)
+        {
+            result[i] *= temp;
+            temp *= nums[i];
+        }
+
+        return result;
+    }
+}
+public class Leet334
+{
+    public bool IncreasingTriplet(int[] nums)
+    {
+        if (nums.Length < 3)
+        {
+            return false;
+        }
+
+        int? minIndex = null;
+        int? midIndex = null;
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            var currentNumber = nums[i];
+            if (midIndex != null && currentNumber > nums[midIndex.Value])
+            {
+                return true;
+            }
+
+            if (minIndex == null || currentNumber < nums[minIndex.Value])
+            {
+                minIndex = i;
+            }
+
+            if (currentNumber > nums[minIndex.Value])
+            {
+                midIndex = i;
+            }
+        }
+
+        return false;
+    }
+}
+public class Leet435
+{
+    public int EraseOverlapIntervals(int[][] intervals) 
+    {
+        if (intervals.Length == 0)
+        {
+            return 0;
+        }    
+        Array.Sort(intervals, (i1, i2) =>
+        {
+            var cmpEnd = i1[1].CompareTo(i2[1]);
+            if (cmpEnd != 0)
+            {
+                return cmpEnd;
+            }
+
+            return i1[0].CompareTo(i2[0]);
+        });
+
+        int i = 0;
+        int j = 1;
+        int res = 0;
+        while (i < intervals.Length)
+        {
+            int to = intervals[i][1];
+            while (j < intervals.Length && intervals[j][0] < to)
             {
                 j++;
-                continue;
+                res++;
             }
 
-            res.Add(new[] {Math.Max(first[0], second[0]), Math.Min(first[1], second[1])});
-            if (first[1] < second[1])
-            {
-                i++;
-            }
-            else
-            {
-                j++;
-            }
-        }
-
-        return res.ToArray();
-    }
-}
-
-public class Leet11
-{
-    public int MaxArea(int[] height)
-    {
-        if (height.Length == 2)
-        {
-            return Math.Min(height[0], height[1]) * 1;
-        }
-
-        var leftIndex = 0;
-        var rightIndex = height.Length - 1;
-        var maxArea = Math.Min(height[leftIndex], height[rightIndex]) * (rightIndex - leftIndex);
-        while (leftIndex < rightIndex)
-        {
-            var suggestedArea = Math.Min(height[leftIndex], height[rightIndex]) * (rightIndex - leftIndex);
-            maxArea = Math.Max(maxArea, suggestedArea);
-            if (height[leftIndex] < height[rightIndex])
-            {
-                leftIndex++;
-            }
-            else
-            {
-                rightIndex--;
-            }
-        }
-
-        return maxArea;
-    }
-}
-
-public class Leet15
-{
-    public IList<IList<int>> ThreeSum(int[] nums)
-    {
-        var res = new List<IList<int>>();
-        if (nums == null || nums.Length < 3)
-        {
-            return res;
-        }
-
-        Array.Sort(nums);
-
-        for (var i = 0; i < nums.Length - 2; i++)
-        {
-            if (nums[i] > 0 || (i > 0 && nums[i] == nums[i - 1]))
-            {
-                continue;
-            }
-
-            var left = i + 1;
-            var right = nums.Length - 1;
-
-            while (left < right)
-            {
-                if (nums[i] + nums[left] + nums[right] == 0)
-                {
-                    res.Add(new List<int> {nums[i], nums[left], nums[right]});
-                    left++;
-                    right--;
-
-                    while (left < right && nums[left] == nums[left - 1])
-                    {
-                        left++;
-                    }
-
-                    while (left < right && nums[right] == nums[right + 1])
-                    {
-                        right--;
-                    }
-                }
-                else if (nums[i] + nums[left] + nums[right] > 0)
-                {
-                    right--;
-                }
-                else
-                {
-                    left++;
-                }
-            }
+            i = j;
+            j = i + 1;
         }
 
         return res;
     }
 }
-
-public class Leet82
+public class Leet240
 {
-    public void Test()
+    public bool SearchMatrix(int[][] matrix, int target)
     {
-        //[1,2,3,3,4,4,5]
-        var n1 = new ListNode(1);
-        var n2 = new ListNode(2);
-        var n3_1 = new ListNode(3);
-        var n3_2 = new ListNode(3);
-        var n4_1 = new ListNode(4);
-        var n4_2 = new ListNode(4);
-        var n5 = new ListNode(5);
-        n1.next = n2;
-        n2.next = n3_1;
-        n3_1.next = n3_2;
-        n3_2.next = n4_1;
-        n4_1.next = n4_2;
-        n4_2.next = n5;
-        var result = DeleteDuplicates(n1);
-    }
+        int currentRow = 0;
+        int currentCol = matrix[0].Length - 1;
 
-
-    public ListNode DeleteDuplicates(ListNode head)
-    {
-        if (head == null || head.next == null)
+        while (currentRow <= matrix.Length - 1 && currentCol >= 0)
         {
-            return head;
+            if (matrix[currentRow][currentCol] == target)
+            {
+                return true;
+            } else if (matrix[currentRow][currentCol] < target)
+            {
+                currentRow++;
+            } else if (matrix[currentRow][currentCol] > target)
+            {
+                currentCol--;
+            }
         }
 
-        var prev = head;
-        var cur = head.next;
-        var deleteVal = new HashSet<int>();
-        while (cur != null)
+        return false;
+    }
+}
+
+public class Leet59
+{
+    public int[][] GenerateMatrix(int n)
+    {
+
+        int rMin = 0;
+        int rMax = n - 1;
+        int cMin = 0;
+        int cMax = n - 1;
+
+        int counter = 1;
+        Direction dir = Direction.Right;
+        int[][] matrix = new int[n][];
+        for (int i = 0; i < n; i++)
         {
-            if (prev.val == cur.val)
+            matrix[i] = new int[n];
+        }
+        
+        while (counter <= n * n)
+        {
+            switch (dir)
             {
-                prev.next = cur.next;
-                if (!deleteVal.Contains(prev.val))
+                case Direction.Right:
                 {
-                    deleteVal.Add(prev.val);
+                    for (int i = cMin; i <= cMax; i++)
+                    {
+                        matrix[rMin][i] = counter++;
+                    }
+
+                    rMin++;
+                    dir = Direction.Down;
                 }
-            }
-            else
-            {
-                prev = cur;
-            }
+                    break;
+                case Direction.Down:
+                {
+                    for (int i = rMin; i <= rMax; i++)
+                    {
+                        matrix[i][cMax] = counter++;
+                    }
 
-            cur = cur.next;
+                    cMax--;
+                    dir = Direction.Left;
+                }
+                    break;
+                case Direction.Left:
+                {
+                    for (int i = cMax; i >= cMin; i--)
+                    {
+                        matrix[rMax][i] = counter++;
+                    }
+
+                    rMax--;
+                    dir = Direction.Up;
+                }
+                    break;
+                case Direction.Up:
+                {
+                    for (int i = rMax; i >= rMin; i--)
+                    {
+                        matrix[i][cMin] = counter++;
+                    }
+
+                    cMin++;
+                    dir = Direction.Right;
+                }
+                    break;
+            }
+            
         }
 
-        while (head != null && deleteVal.Contains(head.val))
+        return matrix;
+    }
+    public enum Direction
+    {
+        Right,
+        Down,
+        Left,
+        Up
+    }
+}
+
+public class Leet48
+{
+    public void Rotate(int[][] matrix) {
+
+        for (int i = 0; i < matrix.Length; i++)
         {
-            head = head.next;
-        }
-
-        if (head == null)
-        {
-            return head;
-        }
-
-        prev = head;
-        cur = head.next;
-        while (cur != null)
-        {
-            if (deleteVal.Contains(cur.val))
+            for (int j = i + 1; j < matrix.Length; j++)
             {
-                prev.next = cur.next;
+                (matrix[i][j], matrix[j][i]) = (matrix[j][i], matrix[i][j]);
             }
-            else
-            {
-                prev = cur;
-            }
-
-            cur = cur.next;
         }
 
-
-        return head;
+        int c1 = 0;
+        int c2 = matrix.Length - 1;
+        while (c1 < c2)
+        {
+            SwapColumns(matrix, c1, c2);
+            c1++;
+            c2--;
+        }
     }
 
-    public class ListNode
+    private void SwapColumns(int[][] matrix, int c1, int c2)
     {
-        public ListNode next;
-        public int val;
-
-        public ListNode(int val = 0, ListNode next = null)
+        for (int i = 0; i < matrix.Length; i++)
         {
-            this.val = val;
-            this.next = next;
+            (matrix[i][c1], matrix[i][c2]) = (matrix[i][c2], matrix[i][c1]);
         }
     }
 }
 
-public class Leet162
+public class MyHashMap
 {
-    public int FindPeakElement(int[] nums)
+    private int _currentSize = 8;
+    private HashMapNode[] _nodes;
+    private int _usedBuckets;
+
+    public MyHashMap() =>
+        _nodes = new HashMapNode[_currentSize];
+
+    public void Put(int key, int value)
     {
-        var left = 0;
-        var right = nums.Length - 1;
-        if (nums.Length == 1)
+        if (_usedBuckets == _currentSize)
         {
-            return 0;
+            DoubleAndRehash();
         }
 
-        while (left < right)
+        var index = GetHash(key, _currentSize);
+        var prevValue = _nodes[index];
+
+        if (prevValue == null)
         {
-            var mid = (left + right) / 2;
-            if (IsPeek(nums, mid))
-            {
-                return mid;
-            }
-
-            if (mid == 0)
-            {
-                left = mid + 1;
-            }
-            else if (mid == nums.Length - 1)
-            {
-                right = mid - 1;
-            }
-            else
-            {
-                if (nums[mid] < nums[mid + 1])
-                {
-                    left = mid + 1;
-                }
-                else
-                {
-                    right = mid - 1;
-                }
-            }
-
-            if (Math.Abs(right - left) == 1)
-            {
-                if (IsPeek(nums, left))
-                {
-                    return left;
-                }
-
-                if (IsPeek(nums, right))
-                {
-                    return right;
-                }
-
-                break;
-            }
+            _usedBuckets++;
         }
 
-        if (IsPeek(nums, left))
+        var curr = prevValue;
+        while (curr != null)
         {
-            return left;
+            if (curr.Key == key)
+            {
+                curr.Value = value;
+                return;
+            }
+
+            curr = curr.Next;
         }
 
-        if (IsPeek(nums, right))
+        var newValue = new HashMapNode {Key = key, Value = value};
+        _nodes[index] = newValue;
+        newValue.Next = prevValue;
+    }
+
+    public int Get(int key)
+    {
+        var index = GetHash(key, _currentSize);
+        if (_nodes[index] == null)
         {
-            return right;
+            return -1;
+        }
+
+        var curr = _nodes[index];
+        while (curr != null)
+        {
+            if (curr.Key == key)
+            {
+                return curr.Value;
+            }
+
+            curr = curr.Next;
         }
 
         return -1;
     }
 
-    public bool IsPeek(int[] nums, int index)
+    public void Remove(int key)
     {
-        if (index == 0)
+        var index = GetHash(key, _currentSize);
+        var curr = _nodes[index];
+        if (curr == null)
         {
-            return nums[0] > nums[1];
+            return;
         }
 
-        if (index == nums.Length - 1)
+
+        if (curr.Key == key)
         {
-            return nums[nums.Length - 2] < nums[nums.Length - 1];
+            _nodes[index] = curr.Next;
         }
 
-        return nums[index - 1] < nums[index] && nums[index] > nums[index + 1];
+        var prev = curr;
+        curr = prev.Next;
+        while (curr != null)
+        {
+            if (curr.Key == key)
+            {
+                prev.Next = curr.Next;
+                break;
+            }
+
+            prev = curr;
+            curr = curr.Next;
+        }
+
+        if (_nodes[index] == null)
+        {
+            _usedBuckets--;
+        }
+    }
+
+    private void DoubleAndRehash()
+    {
+        _currentSize *= 2;
+        var newNodes = new HashMapNode[_currentSize];
+
+        for (var i = 0; i < _nodes.Length; i++)
+        {
+            var list = _nodes[i];
+            while (list != null)
+            {
+                var nextList = list.Next;
+                var newIndex = GetHash(list.Key, _currentSize);
+                var oldList = newNodes[newIndex];
+                newNodes[newIndex] = list;
+                list.Next = oldList;
+                list = nextList;
+            }
+        }
+
+
+        _nodes = newNodes;
+
+        var newUsedBuckets = 0;
+        foreach (var n in _nodes)
+        {
+            if (n != null)
+            {
+                newUsedBuckets++;
+            }
+        }
+
+        _usedBuckets = newUsedBuckets;
+    }
+
+    private int GetHash(int key, int size) => key % size;
+
+    private class HashMapNode
+    {
+        public int Key { get; set; }
+        public int Value { get; set; }
+        public HashMapNode Next { get; set; }
     }
 }
 
-public class Leet74_2
+public class Leet56
 {
-    public bool SearchMatrix(int[][] matrix, int target)
+    public enum PointType
     {
-        var rows = matrix.Length;
+        Start = 0,
+        End = 1
+    }
 
-        var targetRow = SearchInColumn(matrix, 0, target);
-        if (targetRow >= rows)
+    public int[][] Merge(int[][] intervals)
+    {
+        var points = new List<Point>();
+        foreach (var pt in intervals)
         {
-            targetRow = rows - 1;
+            points.Add(new Point(pt[0], PointType.Start));
+            points.Add(new Point(pt[1], PointType.End));
         }
 
-        var result = SearchInRow(matrix, targetRow, target);
-        if (result != null)
+        points.Sort((pt1, pt2) =>
+        {
+            var firstCompare = pt1.Value.CompareTo(pt2.Value);
+            if (firstCompare == 0)
+            {
+                return pt1.PointType.CompareTo(pt2.PointType);
+            }
+
+            return firstCompare;
+        });
+
+        var result = new List<int[]>();
+
+        var index = 0;
+        var countOfOpen = 0;
+        var startIndex = 0;
+        var endIndex = 0;
+
+        while (index < points.Count)
+        {
+            if (points[index].PointType == PointType.Start)
+            {
+                if (countOfOpen == 0)
+                {
+                    startIndex = index;
+                }
+
+                countOfOpen++;
+            }
+
+            if (points[index].PointType == PointType.End)
+            {
+                if (!IsDoubleEndStartPoint(index, points))
+                {
+                    countOfOpen--;
+                    if (countOfOpen == 0)
+                    {
+                        result.Add(new[] {points[startIndex].Value, points[index].Value});
+                    }
+                }
+            }
+
+            index++;
+        }
+
+        return result.ToArray();
+    }
+
+    private bool IsDoubleEndStartPoint(int index, List<Point> points)
+    {
+        if (index + 1 >= points.Count)
+        {
+            return false;
+        }
+
+        var nextPoint = points[index + 1];
+
+        if (nextPoint.PointType == PointType.Start && nextPoint.Value == points[index].Value)
         {
             return true;
         }
 
+        return false;
+    }
 
-        targetRow--;
-        if (targetRow >= 0)
+    public struct Point
+    {
+        public Point(int value, PointType pointType)
         {
-            result = SearchInRow(matrix, targetRow, target);
-            if (result != null)
+            Value = value;
+            PointType = pointType;
+        }
+
+        public int Value { get; }
+        public PointType PointType { get; }
+    }
+}
+
+public class Leet75
+{
+    public void SortColors(int[] nums)
+    {
+        var freq = new Dictionary<int, int>();
+        foreach (var num in nums)
+        {
+            if (freq.ContainsKey(num))
             {
-                return true;
+                freq[num]++;
+            }
+            else
+            {
+                freq.Add(num, 1);
             }
         }
 
-        targetRow += 2;
-        if (targetRow < matrix.Length)
+        var countOfZero = freq.ContainsKey(0) ? freq[0] : 0;
+        var countOfOne = freq.ContainsKey(1) ? freq[1] : 0;
+        var countOfTwo = freq.ContainsKey(2) ? freq[2] : 0;
+        var counter = 0;
+
+        for (var i = 0; i < countOfZero; i++)
         {
-            result = SearchInRow(matrix, targetRow, target);
-            if (result != null)
+            nums[counter++] = 0;
+        }
+
+        for (var i = 0; i < countOfOne; i++)
+        {
+            nums[counter++] = 1;
+        }
+
+        for (var i = 0; i < countOfTwo; i++)
+        {
+            nums[counter++] = 2;
+        }
+    }
+}
+
+public class Leet169
+{
+    public int MajorityElement(int[] nums)
+    {
+        var freq = new Dictionary<int, int>();
+        foreach (var num in nums)
+        {
+            if (freq.ContainsKey(num))
+            {
+                freq[num]++;
+            }
+            else
+            {
+                freq.Add(num, 1);
+            }
+        }
+
+        foreach (var (num, count) in freq)
+        {
+            if (count > nums.Length / 2)
+            {
+                return num;
+            }
+        }
+
+        throw new InvalidOperationException();
+    }
+}
+
+public class Leet1855
+{
+    public void Test()
+    {
+        //[9819,9508,7398,7347,6337,5756,5493,5446,5123,3215,1597,774,368,313]
+        //[9933,9813,9770,9697,9514,9490,9441,9439,8939,8754,8665,8560]
+        int[] nums1 = {9819, 9508, 7398, 7347, 6337, 5756, 5493, 5446, 5123, 3215, 1597, 774, 368, 313};
+        int[] nums2 = {9933, 9813, 9770, 9697, 9514, 9490, 9441, 9439, 8939, 8754, 8665, 8560};
+        var max = MaxDistance(nums1, nums2);
+    }
+
+    public int MaxDistance(int[] nums1, int[] nums2)
+    {
+        var maxDistance = 0;
+        for (var i = 0; i < nums1.Length; i++)
+        {
+            maxDistance = Math.Max(maxDistance, DistanceFor(nums1, nums2, i));
+        }
+
+        return maxDistance;
+    }
+
+    private int DistanceFor(int[] nums1, int[] nums2, int firstIndex)
+    {
+        var start = firstIndex;
+        var end = nums2.Length - 1;
+        var target = nums1[firstIndex];
+
+        while (start < end)
+        {
+            var mid = start + ((end - start) / 2);
+            if (nums2[mid] >= target)
+            {
+                start = mid + 1;
+            }
+            else
+            {
+                end = mid - 1;
+            }
+        }
+
+        if (start >= nums2.Length)
+        {
+            start = nums2.Length - 1;
+        }
+
+        if (nums2[start] >= target)
+        {
+            return start - firstIndex;
+        }
+
+        var prevStart = start - 1;
+        if (prevStart >= firstIndex && nums2[prevStart] >= target)
+        {
+            return prevStart - firstIndex;
+        }
+
+        return 0;
+    }
+}
+
+public class Leet633
+{
+    private bool IsPerfectSquare(int num)
+    {
+        checked
+        {
+            var left = 1;
+            var right = num;
+
+            while (left < right)
+            {
+                var mid = left + ((right - left) / 2);
+                long lMid = mid;
+                var sqr = lMid * lMid;
+
+                if (sqr == num)
+                {
+                    return true;
+                }
+
+                if (sqr < num)
+                {
+                    left = mid + 1;
+                    continue;
+                }
+
+                right = mid;
+            }
+
+            long lLeft = left;
+            return lLeft * lLeft == num;
+        }
+    }
+
+    public bool JudgeSquareSum(int c)
+    {
+        for (var a = 0; a * a <= c / 2; a++)
+        {
+            var a2 = a * a;
+            var b2 = c - a2;
+
+            if (b2 == 1 || b2 == 0 || IsPerfectSquare(b2))
             {
                 return true;
             }
@@ -387,653 +886,98 @@ public class Leet74_2
 
         return false;
     }
-
-    private int? SearchInRow(int[][] matrix, int row, int target)
-    {
-        var minIndex = 0;
-        var maxIndex = matrix[0].Length - 1;
-        while (minIndex <= maxIndex)
-        {
-            var midIndex = (minIndex + maxIndex) / 2;
-            if (target == matrix[row][midIndex])
-            {
-                return midIndex;
-            }
-
-            if (target < matrix[row][midIndex])
-            {
-                maxIndex = midIndex - 1;
-            }
-            else
-            {
-                minIndex = midIndex + 1;
-            }
-        }
-
-        return null;
-    }
-
-    private int SearchInColumn(int[][] matrix, int col, int target)
-    {
-        var minIndex = 0;
-        var maxIndex = matrix.Length - 1;
-
-        while (minIndex <= maxIndex)
-        {
-            var midIndex = (minIndex + maxIndex) / 2;
-            if (target == matrix[midIndex][col])
-            {
-                return midIndex;
-            }
-
-            if (target < matrix[midIndex][col])
-            {
-                maxIndex = midIndex - 1;
-            }
-            else
-            {
-                minIndex = midIndex + 1;
-            }
-        }
-
-        return minIndex;
-    }
 }
 
-public class Leet33
+public class Leet1346
 {
-    public void Test()
+    public bool CheckIfExist(int[] arr)
     {
-        int[] nums = {5, 1, 3};
-        var result = Search(nums, 5);
-    }
+        var hashSet = new HashSet<int>();
 
-    public int Search(int[] nums, int target)
-    {
-        if (nums == null || nums.Length == 0)
+        foreach (var num in arr)
         {
-            return -1;
-        }
-
-        var offset = FindMinIndex(nums);
-        return BinarySearch(nums, target, offset);
-    }
-
-    private int FindMinIndex(int[] nums)
-    {
-        var n = nums.Length;
-        var start = 0;
-        var end = n - 1;
-        while (start < end)
-        {
-            var mid = start + ((end - start) / 2);
-            if (nums[mid] > nums[end])
+            var dbl = num * 2;
+            if (hashSet.Contains(dbl))
             {
-                start = mid + 1;
+                return true;
             }
-            else
+
+            if (num % 2 == 0)
             {
-                end = mid;
-            }
-        }
-
-        return start;
-    }
-
-    private int BinarySearch(int[] nums, int target, int offset)
-    {
-        var n = nums.Length;
-        var start = 0;
-        var end = n - 1;
-        while (start < end)
-        {
-            var mid = start + ((end - start) / 2);
-            var realMid = (mid + offset) % n;
-            if (nums[realMid] < target)
-            {
-                start = mid + 1;
-            }
-            else
-            {
-                end = mid;
-            }
-        }
-
-        var index = (start + offset) % n;
-        return nums[index] == target ? index : -1;
-    }
-}
-
-
-public class Leet34
-{
-    public int[] SearchRange(int[] nums, int target) =>
-        new[] {FindFirstIndex(nums, target), FindLastIndex(nums, target)};
-
-    private int FindFirstIndex(int[] nums, int target)
-    {
-        if (nums.Length == 0)
-        {
-            return -1;
-        }
-
-        int start = 0, end = nums.Length - 1;
-        while (start < end)
-        {
-            var mid = start + ((end - start) / 2);
-            if (nums[mid] < target)
-            {
-                start = mid + 1;
-            }
-            else
-            {
-                end = mid;
-            }
-        }
-
-        return nums[start] == target ? start : -1;
-    }
-
-    private int FindLastIndex(int[] nums, int target)
-    {
-        if (nums.Length == 0)
-        {
-            return -1;
-        }
-
-        int start = 0, end = nums.Length - 1;
-        while (start < end)
-        {
-            var mid = start + ((end - start + 1) / 2);
-            if (nums[mid] > target)
-            {
-                end = mid - 1;
-            }
-            else
-            {
-                start = mid;
-            }
-        }
-
-        return nums[start] == target ? start : -1;
-    }
-}
-
-
-public class FrequencyCounter
-{
-    public void Run()
-    {
-        var fileName = @"C:\development\tale.txt";
-        if (!File.Exists(fileName))
-        {
-            Console.WriteLine($"File {fileName} doesn't exist");
-            return;
-        }
-
-        using var reader = new StreamReader(@"C:\development\tale.txt");
-        ArraySt<string, Integer> counterSt = new();
-
-        string line;
-        while ((line = reader.ReadLine()) != null)
-        {
-            var tokens = line.Split(new[] {' ', '\t'}, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var token in tokens)
-            {
-                var loweredToken = token.ToLowerInvariant();
-                if (counterSt.Contains(loweredToken))
+                var half = num / 2;
+                if (hashSet.Contains(half))
                 {
-                    counterSt.Get(loweredToken).Value++;
-                }
-                else
-                {
-                    counterSt.Put(loweredToken, new Integer {Value = 1});
-                }
-            }
-        }
-
-        foreach (var key in counterSt.Keys)
-        {
-            Console.WriteLine($"{key}: {counterSt.Get(key).Value}");
-        }
-
-        Console.WriteLine("Deleting...");
-
-        var keys = counterSt.Keys;
-        foreach (var key in keys)
-        {
-            counterSt.Delete(key);
-            Console.WriteLine($"Deleted: {key}, size: {counterSt.Size}");
-        }
-
-        Console.WriteLine($"Size after deleting: {counterSt.Size}");
-    }
-}
-
-public class Integer
-{
-    public int Value { get; set; }
-}
-
-public class Leet785
-{
-    public bool IsBipartite(int[][] graph)
-    {
-        var nodeCounts = graph.Length;
-
-        var codes = new bool?[nodeCounts];
-
-        for (var i = 0; i < nodeCounts; i++)
-        {
-            if (codes[i] == null && !Dfs(i, graph, false, codes))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private bool Dfs(int node, int[][] graph, bool currentCode, bool?[] codes)
-    {
-        if (codes[node] != null)
-        {
-            return codes[node] == currentCode;
-        }
-
-        codes[node] = currentCode;
-
-        for (var i = 0; i < graph[node].Length; i++)
-        {
-            if (!Dfs(graph[node][i], graph, !currentCode, codes))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-}
-
-
-public class Leet886
-{
-    public bool PossibleBipartition(int n, int[][] dislikes)
-    {
-        var graph = new List<int>[n + 1];
-
-        for (var i = 1; i <= n; i++)
-        {
-            graph[i] = new List<int>();
-        }
-
-        foreach (var dislike in dislikes)
-        {
-            graph[dislike[0]].Add(dislike[1]);
-            graph[dislike[1]].Add(dislike[0]);
-        }
-
-        var locations = new int[n + 1];
-        for (var i = 1; i <= n; i++)
-        {
-            if (!Partition(graph, i, locations[i], locations))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private bool Partition(List<int>[] graph, int i, int value, int[] locations)
-    {
-        if (value == 0)
-        {
-            value = 1;
-        }
-
-        if (locations[i] == value)
-        {
-            return true;
-        }
-
-        if (locations[i] == -value)
-        {
-            return false;
-        }
-
-        locations[i] = value;
-
-        foreach (var j in graph[i])
-        {
-            if (!Partition(graph, j, -value, locations))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-}
-
-public class Leet1615
-{
-    public int MaximalNetworkRank(int n, int[][] roads)
-    {
-        var res = 0;
-        var inDegree = new Dictionary<int, int>();
-        var graph = new Dictionary<int, HashSet<int>>();
-
-        foreach (var road in roads)
-        {
-            if (!inDegree.ContainsKey(road[0]))
-            {
-                inDegree.Add(road[0], 0);
-            }
-
-            if (!inDegree.ContainsKey(road[1]))
-            {
-                inDegree.Add(road[1], 0);
-            }
-
-            inDegree[road[0]]++;
-            inDegree[road[1]]++;
-
-            if (!graph.ContainsKey(road[0]))
-            {
-                graph.Add(road[0], new HashSet<int>());
-            }
-
-            if (!graph.ContainsKey(road[1]))
-            {
-                graph.Add(road[1], new HashSet<int>());
-            }
-
-            graph[road[0]].Add(road[1]);
-            graph[road[1]].Add(road[0]);
-        }
-
-        var ranks = inDegree.OrderByDescending(x => x.Value).Select(x => new[] {x.Key, x.Value}).ToArray();
-
-        for (var i = 0; i < ranks.Length - 1; i++)
-        {
-            for (var j = i + 1; j < ranks.Length; j++)
-            {
-                res = Math.Max(res,
-                    ranks[i][1] + (graph[ranks[i][0]].Contains(ranks[j][0]) ? ranks[j][1] - 1 : ranks[j][1]));
-            }
-        }
-
-        return res;
-    }
-}
-
-public class Leet433
-{
-    public int MinMutation(string start, string end, string[] bank)
-    {
-        const string GeneBase = "ACGT";
-        var bankSet = new HashSet<string>(bank);
-        var genes = new Queue<string>();
-        genes.Enqueue(start);
-        bankSet.Remove(start);
-        var level = 0;
-
-        while (genes.Count > 0)
-        {
-            var count = genes.Count;
-            for (var i = 0; i < count; i++)
-            {
-                var current = genes.Dequeue();
-                if (current == end)
-                {
-                    return level;
-                }
-
-                foreach (var g in GeneBase)
-                {
-                    var currentGenes = current.ToCharArray();
-                    for (var j = 0; j < currentGenes.Length; j++)
-                    {
-                        var t = currentGenes[j];
-                        currentGenes[j] = g;
-                        var next = new string(currentGenes);
-                        if (bankSet.Contains(next))
-                        {
-                            bankSet.Remove(next);
-                            genes.Enqueue(next);
-                        }
-
-                        currentGenes[j] = t;
-                    }
+                    return true;
                 }
             }
 
-            level++;
+            hashSet.Add(num);
         }
 
-        return -1;
+        return false;
     }
 }
 
-public class Leet127
+public class Leet1337
 {
-    public int LadderLength(string beginWord, string endWord, IList<string> wordList)
+    public int[] KWeakestRows(int[][] mat, int k)
     {
-        var queue = new Queue<string>();
-        var visited = new HashSet<string>();
-        var bank = new HashSet<string>();
-        queue.Enqueue(beginWord);
-        var moves = 0;
-
-        while (queue.Count > 0)
+        var result = new int[k];
+        var list = new List<Battlion>();
+        for (var index = 0; index < mat.Length; index++)
         {
-            var cnt = queue.Count;
-            for (var i = 0; i < cnt; i++)
-            {
-                var current = queue.Dequeue();
-                if (current == endWord)
-                {
-                    return moves;
-                }
+            var currentRow = mat[index];
+            var numberSoldiers = BinarySearch(currentRow);
 
-                var candidates = wordList.Where(w => !visited.Contains(w) && Difference(current, w) == 1);
-
-                foreach (var candidate in candidates)
-                {
-                    visited.Add(candidate);
-                    queue.Enqueue(candidate);
-                }
-            }
-
-            moves++;
+            list.Add(new Battlion(index, numberSoldiers));
         }
 
-        return 0;
-    }
-
-    private int Difference(string word1, string word2)
-    {
-        var cnt = 0;
-        for (var i = 0; i < word1.Length; i++)
+        list = list.OrderBy(x => x.soldierCount).ToList();
+        var count = 0;
+        foreach (var item in list)
         {
-            if (word1[i] != word2[i])
+            if (count < k)
             {
-                cnt++;
-            }
-        }
-
-        return cnt;
-    }
-}
-
-public class Leet752
-{
-    public static void Test()
-    {
-        string[] deadends = {"0201", "0101", "0102", "1212", "2002"};
-        var target = "0202";
-        var obj = new Leet752();
-        var count = obj.OpenLock(deadends, target);
-        Console.WriteLine(count);
-    }
-
-    public int OpenLock(string[] deadends, string target)
-    {
-        var visited = new HashSet<string>();
-        var deadSet = new HashSet<string>(deadends);
-        var queue = new Queue<string>();
-
-        if (deadSet.Contains("0000"))
-        {
-            return -1;
-        }
-
-        queue.Enqueue("0000");
-
-        var moves = 0;
-
-        while (queue.Count > 0)
-        {
-            var cnt = queue.Count;
-
-            for (var i = 0; i < cnt; i++)
-            {
-                var current = queue.Dequeue();
-                if (current == target)
-                {
-                    return moves;
-                }
-
-                for (var j = 0; j < 4; j++)
-                {
-                    var candidateRight = Move(current, j, true);
-                    var candidateLeft = Move(current, j, false);
-
-                    if (!visited.Contains(candidateRight) && !deadSet.Contains(candidateRight))
-                    {
-                        visited.Add(candidateRight);
-                        queue.Enqueue(candidateRight);
-                    }
-
-                    if (!visited.Contains(candidateLeft) && !deadSet.Contains(candidateLeft))
-                    {
-                        visited.Add(candidateLeft);
-                        queue.Enqueue(candidateLeft);
-                    }
-                }
-            }
-
-            moves++;
-        }
-
-        return -1;
-    }
-
-    private string Move(string s, int index, bool isForward)
-    {
-        var charr = s.ToCharArray();
-        var num = int.Parse(charr[index].ToString());
-
-        if (isForward)
-        {
-            if (num == 9)
-            {
-                num = 0;
-            }
-            else
-            {
-                num++;
-            }
-        }
-        else
-        {
-            if (num == 0)
-            {
-                num = 9;
-            }
-            else
-            {
-                num--;
-            }
-        }
-
-        charr[index] = num.ToString()[0];
-        return new string(charr);
-    }
-}
-
-public class Leet997
-{
-    public int FindJudge(int n, int[][] trust)
-    {
-        if (trust.Length == 0 && n == 1)
-        {
-            return 1;
-        }
-
-        var input = new Dictionary<int, int>();
-        var output = new Dictionary<int, int>();
-        foreach (var tr in trust)
-        {
-            if (output.ContainsKey(tr[0]))
-            {
-                output[tr[0]]++;
-            }
-            else
-            {
-                output.Add(tr[0], 1);
-            }
-
-            if (input.ContainsKey(tr[1]))
-            {
-                input[tr[1]]++;
-            }
-            else
-            {
-                input.Add(tr[1], 1);
-            }
-        }
-
-        foreach (var (num, cnt) in input)
-        {
-            if (cnt == n - 1 && !output.ContainsKey(num))
-            {
-                return num;
-            }
-        }
-
-        return -1;
-    }
-}
-
-public class Leet1557
-{
-    public IList<int> FindSmallestSetOfVertices(int n, IList<IList<int>> edges)
-    {
-        var input = new Dictionary<int, int>();
-        foreach (var edge in edges)
-        {
-            if (!input.ContainsKey(edge[1]))
-            {
-                input.Add(edge[1], 1);
-            }
-            else
-            {
-                input[edge[1]] = 1;
-            }
-        }
-
-        var result = new List<int>();
-        for (var i = 0; i < n; i++)
-        {
-            if (!input.ContainsKey(i))
-            {
-                result.Add(i);
+                result[count++] = item.rowNumber;
             }
         }
 
         return result;
+    }
+
+
+    public int BinarySearch(int[] currentRow)
+    {
+        var low = 0;
+        var high = currentRow.Length;
+
+        while (low < high)
+        {
+            var mid = low + ((high - low) / 2);
+
+            if (currentRow[mid] == 1)
+            {
+                low = mid + 1;
+            }
+            else
+            {
+                high = mid;
+            }
+        }
+
+        return low;
+    }
+
+
+    public class Battlion
+    {
+        public int rowNumber;
+        public int soldierCount;
+
+        public Battlion(int rowNumber, int soldierCount)
+        {
+            this.rowNumber = rowNumber;
+            this.soldierCount = soldierCount;
+        }
     }
 }

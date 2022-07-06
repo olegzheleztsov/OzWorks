@@ -13,9 +13,7 @@ namespace Oz.Algorithms
 
         public static void Exchange<T>(ref T first, ref T second)
         {
-            var temp = first;
-            first = second;
-            second = temp;
+            (first, second) = (second, first);
         }
 
         public static int Compare(float f1, float f2)

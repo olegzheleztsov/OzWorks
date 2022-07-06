@@ -70,25 +70,11 @@ namespace Oz.Algorithms.DataStructures
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() =>
+            GetEnumerator();
 
-        public int Key(int index)
-        {
-            return _keySelector(_data[index]);
-        }
-
-        private void ResizeArrayToSize(int newSize)
-        {
-            var oldArray = _data;
-            _data = new T[newSize];
-            for (var i = 0; i < Math.Min(oldArray.Length, newSize); i++)
-            {
-                _data[i] = oldArray[i];
-            }
-        }
+        public int Key(int index) =>
+            _keySelector(_data[index]);
 
         public (T value, int index) Parent(int index)
         {
@@ -123,45 +109,15 @@ namespace Oz.Algorithms.DataStructures
             throw new ArgumentException($"No right for index: {index}");
         }
 
-        public bool HasParent(int index)
-        {
-            return IsIndexInRange(ComputeParentIndex(index));
-        }
+        public bool HasParent(int index) =>
+            IsIndexInRange(ComputeParentIndex(index));
 
-        public bool HasLeft(int index)
-        {
-            return IsIndexInRange(ComputeLeftIndex(index));
-        }
+        public bool HasLeft(int index) =>
+            IsIndexInRange(ComputeLeftIndex(index));
 
-        public bool HasRight(int index)
-        {
-            return IsIndexInRange(ComputeRightIndex(index));
-        }
-
-        private bool IsIndexInRange(int index)
-        {
-            return index >= 0 && index < HeapSize;
-        }
-
-        private static int ComputeParentIndex(int index)
-        {
-            var parentIndex = (int) Math.Floor((double) (index - 1) / 2);
-            return parentIndex;
-        }
-
-        private static int ComputeLeftIndex(int index)
-        {
-            var leftIndex = 2 * index + 1;
-            return leftIndex;
-        }
-
-        private static int ComputeRightIndex(int index)
-        {
-            var rightIndex = 2 * index + 2;
-            return rightIndex;
-        }
-
-
+        public bool HasRight(int index) =>
+            IsIndexInRange(ComputeRightIndex(index));
+        
         public void MinHeapify(int index)
         {
             int leftIndex = -1, rightIndex = -1, smallestIndex = -1;
@@ -193,9 +149,7 @@ namespace Oz.Algorithms.DataStructures
 
             if (smallestIndex >= 0 && smallestIndex != index)
             {
-                var temp = _data[index];
-                _data[index] = _data[smallestIndex];
-                _data[smallestIndex] = temp;
+                (_data[index], _data[smallestIndex]) = (_data[smallestIndex], _data[index]);
                 MinHeapify(smallestIndex);
             }
         }
@@ -231,9 +185,7 @@ namespace Oz.Algorithms.DataStructures
 
             if (largestIndex >= 0 && largestIndex != index)
             {
-                var temp = _data[index];
-                _data[index] = _data[largestIndex];
-                _data[largestIndex] = temp;
+                (_data[index], _data[largestIndex]) = (_data[largestIndex], _data[index]);
                 MaxHeapify(largestIndex);
             }
         }
@@ -258,6 +210,37 @@ namespace Oz.Algorithms.DataStructures
             }
 
             return heap;
+        }
+        
+        private void ResizeArrayToSize(int newSize)
+        {
+            var oldArray = _data;
+            _data = new T[newSize];
+            for (var i = 0; i < Math.Min(oldArray.Length, newSize); i++)
+            {
+                _data[i] = oldArray[i];
+            }
+        }
+        
+        private bool IsIndexInRange(int index) =>
+            index >= 0 && index < HeapSize;
+
+        private static int ComputeParentIndex(int index)
+        {
+            var parentIndex = (int) Math.Floor((double) (index - 1) / 2);
+            return parentIndex;
+        }
+
+        private static int ComputeLeftIndex(int index)
+        {
+            var leftIndex = 2 * index + 1;
+            return leftIndex;
+        }
+
+        private static int ComputeRightIndex(int index)
+        {
+            var rightIndex = 2 * index + 2;
+            return rightIndex;
         }
     }
 }

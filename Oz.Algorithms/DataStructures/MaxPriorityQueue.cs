@@ -1,106 +1,99 @@
 ﻿using System;
 
-namespace Oz.Algorithms.DataStructures
+namespace Oz.Algorithms.DataStructures;
+
+public class MaxPriorityQueue<T>
 {
-    public class MaxPriorityQueue<T>
+    private readonly Heap<PriorityNode<T>> _heap;
+
+    public MaxPriorityQueue() =>
+        _heap = new Heap<PriorityNode<T>>(new PriorityNode<T>[]
+        {
+        }, node => node.Priority, (a, b) => a.CompareTo(b));
+
+    public int Length => _heap.HeapSize;
+
+    public T Maximum() =>
+        _heap[0].Data;
+
+    public T ExtractMaximum()
     {
-        private readonly Heap<PriorityNode<T>> _heap;
-
-        public MaxPriorityQueue()
+        if (_heap.HeapSize < 1)
         {
-            _heap = new Heap<PriorityNode<T>>(new PriorityNode<T>[] { }, node => node.Priority, (a, b) => a.CompareTo(b));
+            throw new IndexOutOfRangeException();
         }
 
-        public T Maximum()
+        var maxValue = _heap[0];
+        _heap[0] = _heap[_heap.HeapSize - 1];
+        _heap.HeapSize--;
+        _heap.MaxHeapify(0);
+        return maxValue.Data;
+    }
+
+    public void RemoveElement(T value, Comparison<T> comparison)
+    {
+        if (_heap.HeapSize < 1)
         {
-            return _heap[0].Data;
+            throw new IndexOutOfRangeException();
         }
 
-        public T ExtractMaximum()
+        for (var i = 0; i < _heap.HeapSize; i++)
         {
-            if (_heap.HeapSize < 1)
+            if (comparison(_heap[i].Data, value) != 0)
             {
-                throw new IndexOutOfRangeException();
+                continue;
             }
 
-            var maxValue = _heap[0];
-            _heap[0] = _heap[_heap.HeapSize - 1];
+            _heap[i] = _heap[_heap.HeapSize - 1];
             _heap.HeapSize--;
-            _heap.MaxHeapify(0);
-            return maxValue.Data;
+            _heap.MaxHeapify(Math.Min(i, _heap.HeapSize - 1));
+            return;
         }
+    }
 
-        public void RemoveElement(T value, Comparison<T> comparison)
+    public bool ContainsElement(T value, Comparison<T> comparison)
+    {
+        if (_heap.HeapSize < 1)
         {
-            if (_heap.HeapSize < 1)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            for (int i = 0; i < _heap.HeapSize; i++)
-            {
-                if (comparison(_heap[i].Data, value) == 0)
-                {
-                    _heap[i] = _heap[_heap.HeapSize - 1];
-                    _heap.HeapSize--;
-                    _heap.MaxHeapify(Math.Min(i, _heap.HeapSize - 1));
-                    return;
-                }
-            }
-        }
-
-        public bool ContainsElement(T value, Comparison<T> comparison)
-        {
-            if (_heap.HeapSize < 1)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < _heap.HeapSize; i++)
-            {
-                if (comparison(_heap[i].Data, value) == 0)
-                {
-                    return true;
-                }
-            }
-
             return false;
         }
 
-        public int Length => _heap.HeapSize;
-
-        private int Priority(int index)
+        for (var i = 0; i < _heap.HeapSize; i++)
         {
-            return _heap.Key(index);
-        }
-
-        private void IncreasePriority(int index, int priority)
-        {
-            if (priority < Priority(index))
+            if (comparison(_heap[i].Data, value) == 0)
             {
-                throw new ArgumentException(
-                    $"Priority can't lowered, priority: {priority}, existing priortity: {Priority(index)}");
-            }
-
-            _heap[index].Priority = priority;
-
-            while (index > 0 && Priority(_heap.Parent(index).index) < Priority(index))
-            {
-                var parentIndex = _heap.Parent(index).index;
-                var t = _heap[index];
-                _heap[index] = _heap[parentIndex];
-                _heap[parentIndex] = t;
-                index = parentIndex;
+                return true;
             }
         }
 
-        public void Insert(T value, int priority)
+        return false;
+    }
+
+    public void Insert(T value, int priority)
+    {
+        _heap.HeapSize++;
+        _heap[_heap.HeapSize - 1] = new PriorityNode<T>(int.MinValue, value);
+        IncreasePriority(_heap.HeapSize - 1, priority);
+    }
+
+    private int Priority(int index) =>
+        _heap.Key(index);
+
+    private void IncreasePriority(int index, int priority)
+    {
+        if (priority < Priority(index))
         {
-            _heap.HeapSize++;
-            _heap[_heap.HeapSize - 1] = new PriorityNode<T>(int.MinValue, value);
-            IncreasePriority(_heap.HeapSize - 1, priority);
+            throw new ArgumentException(
+                $"Priority can't lowered, priority: {priority}, existing priority: {Priority(index)}");
         }
 
+        _heap[index].Priority = priority;
 
+        while (index > 0 && Priority(_heap.Parent(index).index) < Priority(index))
+        {
+            var parentIndex = _heap.Parent(index).index;
+            (_heap[index], _heap[parentIndex]) = (_heap[parentIndex], _heap[index]);
+            index = parentIndex;
+        }
     }
 }

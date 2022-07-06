@@ -224,15 +224,11 @@ namespace Oz.Algorithms.DataStructures
             return false;
         }
 
-        public IEnumerable<T> Enumerate()
-        {
-            return this.Select(element => element.Data);
-        }
+        public IEnumerable<T> Enumerate() =>
+            this.Select(element => element.Data);
 
-        public static DisjointSet<T> Empty(Func<T, T, bool> comparer)
-        {
-            return new DisjointSet<T>(comparer);
-        }
+        public static DisjointSet<T> Empty(Func<T, T, bool> comparer) =>
+            new DisjointSet<T>(comparer);
 
         public static DisjointSet<T> MakeSet(T data, Func<T, T, bool> comparer)
         {
@@ -264,9 +260,7 @@ namespace Oz.Algorithms.DataStructures
             return secondSet;
         }
 
-        public static DisjointSet<T> FindSet(DisjointSetElement<T> element)
-        {
-            return element.OwnerSet;
-        }
+        public static DisjointSet<T> FindSet(DisjointSetElement<T> element) =>
+            element.OwnerSet;
     }
 }
